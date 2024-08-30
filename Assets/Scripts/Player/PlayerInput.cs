@@ -1,17 +1,15 @@
-using System;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    [Header("Components")]
+    #region Serialized Fields
 
+    [Header("Components")]
     [SerializeField]
     private CharacterController controller;
 
     [Header("Movement")]
-
     [SerializeField]
     private float moveHorizontalSpeed = 5f;
 
@@ -25,7 +23,6 @@ public class PlayerInput : MonoBehaviour
     private float gravity = 3f;
 
     [Header("Camera")]
-
     [SerializeField]
     private Camera playerCamera;
 
@@ -41,11 +38,14 @@ public class PlayerInput : MonoBehaviour
     [SerializeField]
     private float zoomStep = 0.2f;
 
-    private float currentVerticalSpeed;
+    #endregion
+
+    private InputActions.PlayerActions actions;
+
     private float cameraDistance = 3f;
     private Vector2 cameraOrbit = new(45f, 0f);
 
-    private InputActions.PlayerActions actions;
+    private float currentVerticalSpeed;
 
     private Vector3 CameraTarget
     {
@@ -57,9 +57,24 @@ public class PlayerInput : MonoBehaviour
         }
     }
 
+    public float MovementSpeed => moveHorizontalSpeed;
+
+    #region Event Functions
+
     private void Awake()
     {
         actions = new InputActions().Player;
+    }
+
+    private void Update()
+    {
+        MovePlayer();
+        MoveCamera();
+    }
+
+    private void LateUpdate()
+    {
+        UpdateCamera();
     }
 
     private void OnEnable()
@@ -76,29 +91,17 @@ public class PlayerInput : MonoBehaviour
         actions.Jump.performed -= OnJump;
     }
 
-    private void Update()
-    {
-        MovePlayer();
-        MoveCamera();
-    }
-
-    private void LateUpdate()
-    {
-        UpdateCamera();
-    }
+    #endregion
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (controller.isGrounded)
-        {
-            currentVerticalSpeed = moveVerticalSpeed;
-        }
+        if (controller.isGrounded) currentVerticalSpeed = moveVerticalSpeed;
     }
 
     private void MovePlayer()
     {
         var input = actions.Move.ReadValue<Vector2>();
-        
+
         currentVerticalSpeed += -gravity * Time.deltaTime;
         currentVerticalSpeed = Mathf.Clamp(currentVerticalSpeed, -moveVerticalSpeed, moveVerticalSpeed);
 
@@ -134,24 +137,13 @@ public class PlayerInput : MonoBehaviour
         var lookDirection = lookRotation * Vector3.forward;
         var lookPosition = CameraTarget - lookDirection * cameraDistance;
         playerCamera.transform.SetPositionAndRotation(lookPosition, lookRotation);
-
     }
 
-    private void OnCameraZoomChange(UnityEngine.InputSystem.InputAction.CallbackContext obj)
-    {   
+    private void OnCameraZoomChange(InputAction.CallbackContext obj)
+    {
         var value = actions.CameraZoom.ReadValue<Vector2>();
         var change = value.y < 0 ? zoomStep : -zoomStep;
 
         cameraDistance = Mathf.Clamp(cameraDistance + change, minCameraDistance, maxCameraDistance);
-        //UpdateCameraZoom();
-    }
-
-    private void OnDrawGizmos()
-    {
-        Handles.color = Color.black;
-        Handles.Label(transform.position.With(y: transform.position.y + 2f), cameraOrbit.ToString());
-
-        var dir = Quaternion.Euler(0, cameraOrbit.y, 0) * transform.forward;
-        Handles.DrawLine(transform.position, transform.position + dir * 2f);
     }
 }

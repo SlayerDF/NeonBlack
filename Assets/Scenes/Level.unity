@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.7036363, g: 0.47787434, b: 0.17137688, a: 1}
+  m_IndirectSpecularColor: {r: 0.44600418, g: 0.19097401, b: 0.024548989, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -502,10 +502,6 @@ PrefabInstance:
     - target: {fileID: 6624365279647454002, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6647440128123764827, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
-      propertyPath: m_StoppingDistance
-      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7559694854911291891, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       propertyPath: destination
@@ -5117,6 +5113,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2994181435992066486, guid: 13660907aaad0c341bd386cfeb5d347c, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 963194227}
+    - target: {fileID: 5465987589290789533, guid: 13660907aaad0c341bd386cfeb5d347c, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 963194227}
