@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Player
 {
@@ -8,7 +9,9 @@ namespace Player
         private static readonly int ZAxisMovement = Animator.StringToHash("ZAxis");
         private static readonly int VelocityMultiplier = Animator.StringToHash("VelocityMultiplier");
         private static readonly int Falling = Animator.StringToHash("Falling");
+        private static readonly int Flipping = Animator.StringToHash("Flipping");
         private static readonly int Jump = Animator.StringToHash("Jump");
+        private static readonly int Flip = Animator.StringToHash("Flip");
 
         #region Serialized Fields
 
@@ -37,6 +40,8 @@ namespace Player
         private float xAxisMovement;
         private float zAxisMovement;
 
+        public bool ReadyToJump { get; private set; } = true;
+
         #region Event Functions
 
         private void FixedUpdate()
@@ -46,6 +51,8 @@ namespace Player
             var moveDir = transform.InverseTransformDirection(offset.normalized);
 
             lastPosition = transform.position;
+
+            if (!characterController.isGrounded) ReadyToJump = false;
 
             velocityMultiplier =
                 Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.fixedDeltaTime);
@@ -62,7 +69,22 @@ namespace Player
 
         public void OnJump()
         {
+            ReadyToJump = false;
             animator.SetTrigger(Jump);
+        }
+
+        public void OnFlip()
+        {
+            ReadyToJump = false;
+            animator.SetBool(Flipping, true);
+            animator.SetTrigger(Flip);
+        }
+
+        [UsedImplicitly]
+        private void OnLandedEvent()
+        {
+            ReadyToJump = true;
+            animator.SetBool(Flipping, false);
         }
     }
 }

@@ -15,6 +15,24 @@
                     "initialStateCheck": true
                 },
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "3cfe06f3-73e5-4c9e-8f73-7d71f9b44d57",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Flip",
+                    "type": "Button",
+                    "id": "4e019464-daae-4067-940f-5d3d649f4b20",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "CameraZoom",
                     "type": "Value",
                     "id": "a529eea2-cce9-48ec-b7a6-0dda354238e9",
@@ -33,9 +51,9 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Jump",
+                    "name": "Aim",
                     "type": "Button",
-                    "id": "3cfe06f3-73e5-4c9e-8f73-7d71f9b44d57",
+                    "id": "ec9115f7-2628-4a68-bd1c-4668934439bc",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -122,12 +140,34 @@
                 },
                 {
                     "name": "",
+                    "id": "032a6c09-4bdd-47dc-bd99-99673c653b44",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "b309f32c-14cc-4619-acc7-99b755546b18",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "53b8a68a-61c1-43db-99cc-cbb4552506d1",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Flip",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

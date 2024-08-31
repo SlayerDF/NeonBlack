@@ -179,6 +179,7 @@ GameObject:
   - component: {fileID: 3568164993960877008}
   - component: {fileID: 2994181435992066486}
   - component: {fileID: 5465987589290789533}
+  - component: {fileID: 4917086306520519535}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -256,10 +257,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 951829237264511241}
   playerAnimation: {fileID: 5465987589290789533}
-  moveHorizontalSpeed: 5
-  moveVerticalSpeed: 3
-  rotateSpeed: 5
-  gravity: 9.8
+  maxSpeed: {x: 5, y: 30}
+  naturalDeceleration: {x: 15, y: 9.8}
+  runAccelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 30
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 5
+      value: 15
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  rotationSpeed: 10
+  airControl: 0.2
+  jumpInitialSpeed: 5
+  flipInitialSpeed: {x: 8, y: 3}
+  flipMinSpeed: 2
   playerCamera: {fileID: 0}
   minCameraDistance: 2
   maxCameraDistance: 5
@@ -277,11 +305,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2997c36ee1d46588692419e1649f41e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 4551533480574912331}
+  animator: {fileID: 4917086306520519535}
   characterController: {fileID: 951829237264511241}
   normalVelocity: 5
   velocityLerpSpeed: 5
   blendingLerpSpeed: 5
+--- !u!95 &4917086306520519535
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6324426937057604164}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
+  m_Controller: {fileID: 9100000, guid: bb0abe28bdad07148bc1b1dc3098eb89, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &7944594092484704986
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -335,23 +384,19 @@ PrefabInstance:
       value: Y Bot
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: bb0abe28bdad07148bc1b1dc3098eb89, type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5866666021909216657, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
---- !u!95 &4551533480574912331 stripped
-Animator:
-  m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
-  m_PrefabInstance: {fileID: 7944594092484704986}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7623018849785011505 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
