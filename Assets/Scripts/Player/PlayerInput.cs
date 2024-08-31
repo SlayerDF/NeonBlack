@@ -1,3 +1,4 @@
+using Player;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,9 @@ public class PlayerInput : MonoBehaviour
     [Header("Components")]
     [SerializeField]
     private CharacterController controller;
+
+    [SerializeField]
+    private PlayerAnimation playerAnimation;
 
     [Header("Movement")]
     [SerializeField]
@@ -95,7 +99,10 @@ public class PlayerInput : MonoBehaviour
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (controller.isGrounded) currentVerticalSpeed = moveVerticalSpeed;
+        if (!controller.isGrounded) return;
+
+        currentVerticalSpeed = moveVerticalSpeed;
+        playerAnimation.OnJump();
     }
 
     private void MovePlayer()

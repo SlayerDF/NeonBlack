@@ -2,18 +2,22 @@
 
 namespace Player
 {
-    [RequireComponent(typeof(PlayerInput))]
     public class PlayerAnimation : MonoBehaviour
     {
-        private static readonly int XAxisMovement = Animator.StringToHash("xAxis");
-        private static readonly int ZAxisMovement = Animator.StringToHash("zAxis");
-        private static readonly int VelocityMultiplier = Animator.StringToHash("velocityMultiplier");
+        private static readonly int XAxisMovement = Animator.StringToHash("XAxis");
+        private static readonly int ZAxisMovement = Animator.StringToHash("ZAxis");
+        private static readonly int VelocityMultiplier = Animator.StringToHash("VelocityMultiplier");
+        private static readonly int Falling = Animator.StringToHash("Falling");
+        private static readonly int Jump = Animator.StringToHash("Jump");
 
         #region Serialized Fields
 
         [Header("Components")]
         [SerializeField]
         private Animator animator;
+
+        [SerializeField]
+        private CharacterController characterController;
 
         [Header("Parameters")]
         [SerializeField]
@@ -51,8 +55,14 @@ namespace Player
             animator.SetFloat(VelocityMultiplier, velocityMultiplier);
             animator.SetFloat(XAxisMovement, xAxisMovement);
             animator.SetFloat(ZAxisMovement, zAxisMovement);
+            animator.SetBool(Falling, !characterController.isGrounded);
         }
 
         #endregion
+
+        public void OnJump()
+        {
+            animator.SetTrigger(Jump);
+        }
     }
 }

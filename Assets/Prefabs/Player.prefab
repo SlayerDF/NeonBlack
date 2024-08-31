@@ -255,6 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 951829237264511241}
+  playerAnimation: {fileID: 5465987589290789533}
   moveHorizontalSpeed: 5
   moveVerticalSpeed: 3
   rotateSpeed: 5
@@ -277,6 +278,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4551533480574912331}
+  characterController: {fileID: 951829237264511241}
+  normalVelocity: 5
   velocityLerpSpeed: 5
   blendingLerpSpeed: 5
 --- !u!1001 &7944594092484704986
