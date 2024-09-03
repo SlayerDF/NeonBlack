@@ -1,22 +1,15 @@
 using UnityEngine;
 
-public class SimpleEnemy : MonoBehaviour
+public class SimpleEnemy : Enemy
 {
     [SerializeField]
     private FollowPlayerBehavior followPlayerBehavior;
 
-    private void Awake()
-    {
-        followPlayerBehavior.Awake(this);
-    }
+    [SerializeField]
+    private LineOfSightBehavior lineOfSightBehavior;
 
-    private void Start()
+    protected override EnemyBehavior[] RegisterBehaviors()
     {
-        followPlayerBehavior.Start();
-    }
-
-    private void FixedUpdate()
-    {
-        followPlayerBehavior.Update(Time.fixedDeltaTime);
+        return new EnemyBehavior[] { followPlayerBehavior, lineOfSightBehavior };
     }
 }

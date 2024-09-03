@@ -512,6 +512,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 840759577}
     - target: {fileID: 7559694854911291891, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: lineOfSightBehavior.angle
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559694854911291891, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: lineOfSightBehavior.range
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559694854911291891, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: lineOfSightBehavior.radius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7559694854911291891, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       propertyPath: followPlayerBehavior.navAgent
       value: 
       objectReference: {fileID: 1067430537}
