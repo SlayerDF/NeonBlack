@@ -1,18 +1,22 @@
+using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyController : MonoBehaviour
+[Serializable]
+public class FollowPlayerBehavior : EnemyBehavior
 {
     [SerializeField]
     private NavMeshAgent navAgent;
 
-    [SerializeField]
-    private Transform destination;
+    [field: SerializeField]
+    public Transform PlayerTransform { get; set; }
 
-    private void FixedUpdate()
+    public override void Update(float deltaTime)
     {
-        navAgent.SetDestination(destination.position);
+        if (!PlayerTransform) return;
+
+        navAgent.SetDestination(PlayerTransform.position);
 
         if (ReachedDestination())
         {
@@ -30,7 +34,7 @@ public class EnemyController : MonoBehaviour
         return !float.IsInfinity(navAgent.remainingDistance) && navAgent.remainingDistance < navAgent.stoppingDistance;
     }
 
-    private void OnDrawGizmos()
+    public override void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
 
