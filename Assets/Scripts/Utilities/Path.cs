@@ -1,39 +1,29 @@
 using UnityEditor;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 public class Path : MonoBehaviour
 {
-    public readonly struct Waypoint
-    {
-        public Vector3 Position { get; }
-        public bool MoveBackwards { get; }
-        public int Index { get; }
-
-        public Waypoint(Vector3 position, bool moveBackwards, int index)
-        {
-            Position = position;
-            MoveBackwards = direction;
-            Index = index;
-        }
-    }
-
     #region Serialized Fields
 
     [SerializeField]
-    bool circular;
+    private bool circular;
 
     #endregion
+
+    private Transform[] children;
 
     #region Event Functions
 
     private void Awake()
     {
-        InitializeChildren();
+        if (children == null)
+        {
+            InitializeChildren();
+        }
     }
 
     #endregion
-
-    private Transform[] children;
 
     private void InitializeChildren()
     {
@@ -45,8 +35,17 @@ public class Path : MonoBehaviour
         }
     }
 
-    public Waypoint NextWaypoint(Waypoint waypoint = null)
+    public Waypoint NextWaypoint(Waypoint? currentWaypoint = null)
     {
+        if (children == null)
+        {
+            InitializeChildren();
+
+            Debug.Assert(children != null, nameof(children) + " != null");
+        }
+
+        var waypoint = currentWaypoint ?? new Waypoint(Vector3.zero, false, -1);
+
         bool moveBackwards;
         int nextIndex;
 
@@ -82,17 +81,40 @@ public class Path : MonoBehaviour
         return new Waypoint(children[nextIndex].position, moveBackwards, nextIndex);
     }
 
+    #region Nested type: ${0}
+
+    public readonly struct Waypoint
+    {
+        public Vector3 Position { get; }
+        public bool MoveBackwards { get; }
+        public int Index { get; }
+
+        public Waypoint(Vector3 position, bool moveBackwards, int index)
+        {
+            Position = position;
+            MoveBackwards = moveBackwards;
+            Index = index;
+        }
+    }
+
+    #endregion
+
 #if UNITY_EDITOR
 
     [ContextMenu("Reinitialize children")]
-    void DoSomething()
+    private void DoSomething()
     {
         InitializeChildren();
     }
 
     private void OnDrawGizmos()
     {
-        if (children == null) InitializeChildren();
+        if (children == null)
+        {
+            InitializeChildren();
+        }
+
+        Debug.Assert(children != null, nameof(children) + " != null");
 
         for (var i = 0; i < children.Length; i++)
         {

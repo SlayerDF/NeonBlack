@@ -25,11 +25,13 @@ public class PatrolBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (ReachedDestination())
+        if (!ReachedDestination())
         {
-            waypoint = path.NextWaypoint(waypoint);
-            navAgent.SetDestination(waypoint.Position);
+            return;
         }
+
+        waypoint = path.NextWaypoint(waypoint);
+        navAgent.SetDestination(waypoint.Position);
     }
 
     #endregion
