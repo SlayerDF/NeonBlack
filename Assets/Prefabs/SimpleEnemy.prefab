@@ -96,6 +96,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   angle: 90
   radius: 10
+  playerLayerMask:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!195 &6485814002273995521 stripped
 NavMeshAgent:
   m_CorrespondingSourceObject: {fileID: 6647440128123764827, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
