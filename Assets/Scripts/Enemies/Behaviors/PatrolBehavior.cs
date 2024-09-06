@@ -20,6 +20,10 @@ public class PatrolBehavior : MonoBehaviour
     private void Awake()
     {
         waypoint = path.NextWaypoint();
+    }
+
+    private void Start()
+    {
         navAgent.SetDestination(waypoint.Position);
     }
 
