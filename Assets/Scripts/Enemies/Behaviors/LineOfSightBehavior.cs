@@ -19,10 +19,10 @@ public class LineOfSightBehavior : MonoBehaviour
 
     #endregion
 
-    public bool HasTarget { get; private set; }
-
     private readonly Collider[] results = new Collider[1];
-    private float detectionTimer = 0f;
+    private float detectionTimer;
+
+    public bool HasTarget { get; private set; }
 
     #region Event Functions
 
@@ -40,14 +40,7 @@ public class LineOfSightBehavior : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (HasTarget)
-        {
-            Handles.color = new Color(0f, 1f, 0f, 0.5f);
-        }
-        else
-        {
-            Handles.color = new Color(1f, 0f, 0f, 0.5f);
-        }
+        Handles.color = HasTarget ? new Color(0f, 1f, 0f, 0.5f) : new Color(1f, 0f, 0f, 0.5f);
 
         var from = Quaternion.Euler(0f, -angle * 0.5f, 0f) * transform.forward;
         Handles.DrawSolidArc(transform.position, Vector3.up, from, angle, radius);
@@ -63,10 +56,16 @@ public class LineOfSightBehavior : MonoBehaviour
         Physics.OverlapSphereNonAlloc(transform.position, radius, results, playerLayerMask.value);
 
         var player = results[0];
-        if (player == null) return;
+        if (!player)
+        {
+            return;
+        }
 
         var playerAngle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-        if (playerAngle > angle) return;
+        if (playerAngle > angle)
+        {
+            return;
+        }
 
         HasTarget = true;
     }
