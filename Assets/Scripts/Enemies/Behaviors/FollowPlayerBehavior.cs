@@ -1,22 +1,26 @@
-using System;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-[Serializable]
-public class FollowPlayerBehavior : EnemyBehavior
+public class FollowPlayerBehavior : MonoBehaviour
 {
+    #region Serialized Fields
+
     [SerializeField]
     private NavMeshAgent navAgent;
 
-    [field: SerializeField]
-    public Transform PlayerTransform { get; set; }
+    [field: SerializeField] public Transform PlayerTransform { get; set; }
 
-    public override ExecutionKind ExecutionKind => ExecutionKind.FixedUpdate;
+    #endregion
 
-    public override void Update(float deltaTime)
+    #region Event Functions
+
+    public void FixedUpdate()
     {
-        if (!PlayerTransform) return;
+        if (!PlayerTransform)
+        {
+            return;
+        }
 
         navAgent.SetDestination(PlayerTransform.position);
 
@@ -31,19 +35,24 @@ public class FollowPlayerBehavior : EnemyBehavior
         }
     }
 
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        Handles.color = Color.black;
+        Handles.Label(transform.position.With(y: transform.position.y + 3f), navAgent.remainingDistance.ToString());
+        Handles.Label(transform.position.With(y: transform.position.y + 2.6f), navAgent.stoppingDistance.ToString());
+    }
+#endif
+
+    #endregion
+
     private bool ReachedDestination()
     {
         return !float.IsInfinity(navAgent.remainingDistance) && navAgent.remainingDistance < navAgent.stoppingDistance;
     }
-
-#if UNITY_EDITOR
-    public override void OnDrawGizmos()
-    {
-        if (!Application.isPlaying) return;
-
-        Handles.color = Color.black;
-        Handles.Label(Transform.position.With(y: Transform.position.y + 3f), navAgent.remainingDistance.ToString());
-        Handles.Label(Transform.position.With(y: Transform.position.y + 2.6f), navAgent.stoppingDistance.ToString());
-    }
-#endif
 }

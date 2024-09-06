@@ -3,23 +3,29 @@ using UnityEditor;
 using UnityEngine;
 
 [Serializable]
-public class LineOfSightBehavior : EnemyBehavior
+public class LineOfSightBehavior : MonoBehaviour
 {
+    #region Serialized Fields
+
     [SerializeField]
     private float angle;
 
     [SerializeField]
     private float radius;
 
-    public override ExecutionKind ExecutionKind => ExecutionKind.FixedUpdate;
+    #endregion
+
+    #region Event Functions
 
 #if UNITY_EDITOR
-    public override void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
-        Handles.color = new(1f, 0f, 0f, 0.5f);
+        Handles.color = new Color(1f, 0f, 0f, 0.5f);
 
-        var from = Quaternion.Euler(0f, -angle * 0.5f, 0f) * Transform.forward;
-        Handles.DrawSolidArc(Transform.position, Vector3.up, from, angle, radius);
+        var from = Quaternion.Euler(0f, -angle * 0.5f, 0f) * transform.forward;
+        Handles.DrawSolidArc(transform.position, Vector3.up, from, angle, radius);
     }
 #endif
+
+    #endregion
 }
