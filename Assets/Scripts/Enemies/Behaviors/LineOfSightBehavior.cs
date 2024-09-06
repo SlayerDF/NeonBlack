@@ -12,19 +12,27 @@ public class LineOfSightBehavior : MonoBehaviour
     private float radius;
 
     [SerializeField]
-    private LayerMask playerLayerMask;
+    private Transform playerTransform;
 
     [SerializeField]
     private float detectionFrequency = 0.1f;
 
     #endregion
 
-    private readonly Collider[] results = new Collider[1];
+    private float angleCentralized;
     private float detectionTimer;
+
+    private float radiusSqr;
 
     public bool HasTarget { get; private set; }
 
     #region Event Functions
+
+    private void Awake()
+    {
+        radiusSqr = radius * radius;
+        angleCentralized = angle * 0.5f;
+    }
 
     private void FixedUpdate()
     {
@@ -42,7 +50,7 @@ public class LineOfSightBehavior : MonoBehaviour
     {
         Handles.color = HasTarget ? new Color(0f, 1f, 0f, 0.5f) : new Color(1f, 0f, 0f, 0.5f);
 
-        var from = Quaternion.Euler(0f, -angle * 0.5f, 0f) * transform.forward;
+        var from = Quaternion.Euler(0f, -angleCentralized, 0f) * transform.forward;
         Handles.DrawSolidArc(transform.position, Vector3.up, from, angle, radius);
     }
 #endif
@@ -53,16 +61,14 @@ public class LineOfSightBehavior : MonoBehaviour
     {
         HasTarget = false;
 
-        Physics.OverlapSphereNonAlloc(transform.position, radius, results, playerLayerMask.value);
-
-        var player = results[0];
-        if (!player)
+        var vectorToPlayer = playerTransform.position - transform.position;
+        if (Vector3.SqrMagnitude(vectorToPlayer) > radiusSqr)
         {
             return;
         }
 
-        var playerAngle = Vector3.Angle(transform.forward, player.transform.position - transform.position);
-        if (playerAngle > angle)
+        var angleToPlayer = Vector3.Angle(transform.forward, Vector3.ProjectOnPlane(vectorToPlayer, Vector3.up));
+        if (angleToPlayer > angleCentralized)
         {
             return;
         }

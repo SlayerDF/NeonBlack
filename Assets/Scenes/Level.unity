@@ -135,6 +135,14 @@ PrefabInstance:
       propertyPath: path
       value: 
       objectReference: {fileID: 2134234090}
+    - target: {fileID: 1712677700463417707, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5213703120788505677, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 840759577}
     - target: {fileID: 5874574221070285086, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy
@@ -5224,7 +5232,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6624365279647454002, guid: 13660907aaad0c341bd386cfeb5d347c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -30.6
       objectReference: {fileID: 0}
     - target: {fileID: 6624365279647454002, guid: 13660907aaad0c341bd386cfeb5d347c, type: 3}
       propertyPath: m_LocalPosition.y
