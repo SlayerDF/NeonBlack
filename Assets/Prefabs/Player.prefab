@@ -257,42 +257,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controller: {fileID: 951829237264511241}
   playerAnimation: {fileID: 5465987589290789533}
-  maxSpeed: {x: 5, y: 30}
-  naturalDeceleration: {x: 15, y: 9.8}
-  runAccelerationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 30
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 5
-      value: 15
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  rotationSpeed: 10
-  airControl: 0.2
-  jumpInitialSpeed: 5
-  flipInitialSpeed: {x: 8, y: 3}
-  flipMinSpeed: 2
   playerCamera: {fileID: 0}
   minCameraDistance: 2
   maxCameraDistance: 5
   cameraHeight: 2
   zoomStep: 0.2
+  maxSpeed: {x: 30, y: 30}
+  naturalDeceleration: {x: 1, y: 9.8}
+  moveSpeed: 5
+  rotationSpeed: 10
+  airControl: 0.2
+  jumpInitialSpeed: 5
+  dashInitialSpeed: {x: 10, y: 3}
 --- !u!114 &5465987589290789533
 MonoBehaviour:
   m_ObjectHideFlags: 0

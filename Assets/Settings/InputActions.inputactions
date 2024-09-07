@@ -24,7 +24,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Flip",
+                    "name": "Dash",
                     "type": "Button",
                     "id": "4e019464-daae-4067-940f-5d3d649f4b20",
                     "expectedControlType": "Button",
@@ -49,15 +49,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Aim",
-                    "type": "Button",
-                    "id": "ec9115f7-2628-4a68-bd1c-4668934439bc",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -140,17 +131,6 @@
                 },
                 {
                     "name": "",
-                    "id": "032a6c09-4bdd-47dc-bd99-99673c653b44",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "b309f32c-14cc-4619-acc7-99b755546b18",
                     "path": "<Keyboard>/space",
                     "interactions": "",
@@ -167,7 +147,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Flip",
+                    "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
