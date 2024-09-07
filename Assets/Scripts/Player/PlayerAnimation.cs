@@ -1,5 +1,4 @@
-﻿using JetBrains.Annotations;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player
 {
@@ -9,9 +8,9 @@ namespace Player
         private static readonly int ZAxisMovement = Animator.StringToHash("ZAxis");
         private static readonly int VelocityMultiplier = Animator.StringToHash("VelocityMultiplier");
         private static readonly int Falling = Animator.StringToHash("Falling");
-        private static readonly int Flipping = Animator.StringToHash("Flipping");
+        private static readonly int Dashing = Animator.StringToHash("Dashing");
         private static readonly int Jump = Animator.StringToHash("Jump");
-        private static readonly int Flip = Animator.StringToHash("Flip");
+        private static readonly int Dash = Animator.StringToHash("Dash");
 
         #region Serialized Fields
 
@@ -40,8 +39,6 @@ namespace Player
         private float xAxisMovement;
         private float zAxisMovement;
 
-        public bool ReadyToJump { get; private set; } = true;
-
         #region Event Functions
 
         private void FixedUpdate()
@@ -52,8 +49,6 @@ namespace Player
 
             lastPosition = transform.position;
 
-            if (!characterController.isGrounded) ReadyToJump = false;
-
             velocityMultiplier =
                 Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.fixedDeltaTime);
             xAxisMovement = Mathf.Lerp(xAxisMovement, moveDir.x, blendingLerpSpeed * Time.fixedDeltaTime);
@@ -63,28 +58,24 @@ namespace Player
             animator.SetFloat(XAxisMovement, xAxisMovement);
             animator.SetFloat(ZAxisMovement, zAxisMovement);
             animator.SetBool(Falling, !characterController.isGrounded);
+
+            if (characterController.isGrounded)
+            {
+                animator.SetBool(Dashing, false);
+            }
         }
 
         #endregion
 
         public void OnJump()
         {
-            ReadyToJump = false;
             animator.SetTrigger(Jump);
         }
 
-        public void OnFlip()
+        public void OnDash()
         {
-            ReadyToJump = false;
-            animator.SetBool(Flipping, true);
-            animator.SetTrigger(Flip);
-        }
-
-        [UsedImplicitly]
-        private void OnLandedEvent()
-        {
-            ReadyToJump = true;
-            animator.SetBool(Flipping, false);
+            animator.SetBool(Dashing, true);
+            animator.SetTrigger(Dash);
         }
     }
 }
