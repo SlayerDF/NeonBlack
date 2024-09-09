@@ -10,16 +10,16 @@ public partial class PlayerInput
     private Camera playerCamera;
 
     [SerializeField]
-    private float minCameraDistance = 2f;
+    private Vector2 minMaxCameraYaw = new(5f, 90f);
 
     [SerializeField]
-    private float maxCameraDistance = 5f;
+    private Vector2 minMaxCameraDistance = new(2f, 5f);
 
     [SerializeField]
     private float cameraHeight = 2f;
 
     [SerializeField]
-    private float zoomStep = 0.2f;
+    private float cameraZoomStep = 0.2f;
 
     #endregion
 
@@ -40,7 +40,7 @@ public partial class PlayerInput
     {
         var moveOffset = actions.CameraMove.ReadValue<Vector2>();
 
-        cameraOrbit.x = Mathf.Clamp(cameraOrbit.x - moveOffset.y, 5f, 90f);
+        cameraOrbit.x = Mathf.Clamp(cameraOrbit.x - moveOffset.y, minMaxCameraYaw.x, minMaxCameraYaw.y);
         cameraOrbit.y += moveOffset.x;
     }
 
@@ -55,8 +55,8 @@ public partial class PlayerInput
     private void OnCameraZoomChange(InputAction.CallbackContext obj)
     {
         var value = actions.CameraZoom.ReadValue<Vector2>();
-        var change = value.y < 0 ? zoomStep : -zoomStep;
+        var change = value.y < 0 ? cameraZoomStep : -cameraZoomStep;
 
-        cameraDistance = Mathf.Clamp(cameraDistance + change, minCameraDistance, maxCameraDistance);
+        cameraDistance = Mathf.Clamp(cameraDistance + change, minMaxCameraDistance.x, minMaxCameraDistance.y);
     }
 }

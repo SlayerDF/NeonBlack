@@ -15,6 +15,7 @@ public partial class PlayerInput : MonoBehaviour
     #endregion
 
     private InputActions.PlayerActions actions;
+    private Vector2 input;
 
     #region Event Functions
 
@@ -25,6 +26,10 @@ public partial class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        input = actions.Move.ReadValue<Vector2>();
+
+        playerAnimation.SetInputMagnitude(input.SqrMagnitude());
+
         if (isDashing)
         {
             DashPlayer();
