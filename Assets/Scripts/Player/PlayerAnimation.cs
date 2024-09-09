@@ -6,8 +6,10 @@ namespace Player
     {
         private static readonly int XAxisMovement = Animator.StringToHash("XAxis");
         private static readonly int ZAxisMovement = Animator.StringToHash("ZAxis");
+        private static readonly int InputMagnitude = Animator.StringToHash("InputMagnitude");
         private static readonly int VelocityMultiplier = Animator.StringToHash("VelocityMultiplier");
         private static readonly int Falling = Animator.StringToHash("Falling");
+        private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Dashing = Animator.StringToHash("Dashing");
         private static readonly int Jump = Animator.StringToHash("Jump");
         private static readonly int Dash = Animator.StringToHash("Dash");
@@ -43,11 +45,15 @@ namespace Player
 
         private void FixedUpdate()
         {
-            var offset = transform.position - lastPosition;
-            var currentVelocityMultiplier = offset.magnitude / Time.fixedDeltaTime / normalVelocity;
+            var currentPosition = transform.position;
+            currentPosition.y = 0f;
+
+            var offset = currentPosition - lastPosition;
+            var currentVelocityMultiplier =
+                Mathf.Clamp(offset.magnitude / Time.fixedDeltaTime / normalVelocity, 1f, 10f);
             var moveDir = transform.InverseTransformDirection(offset.normalized);
 
-            lastPosition = transform.position;
+            lastPosition = currentPosition;
 
             velocityMultiplier =
                 Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.fixedDeltaTime);
@@ -59,16 +65,25 @@ namespace Player
             animator.SetFloat(ZAxisMovement, zAxisMovement);
             animator.SetBool(Falling, !characterController.isGrounded);
 
-            if (characterController.isGrounded)
+            if (!characterController.isGrounded)
             {
-                animator.SetBool(Dashing, false);
+                return;
             }
+
+            animator.SetBool(Jumping, false);
+            animator.SetBool(Dashing, false);
         }
 
         #endregion
 
+        public void SetInputMagnitude(float value)
+        {
+            animator.SetFloat(InputMagnitude, value);
+        }
+
         public void OnJump()
         {
+            animator.SetBool(Jumping, true);
             animator.SetTrigger(Jump);
         }
 

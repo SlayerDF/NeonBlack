@@ -55,15 +55,12 @@ public partial class PlayerInput
             return;
         }
 
-        var input = actions.Move.ReadValue<Vector2>();
-
         if (input == Vector2.zero)
         {
             return;
         }
 
-        moveDirection = Vector3.ProjectOnPlane(playerCamera.transform.rotation * input.ToVector3(),
-            Vector3.up).normalized;
+        moveDirection = CameraDirectionToMoveDirection(input);
 
         currentSpeed = dashInitialSpeed;
         isDashing = true;
@@ -93,14 +90,11 @@ public partial class PlayerInput
         ApplyDeceleration();
         ClampSpeed();
 
-        var input = actions.Move.ReadValue<Vector2>();
         if (input != Vector2.zero)
         {
             ApplyRunAcceleration(Vector2.SqrMagnitude(input));
 
-            var targetDirection = Vector3.ProjectOnPlane(
-                playerCamera.transform.rotation * input.ToVector3(),
-                Vector3.up).normalized;
+            var targetDirection = CameraDirectionToMoveDirection(input);
 
             UpdateMoveDirection(targetDirection);
             RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
@@ -141,23 +135,23 @@ public partial class PlayerInput
         currentSpeed.y = Mathf.Clamp(currentSpeed.y, -maxSpeed.y, maxSpeed.y);
     }
 
+    private Vector3 CameraDirectionToMoveDirection(Vector2 inputValues)
+    {
+        var cameraPitch = Quaternion.Euler(0, cameraOrbit.y, 0);
+
+        return cameraPitch * Vector3.forward * inputValues.y + cameraPitch * Vector3.right * inputValues.x;
+    }
+
     private void UpdateMoveDirection(Vector3 targetDirection)
     {
         if (IsGrounded)
         {
             moveDirection = targetDirection;
+            return;
         }
-        else
-        {
-            var speed = rotationSpeed * Time.deltaTime;
 
-            if (!IsGrounded)
-            {
-                speed *= airControl;
-            }
-
-            moveDirection = Vector3.Lerp(moveDirection, targetDirection, speed);
-        }
+        var speed = rotationSpeed * Time.deltaTime * airControl;
+        moveDirection = Vector3.Lerp(moveDirection, targetDirection, speed);
     }
 
     private void RotatePlayer(Quaternion targetRotation)

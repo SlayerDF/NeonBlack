@@ -258,10 +258,10 @@ MonoBehaviour:
   controller: {fileID: 951829237264511241}
   playerAnimation: {fileID: 5465987589290789533}
   playerCamera: {fileID: 0}
-  minCameraDistance: 2
-  maxCameraDistance: 5
+  minMaxCameraYaw: {x: 5, y: 90}
+  minMaxCameraDistance: {x: 2, y: 5}
   cameraHeight: 2
-  zoomStep: 0.2
+  cameraZoomStep: 0.2
   maxSpeed: {x: 30, y: 30}
   naturalDeceleration: {x: 1, y: 9.8}
   moveSpeed: 5
@@ -296,7 +296,7 @@ Animator:
   m_GameObject: {fileID: 6324426937057604164}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
-  m_Controller: {fileID: 9100000, guid: bb0abe28bdad07148bc1b1dc3098eb89, type: 2}
+  m_Controller: {fileID: 9100000, guid: 05dde1a2a5644ad45ad6dd75bf35d381, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
