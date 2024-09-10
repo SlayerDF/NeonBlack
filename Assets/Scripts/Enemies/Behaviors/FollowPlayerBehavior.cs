@@ -38,7 +38,7 @@ public class FollowPlayerBehavior : MonoBehaviour
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        if (!Application.isPlaying)
+        if (!Application.isPlaying || !isActiveAndEnabled)
         {
             return;
         }

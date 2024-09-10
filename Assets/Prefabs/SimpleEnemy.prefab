@@ -8,6 +8,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1489696741891068969, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3685368821256415788, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: m_Name
+      value: LOSVisuals
+      objectReference: {fileID: 0}
     - target: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy
@@ -52,7 +60,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 101545119707041750, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -66,6 +75,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1712677700463417707}
   m_SourcePrefab: {fileID: 100100000, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+--- !u!33 &1364091097198632819 stripped
+MeshFilter:
+  m_CorrespondingSourceObject: {fileID: 1489696741891068969, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+  m_PrefabInstance: {fileID: 451009685705018202}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &5874574221070285086 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
@@ -97,12 +111,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfec627faa1cba4fad03fc41b4186cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  angle: 90
+  playerTransform: {fileID: 0}
+  visualsMeshFilter: {fileID: 1364091097198632819}
+  angle: 75
   radius: 10
-  playerLayerMask:
-    serializedVersion: 2
-    m_Bits: 8
   detectionFrequency: 0.1
+  innerRadius: 3
+  height: 1.5
+  segments: 8
+  showDetectorGizmo: 1
+  previewVisualsMeshGeneration: 0
 --- !u!114 &1712677700463417707
 MonoBehaviour:
   m_ObjectHideFlags: 0
