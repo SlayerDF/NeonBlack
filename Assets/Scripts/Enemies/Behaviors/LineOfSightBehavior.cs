@@ -54,6 +54,8 @@ public class LineOfSightBehavior : MonoBehaviour
 
     public bool HasTarget { get; private set; }
 
+    public float DistanceToPlayerNormalized { get; private set; }
+
     #region Event Functions
 
     private void Awake()
@@ -88,7 +90,10 @@ public class LineOfSightBehavior : MonoBehaviour
         HasTarget = false;
 
         var vectorToPlayer = playerTransform.position - transform.position;
-        if (Vector3.SqrMagnitude(vectorToPlayer) > radiusSqr)
+        var distanceToPlayerSqr = Vector3.SqrMagnitude(vectorToPlayer);
+        DistanceToPlayerNormalized = distanceToPlayerSqr / radiusSqr;
+
+        if (DistanceToPlayerNormalized > 1f)
         {
             return;
         }
