@@ -39,7 +39,7 @@ public partial class PlayerInput
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (!IsGrounded)
+        if (!MovementEnabled || !IsGrounded)
         {
             return;
         }
@@ -50,7 +50,7 @@ public partial class PlayerInput
 
     private void OnDash(InputAction.CallbackContext obj)
     {
-        if (isDashing)
+        if (!MovementEnabled || isDashing)
         {
             return;
         }
