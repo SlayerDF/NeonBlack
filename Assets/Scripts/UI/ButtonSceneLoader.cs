@@ -15,7 +15,7 @@ public class ButtonSceneLoader : ButtonBehaviour
     [SerializeField]
     private SceneReference scene;
 
-    #endregion Serialized Fields
+    #endregion
 
     /// <inheritdoc />
     protected override void OnClick()
@@ -27,7 +27,7 @@ public class ButtonSceneLoader : ButtonBehaviour
     {
         menuManager.SwitchToMenu(MenuManager.MenuType.Loader);
 
-        await SceneLoader.LoadScene(gameObject.scene, scene);
+        await SceneLoader.LoadScene(scene.BuildIndex);
 
         mainMenuController.Unpause();
 

@@ -17,6 +17,9 @@ public class TestEnemyBrain : MonoBehaviour
     [SerializeField]
     private PlayerDetectionBehavior playerDetectionBehavior;
 
+    [SerializeField]
+    private ShootPlayerBehavior shootPlayerBehavior;
+
     [Header("Properties")]
     [SerializeField]
     private float thinkFrequency = 0.1f;
@@ -30,6 +33,7 @@ public class TestEnemyBrain : MonoBehaviour
     private void Awake()
     {
         followPlayerBehavior.enabled = false;
+        shootPlayerBehavior.enabled = false;
     }
 
     private void FixedUpdate()
@@ -46,12 +50,14 @@ public class TestEnemyBrain : MonoBehaviour
 
         if (playerDetectionBehavior.PlayerIsDetected)
         {
-            followPlayerBehavior.enabled = true;
+            // followPlayerBehavior.enabled = true;
+            shootPlayerBehavior.enabled = true;
             patrolBehavior.enabled = false;
         }
         else
         {
-            followPlayerBehavior.enabled = false;
+            // followPlayerBehavior.enabled = false;
+            shootPlayerBehavior.enabled = false;
             patrolBehavior.enabled = true;
         }
     }

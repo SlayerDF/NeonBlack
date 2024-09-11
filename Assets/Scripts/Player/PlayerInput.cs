@@ -17,6 +17,8 @@ public partial class PlayerInput : MonoBehaviour
     private InputActions.PlayerActions actions;
     private Vector2 input;
 
+    public bool MovementEnabled { get; set; } = true;
+
     #region Event Functions
 
     private void Awake()
@@ -26,7 +28,7 @@ public partial class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        input = actions.Move.ReadValue<Vector2>();
+        input = MovementEnabled ? actions.Move.ReadValue<Vector2>() : Vector2.zero;
 
         playerAnimation.SetInputMagnitude(input.SqrMagnitude());
 
