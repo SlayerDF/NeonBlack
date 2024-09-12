@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: TransparentLight
+  m_Name: EnemyVision
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -81,6 +81,6 @@ Material:
     - _UVSec: 0
     - _ZWrite: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.34901962}
+    - _Color: {r: 1, g: 1, b: 1, a: 0.29803923}
     - _EmissionColor: {r: 2.9960785, g: 0.6866273, b: 0.12436511, a: 1}
   m_BuildTextureStacks: []

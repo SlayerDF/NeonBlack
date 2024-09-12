@@ -107,8 +107,10 @@ namespace Player
                 return;
             }
 
-            await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(layer).shortNameHash == hash);
-            await UniTask.WaitUntil(() => animator.GetCurrentAnimatorStateInfo(layer).normalizedTime >= 1f);
+            await UniTask.WaitUntil(
+                () => !animator || animator.GetCurrentAnimatorStateInfo(layer).shortNameHash == hash);
+            await UniTask.WaitUntil(() =>
+                !animator || animator.GetCurrentAnimatorStateInfo(layer).normalizedTime >= 1f);
         }
     }
 }

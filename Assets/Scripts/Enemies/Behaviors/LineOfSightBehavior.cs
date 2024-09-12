@@ -1,3 +1,6 @@
+using System;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
 
@@ -74,14 +77,29 @@ public class LineOfSightBehavior : MonoBehaviour
 
     private void FixedUpdate()
     {
-        detectionTimer += Time.fixedDeltaTime;
-
-        if (detectionTimer > detectionFrequency)
+        if ((detectionTimer += Time.fixedDeltaTime) < detectionFrequency)
         {
-            detectionTimer = 0f;
-            DetectPlayer();
+            return;
         }
+
+        detectionTimer = 0f;
+        DetectPlayer();
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmos()
+    {
+        if (!showDetectorGizmo)
+        {
+            return;
+        }
+
+        Handles.color = HasTarget ? new Color(0f, 1f, 0f, 0.5f) : new Color(1f, 0f, 0f, 0.5f);
+
+        var from = Quaternion.Euler(0f, -angleCentralized, 0f) * transform.forward;
+        Handles.DrawSolidArc(transform.position, Vector3.up, from, angle, radius);
+    }
+#endif
 
     #endregion
 
@@ -106,47 +124,91 @@ public class LineOfSightBehavior : MonoBehaviour
 
         HasTarget = true;
     }
+}
 
 #if UNITY_EDITOR
-    private void OnDrawGizmos()
+[CustomEditor(typeof(LineOfSightBehavior))]
+[CanEditMultipleObjects]
+public class LineOfSightBehaviorEditor : Editor
+{
+    private SerializedProperty angle;
+    private CancellationTokenSource cts;
+    private SerializedProperty height;
+    private SerializedProperty innerRadius;
+    private SerializedProperty previewVisualsMeshGeneration;
+    private SerializedProperty radius;
+    private SerializedProperty segments;
+    private SerializedProperty visualsMeshFilter;
+
+    private bool GenerationEnabled => previewVisualsMeshGeneration.boolValue;
+    private MeshFilter MeshFilter => visualsMeshFilter.objectReferenceValue as MeshFilter;
+
+    #region Event Functions
+
+    private void OnEnable()
     {
-        if (!showDetectorGizmo)
+        previewVisualsMeshGeneration = serializedObject.FindProperty("previewVisualsMeshGeneration");
+        visualsMeshFilter = serializedObject.FindProperty("visualsMeshFilter");
+        innerRadius = serializedObject.FindProperty("innerRadius");
+        radius = serializedObject.FindProperty("radius");
+        angle = serializedObject.FindProperty("angle");
+        height = serializedObject.FindProperty("height");
+        segments = serializedObject.FindProperty("segments");
+    }
+
+    #endregion
+
+    private async UniTaskVoid GenerateMesh()
+    {
+        if (!MeshFilter)
         {
             return;
         }
 
-        Handles.color = HasTarget ? new Color(0f, 1f, 0f, 0.5f) : new Color(1f, 0f, 0f, 0.5f);
+        if (!GenerationEnabled)
+        {
+            if (MeshFilter.sharedMesh)
+            {
+                DestroyImmediate(MeshFilter.sharedMesh);
+            }
 
-        var from = Quaternion.Euler(0f, -angleCentralized, 0f) * transform.forward;
-        Handles.DrawSolidArc(transform.position, Vector3.up, from, angle, radius);
+            return;
+        }
+
+        cts?.Cancel();
+        cts = new CancellationTokenSource();
+
+        await UniTask.Delay(TimeSpan.FromMilliseconds(100f), cancellationToken: cts.Token);
+
+        if (MeshFilter.sharedMesh)
+        {
+            DestroyImmediate(MeshFilter.sharedMesh);
+        }
+
+        MeshFilter.sharedMesh = MeshGenerator.GenerateLosMesh(innerRadius.floatValue, radius.floatValue,
+            angle.floatValue, height.floatValue, segments.intValue);
+        MeshFilter.sharedMesh.name = "Generated LineOfSight Mesh";
     }
 
-    private bool generationInProgress;
-
-    private void OnValidate()
+    public override void OnInspectorGUI()
     {
-        if (generationInProgress)
+        serializedObject.Update();
+
+        EditorGUI.BeginChangeCheck();
+        var iterator = serializedObject.GetIterator();
+        while (iterator.NextVisible(true))
+        {
+            EditorGUILayout.PropertyField(iterator, true);
+        }
+
+        if (EditorGUI.EndChangeCheck() == false)
         {
             return;
         }
 
-        EditorApplication.update += GeneratePreviewMesh;
-        generationInProgress = true;
+        GenerateMesh().Forget();
+
+        serializedObject.ApplyModifiedProperties();
     }
-
-    private void GeneratePreviewMesh()
-    {
-        EditorApplication.update -= GeneratePreviewMesh;
-
-        if (!previewVisualsMeshGeneration || !visualsMeshFilter)
-        {
-            return;
-        }
-
-        visualsMeshFilter.sharedMesh = MeshGenerator.GenerateLosMesh(innerRadius, radius, angle, height, segments);
-        visualsMeshFilter.sharedMesh.name = "Generated LineOfSight Mesh";
-
-        generationInProgress = false;
-    }
-#endif
 }
+#endif
