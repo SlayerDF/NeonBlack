@@ -4,6 +4,10 @@ public class TestEnemyBrain : MonoBehaviour
 {
     #region Serialized Fields
 
+    [Header("Components")]
+    [SerializeField]
+    private EnemyAnimation enemyAnimation;
+
     [Header("Behaviors")]
     [SerializeField]
     private FollowPlayerBehavior followPlayerBehavior;
@@ -53,12 +57,16 @@ public class TestEnemyBrain : MonoBehaviour
             // followPlayerBehavior.enabled = true;
             shootPlayerBehavior.enabled = true;
             patrolBehavior.enabled = false;
+
+            enemyAnimation.SetIsAttacking(true);
         }
         else
         {
             // followPlayerBehavior.enabled = false;
             shootPlayerBehavior.enabled = false;
             patrolBehavior.enabled = true;
+
+            enemyAnimation.SetIsAttacking(false);
         }
     }
 
