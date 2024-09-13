@@ -42,6 +42,7 @@ public partial class PlayerInput : MonoBehaviour
         }
 
         MoveCamera();
+        UpdateAttack();
     }
 
     private void LateUpdate()
@@ -55,6 +56,10 @@ public partial class PlayerInput : MonoBehaviour
         actions.CameraZoom.performed += OnCameraZoomChange;
         actions.Jump.performed += OnJump;
         actions.Dash.performed += OnDash;
+        actions.Attack.started += OnAttackStarted;
+        actions.Attack.canceled += OnAttackCanceled;
+
+        OnEnableAttack();
     }
 
     private void OnDisable()
@@ -63,6 +68,10 @@ public partial class PlayerInput : MonoBehaviour
         actions.CameraZoom.performed -= OnCameraZoomChange;
         actions.Jump.performed -= OnJump;
         actions.Dash.performed -= OnDash;
+        actions.Attack.started -= OnAttackStarted;
+        actions.Attack.canceled -= OnAttackCanceled;
+
+        OnDisableAttack();
     }
 
     #endregion

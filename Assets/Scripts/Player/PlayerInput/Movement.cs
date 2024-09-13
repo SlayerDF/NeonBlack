@@ -100,6 +100,11 @@ public partial class PlayerInput
             RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
         }
 
+        if (isAttacking)
+        {
+            RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
+        }
+
         controller.Move((Vector3.up * currentSpeed.y + moveDirection * currentSpeed.x) * Time.deltaTime);
     }
 

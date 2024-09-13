@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class TestEnemyBrain : MonoBehaviour
 {
@@ -8,10 +10,10 @@ public class TestEnemyBrain : MonoBehaviour
     [SerializeField]
     private EnemyAnimation enemyAnimation;
 
-    [Header("Behaviors")]
     [SerializeField]
-    private FollowPlayerBehavior followPlayerBehavior;
+    private EnemyHealth enemyHealth;
 
+    [Header("Behaviors")]
     [SerializeField]
     private LineOfSightBehavior lineOfSightBehavior;
 
@@ -22,13 +24,23 @@ public class TestEnemyBrain : MonoBehaviour
     private PlayerDetectionBehavior playerDetectionBehavior;
 
     [SerializeField]
+    private LookAtPlayerBehavior lookAtPlayerBehavior;
+
+    [SerializeField]
     private ShootPlayerBehavior shootPlayerBehavior;
 
     [Header("Properties")]
     [SerializeField]
     private float thinkFrequency = 0.1f;
 
+    [SerializeField]
+    private float attackDelay = 1f;
+
     #endregion
+
+    private float attackDelayTimer;
+
+    private DateTime date;
 
     private float thinkTimer;
 
@@ -36,12 +48,17 @@ public class TestEnemyBrain : MonoBehaviour
 
     private void Awake()
     {
-        followPlayerBehavior.enabled = false;
+        lookAtPlayerBehavior.enabled = false;
         shootPlayerBehavior.enabled = false;
     }
 
     private void FixedUpdate()
     {
+        if (enemyHealth.Dead)
+        {
+            return;
+        }
+
         if ((thinkTimer += Time.fixedDeltaTime) < thinkFrequency)
         {
             return;
@@ -54,21 +71,75 @@ public class TestEnemyBrain : MonoBehaviour
 
         if (playerDetectionBehavior.PlayerIsDetected)
         {
-            // followPlayerBehavior.enabled = true;
-            shootPlayerBehavior.enabled = true;
-            patrolBehavior.enabled = false;
-
-            enemyAnimation.SetIsAttacking(true);
+            OnDetectedUpdate(thinkFrequency);
         }
         else
         {
-            // followPlayerBehavior.enabled = false;
-            shootPlayerBehavior.enabled = false;
-            patrolBehavior.enabled = true;
-
-            enemyAnimation.SetIsAttacking(false);
+            OnUndetectedUpdate(thinkFrequency);
         }
     }
 
+    private void OnEnable()
+    {
+        enemyHealth.Death += OnDeath;
+    }
+
+    private void OnDisable()
+    {
+        enemyHealth.Death -= OnDeath;
+    }
+
     #endregion
+
+    private void OnDetectedUpdate(float deltaTime)
+    {
+        lookAtPlayerBehavior.enabled = true;
+        patrolBehavior.enabled = false;
+
+        if (attackDelayTimer < attackDelay)
+        {
+            attackDelayTimer += deltaTime;
+        }
+        else
+        {
+            lookAtPlayerBehavior.enabled = false;
+            shootPlayerBehavior.enabled = true;
+
+            enemyAnimation.SetIsAttacking(true);
+            enemyHealth.Invincible = true;
+        }
+    }
+
+    private void OnUndetectedUpdate(float _)
+    {
+        enemyHealth.Invincible = false;
+        attackDelayTimer = 0f;
+
+        lookAtPlayerBehavior.enabled = false;
+        shootPlayerBehavior.enabled = false;
+        patrolBehavior.enabled = true;
+
+        enemyAnimation.SetIsAttacking(false);
+    }
+
+    private void OnDeath()
+    {
+        lineOfSightBehavior.enabled = false;
+        patrolBehavior.enabled = false;
+        playerDetectionBehavior.enabled = false;
+        lookAtPlayerBehavior.enabled = false;
+        shootPlayerBehavior.enabled = false;
+
+
+        PlayAnimationAndKill().Forget();
+    }
+
+    private async UniTaskVoid PlayAnimationAndKill()
+    {
+        enemyAnimation.OnDeath();
+
+        await enemyAnimation.WaitAnimationEnd(EnemyAnimation.Death, 0);
+
+        enemyHealth.Kill();
+    }
 }

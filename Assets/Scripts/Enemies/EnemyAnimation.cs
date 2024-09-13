@@ -1,17 +1,10 @@
 using UnityEngine;
 
-public class EnemyAnimation : MonoBehaviour
+public class EnemyAnimation : Animation
 {
     private static readonly int Velocity = Animator.StringToHash("Velocity");
     private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
-
-    #region Serialized Fields
-
-    [Header("Components")]
-    [SerializeField]
-    private Animator animator;
-
-    #endregion
+    public static readonly int Death = Animator.StringToHash("Death");
 
     private Vector3 lastPosition;
 
@@ -34,5 +27,10 @@ public class EnemyAnimation : MonoBehaviour
     public void SetIsAttacking(bool value)
     {
         animator.SetBool(IsAttacking, value);
+    }
+
+    public void OnDeath()
+    {
+        animator.SetTrigger(Death);
     }
 }
