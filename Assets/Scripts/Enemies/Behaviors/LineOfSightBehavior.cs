@@ -86,6 +86,16 @@ public class LineOfSightBehavior : MonoBehaviour
         DetectPlayer();
     }
 
+    private void OnEnable()
+    {
+        visualsMeshFilter.gameObject.SetActive(true);
+    }
+
+    private void OnDisable()
+    {
+        visualsMeshFilter.gameObject.SetActive(false);
+    }
+
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {

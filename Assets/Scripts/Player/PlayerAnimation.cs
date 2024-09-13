@@ -1,26 +1,26 @@
-﻿using Cysharp.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Player
 {
-    public class PlayerAnimation : MonoBehaviour
+    public class PlayerAnimation : Animation
     {
-        public static readonly int XAxisMovement = Animator.StringToHash("XAxis");
-        public static readonly int ZAxisMovement = Animator.StringToHash("ZAxis");
-        public static readonly int InputMagnitude = Animator.StringToHash("InputMagnitude");
-        public static readonly int VelocityMultiplier = Animator.StringToHash("VelocityMultiplier");
-        public static readonly int Falling = Animator.StringToHash("Falling");
-        public static readonly int Jumping = Animator.StringToHash("Jumping");
-        public static readonly int Dashing = Animator.StringToHash("Dashing");
-        public static readonly int Jump = Animator.StringToHash("Jump");
-        public static readonly int Dash = Animator.StringToHash("Dash");
+        private const int AttackTypesCount = 4;
+
+        private static readonly int XAxisMovement = Animator.StringToHash("XAxis");
+        private static readonly int ZAxisMovement = Animator.StringToHash("ZAxis");
+        private static readonly int InputMagnitude = Animator.StringToHash("InputMagnitude");
+        private static readonly int VelocityMultiplier = Animator.StringToHash("VelocityMultiplier");
+        private static readonly int AttackIndex = Animator.StringToHash("AttackIndex");
+        private static readonly int Falling = Animator.StringToHash("Falling");
+        private static readonly int Jumping = Animator.StringToHash("Jumping");
+        private static readonly int Dashing = Animator.StringToHash("Dashing");
+        private static readonly int Attacking = Animator.StringToHash("Attacking");
+        private static readonly int Jump = Animator.StringToHash("Jump");
+        private static readonly int Dash = Animator.StringToHash("Dash");
         public static readonly int Death = Animator.StringToHash("Death");
+        private static readonly int Attack = Animator.StringToHash("Attack");
 
         #region Serialized Fields
-
-        [Header("Components")]
-        [SerializeField]
-        private Animator animator;
 
         [SerializeField]
         private CharacterController characterController;
@@ -36,6 +36,8 @@ namespace Player
         private float blendingLerpSpeed = 5f;
 
         #endregion
+
+        private int attackIndex;
 
         private Vector3 lastPosition;
 
@@ -69,6 +71,7 @@ namespace Player
 
             if (!characterController.isGrounded)
             {
+                animator.SetBool(Attacking, false);
                 return;
             }
 
@@ -100,17 +103,12 @@ namespace Player
             animator.SetTrigger(Death);
         }
 
-        public async UniTask WaitAnimationEnd(int hash, int layer)
+        public void OnAttack()
         {
-            if (!animator.HasState(layer, hash))
-            {
-                return;
-            }
+            attackIndex = (attackIndex + 1) % AttackTypesCount;
 
-            await UniTask.WaitUntil(
-                () => !animator || animator.GetCurrentAnimatorStateInfo(layer).shortNameHash == hash);
-            await UniTask.WaitUntil(() =>
-                !animator || animator.GetCurrentAnimatorStateInfo(layer).normalizedTime >= 1f);
+            animator.SetTrigger(Attack);
+            animator.SetInteger(AttackIndex, attackIndex);
         }
     }
 }
