@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using Eflatun.SceneReference;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -9,9 +10,6 @@ public class ButtonExit : ButtonBehaviour
     #region Serialized Fields
 
     [SerializeField]
-    private MenuManager menuManager;
-
-    [SerializeField]
     private TMP_Text text;
 
     [SerializeField]
@@ -19,6 +17,9 @@ public class ButtonExit : ButtonBehaviour
 
     [SerializeField]
     private string inGameText = "Main Menu";
+
+    [SerializeField]
+    private SceneReference mainMenuScene;
 
     #endregion
 
@@ -61,11 +62,6 @@ public class ButtonExit : ButtonBehaviour
     /// <inheritdoc />
     protected override void OnClick()
     {
-        ProcessExitAsync().Forget();
-    }
-
-    private async UniTaskVoid ProcessExitAsync()
-    {
         if (activeScene == gameObject.scene)
         {
 #if UNITY_EDITOR
@@ -76,11 +72,7 @@ public class ButtonExit : ButtonBehaviour
         }
         else
         {
-            menuManager.SwitchToMenu(MenuManager.MenuType.Loader);
-
-            await SceneLoader.LoadScene(gameObject.scene.buildIndex);
-
-            menuManager.SwitchToMenu(MenuManager.MenuType.Main);
+            SceneLoader.LoadScene(mainMenuScene).Forget();
         }
     }
 }
