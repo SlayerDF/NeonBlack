@@ -412,7 +412,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6a5d5b14730f844abb1312b98b9d484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultSceneGroup: {fileID: 11400000, guid: 7de8995219409cb4c81e0d436b152b42, type: 2}
+  sceneGroups:
+  - mainScene:
+      asset: {fileID: 102900000, guid: 9fc0d4010bbf28b4594072e72b8655ab, type: 3}
+      guid: 9fc0d4010bbf28b4594072e72b8655ab
+    additionalScenes:
+    - asset: {fileID: 102900000, guid: 51b0e78ad7815c44099ce8ccb2ae291c, type: 3}
+      guid: 51b0e78ad7815c44099ce8ccb2ae291c
+  defaultScene:
+    asset: {fileID: 102900000, guid: 51b0e78ad7815c44099ce8ccb2ae291c, type: 3}
+    guid: 51b0e78ad7815c44099ce8ccb2ae291c
 --- !u!1 &2146813008
 GameObject:
   m_ObjectHideFlags: 0

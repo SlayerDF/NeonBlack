@@ -12,15 +12,12 @@ public class ButtonSceneLoader : ButtonBehaviour
     [SerializeField]
     private SceneReference scene;
 
-    [SerializeField]
-    private SceneGroup sceneGroup;
-
     #endregion
 
     /// <inheritdoc />
     protected override void OnClick()
     {
-        SceneLoader.LoadSceneGroup(sceneGroup).Forget();
+        SceneLoader.LoadScene(scene).Forget();
 
         mainMenuController.Unpause();
     }

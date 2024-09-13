@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Eflatun.SceneReference;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Object = UnityEngine.Object;
@@ -14,16 +15,23 @@ public static class SceneLoader
     private static GameObject _bootstrapSceneRoot;
     private static CancellationToken _ct;
 
-    public static async UniTask LoadSceneGroup(SceneGroup sceneGroup, bool reloadActiveScene = true)
+    private static readonly Dictionary<string, List<string>> AdditionalScenes = new();
+
+    public static async UniTask LoadScene(SceneReference mainScene, bool reloadMainScene = true)
     {
         ShowLoader();
         Time.timeScale = 0f;
 
-        var sceneCount = SceneManager.sceneCount;
-        var scenesToLoad = sceneGroup.Scenes.Select(x => x.Name).ToList();
-        var activeSceneName = sceneGroup.FindSceneNameByType(SceneGroup.SceneType.ActiveScene);
         var tasks = new List<UniTask>();
 
+        var scenesToLoad = new List<string> { mainScene.Name };
+
+        if (AdditionalScenes.TryGetValue(mainScene.Name, out var additionalScenes))
+        {
+            scenesToLoad.AddRange(additionalScenes);
+        }
+
+        var sceneCount = SceneManager.sceneCount;
         for (var i = 0; i < sceneCount; i++)
         {
             var scene = SceneManager.GetSceneAt(i);
@@ -35,8 +43,8 @@ public static class SceneLoader
 
             switch (scenesToLoad.Contains(scene.name))
             {
-                // Unload active scene if flag is active
-                case true when scene.name == activeSceneName && reloadActiveScene:
+                // Unload main scene if flag is active
+                case true when scene.name == mainScene.Name && reloadMainScene:
                 // Unload any scene that is not in the list except the bootstrap
                 case false when scene.name != BootstrapSceneName:
                     tasks.Add(SceneManager.UnloadSceneAsync(scene).ToUniTask(cancellationToken: _ct));
@@ -53,11 +61,10 @@ public static class SceneLoader
 
         await UniTask.WhenAll(tasks);
 
-        var activeScene = SceneManager.GetSceneByName(activeSceneName);
-        if (activeScene.IsValid())
+        if (mainScene.LoadedScene.IsValid())
         {
-            SceneManager.SetActiveScene(activeScene);
-            DisableInactiveAudioListeners(activeScene);
+            SceneManager.SetActiveScene(mainScene.LoadedScene);
+            DisableInactiveAudioListeners(mainScene.LoadedScene);
         }
 
         // Imitate loading
@@ -69,34 +76,18 @@ public static class SceneLoader
 
     public static async UniTask RestartLevel()
     {
-        ShowLoader();
+        var activeScene = SceneManager.GetActiveScene();
 
-        Time.timeScale = 0f;
-
-        var scene = SceneManager.GetActiveScene();
-        var sceneName = scene.name;
-
-        await UniTask.WhenAll(
-            SceneManager.UnloadSceneAsync(scene).ToUniTask(cancellationToken: _ct),
-            SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive).ToUniTask(cancellationToken: _ct));
-
-        SceneManager.SetActiveScene(SceneManager.GetSceneByName(sceneName));
-
-        // Imitate loading
-        await UniTask.WaitForSeconds(1f, true, cancellationToken: _ct);
-
-        Time.timeScale = 1f;
-
-        HideLoader();
+        await LoadScene(SceneReference.FromScenePath(activeScene.path));
     }
 
     [RuntimeInitializeOnLoadMethod]
     private static void OnGameStart()
     {
-        PreloadBoostrapScene().Forget();
+        LoadBoostrapScene().Forget();
     }
 
-    private static async UniTaskVoid PreloadBoostrapScene()
+    private static async UniTaskVoid LoadBoostrapScene()
     {
         if (!_bootstrapScene.IsValid())
         {
@@ -112,15 +103,23 @@ public static class SceneLoader
         _bootstrapSceneRoot = _bootstrapScene.GetRootGameObjects()[0];
         _ct = _bootstrapSceneRoot.GetCancellationTokenOnDestroy();
 
-        if (SceneManager.GetActiveScene() == _bootstrapScene)
-        {
-            var sceneGroup = _bootstrapSceneRoot.GetComponent<Bootstrapper>().DefaultSceneGroup;
+        var bootstrapper = _bootstrapSceneRoot.GetComponent<Bootstrapper>();
 
-            await LoadSceneGroup(sceneGroup);
+        for (var i = 0; i < bootstrapper.SceneGroups.Length; i++)
+        {
+            var group = bootstrapper.SceneGroups[i];
+            AdditionalScenes.Add(group.MainScene.Name, group.AdditionalScenes.Select(x => x.Name).ToList());
+        }
+
+        var activeScene = SceneManager.GetActiveScene();
+
+        if (activeScene == _bootstrapScene)
+        {
+            await LoadScene(bootstrapper.DefaultScene);
         }
         else
         {
-            _bootstrapSceneRoot.SetActive(false);
+            await LoadScene(SceneReference.FromScenePath(activeScene.path), false);
         }
     }
 

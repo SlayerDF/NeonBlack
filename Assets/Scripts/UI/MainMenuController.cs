@@ -21,6 +21,15 @@ public class MainMenuController : MonoBehaviour
         uiActions = new InputActions().UI;
     }
 
+    private void Start()
+    {
+        // Main menu was loaded as additional scene
+        if (SceneManager.GetActiveScene() != gameObject.scene)
+        {
+            Unpause();
+        }
+    }
+
     private void OnEnable()
     {
         uiActions.Enable();
