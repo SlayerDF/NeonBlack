@@ -10,27 +10,18 @@ public class ButtonSceneLoader : ButtonBehaviour
     private MainMenuController mainMenuController;
 
     [SerializeField]
-    private MenuManager menuManager;
+    private SceneReference scene;
 
     [SerializeField]
-    private SceneReference scene;
+    private SceneGroup sceneGroup;
 
     #endregion
 
     /// <inheritdoc />
     protected override void OnClick()
     {
-        ProcessSceneLoadingAsync().Forget();
-    }
-
-    private async UniTaskVoid ProcessSceneLoadingAsync()
-    {
-        menuManager.SwitchToMenu(MenuManager.MenuType.Loader);
-
-        await SceneLoader.LoadScene(scene.BuildIndex);
+        SceneLoader.LoadSceneGroup(sceneGroup).Forget();
 
         mainMenuController.Unpause();
-
-        menuManager.SwitchToMenu(MenuManager.MenuType.Main);
     }
 }
