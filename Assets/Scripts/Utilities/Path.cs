@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using Debug = System.Diagnostics.Debug;
@@ -9,9 +10,11 @@ public class Path : MonoBehaviour
     [SerializeField]
     private bool circular;
 
-    #endregion
+    #endregion Serialized Fields
 
     private Transform[] children;
+
+    public LinkedList<Vector3> PathPoints { get; private set; }
 
     #region Event Functions
 
@@ -21,9 +24,19 @@ public class Path : MonoBehaviour
         {
             InitializeChildren();
         }
+
+        if (children != null)
+        {
+            var points = new Vector3[children.Length];
+            for (int i = 0; i < children.Length; i++)
+            {
+                points[i] = children[i].position;
+            }
+            PathPoints = new LinkedList<Vector3>(points);
+        }
     }
 
-    #endregion
+    #endregion Event Functions
 
     private void InitializeChildren()
     {
