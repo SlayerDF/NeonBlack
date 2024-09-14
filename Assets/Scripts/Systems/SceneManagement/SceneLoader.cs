@@ -64,7 +64,8 @@ public static class SceneLoader
         if (mainScene.LoadedScene.IsValid())
         {
             SceneManager.SetActiveScene(mainScene.LoadedScene);
-            DisableInactiveAudioListeners(mainScene.LoadedScene);
+            DisableInactiveScenesObjects<AudioListener>(mainScene.LoadedScene);
+            DisableInactiveScenesObjects<Camera>(mainScene.LoadedScene);
         }
 
         // Imitate loading
@@ -133,13 +134,15 @@ public static class SceneLoader
         _bootstrapSceneRoot.SetActive(false);
     }
 
-    private static void DisableInactiveAudioListeners(Scene activeScene)
+    private static void DisableInactiveScenesObjects<T>(Scene activeScene) where T : Component
     {
-        var listeners = Object.FindObjectsOfType<AudioListener>();
+        var objects = Object.FindObjectsOfType<T>();
 
-        for (var i = 0; i < listeners.Length; ++i)
+        for (var i = 0; i < objects.Length; ++i)
         {
-            listeners[i].gameObject.SetActive(listeners[i].gameObject.scene == activeScene);
+            var gameObject = objects[i].gameObject;
+
+            gameObject.SetActive(gameObject.scene == activeScene);
         }
     }
 }
