@@ -41,7 +41,9 @@ public class Path : MonoBehaviour
         {
             InitializeChildren();
 
+#if UNITY_EDITOR
             Debug.Assert(children != null, nameof(children) + " != null");
+#endif
         }
 
         var waypoint = currentWaypoint ?? new Waypoint(Vector3.zero, false, -1);
@@ -114,7 +116,9 @@ public class Path : MonoBehaviour
             InitializeChildren();
         }
 
+#if UNITY_EDITOR
         Debug.Assert(children != null, nameof(children) + " != null");
+#endif
 
         for (var i = 0; i < children.Length; i++)
         {
