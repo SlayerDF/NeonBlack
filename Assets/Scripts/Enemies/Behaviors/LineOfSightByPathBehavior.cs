@@ -22,7 +22,7 @@ public class LineOfSightByPathBehavior : MonoBehaviour
     private Transform targetPointVisuals;
 
     [SerializeField]
-    private PlayerController player;
+    private Transform playerTransform;
 
     [SerializeField]
     private Path path;
@@ -60,9 +60,9 @@ public class LineOfSightByPathBehavior : MonoBehaviour
     private void FixedUpdate()
     {
         var d =
-            Mathf.Pow(player.transform.position.x - currentTargetPosition.x, 2) +
-            Mathf.Pow(player.transform.position.y - currentTargetPosition.y, 2) +
-            Mathf.Pow(player.transform.position.z - currentTargetPosition.z, 2);
+            Mathf.Pow(playerTransform.position.x - currentTargetPosition.x, 2) +
+            Mathf.Pow(playerTransform.position.y - currentTargetPosition.y, 2) +
+            Mathf.Pow(playerTransform.position.z - currentTargetPosition.z, 2);
 
         IsPlayerDetected = d < radiusSqr;
 

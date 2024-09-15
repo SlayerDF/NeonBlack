@@ -19008,6 +19008,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1260781478}
     - target: {fileID: 2244017990600756008, guid: ebabbe0c769d013438197b24853884db, type: 3}
+      propertyPath: playerTransform
+      value: 
+      objectReference: {fileID: 840759577}
+    - target: {fileID: 2244017990600756008, guid: ebabbe0c769d013438197b24853884db, type: 3}
       propertyPath: targetPointVisuals
       value: 
       objectReference: {fileID: 1624519537}
