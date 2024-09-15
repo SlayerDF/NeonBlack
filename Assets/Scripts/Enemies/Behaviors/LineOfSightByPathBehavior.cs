@@ -1,8 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using static Path;
 
 namespace Enemies.Behaviors
 {
@@ -15,38 +14,37 @@ namespace Enemies.Behaviors
         private float sphereRadius = 1.0f;
 
         [SerializeField]
+        private GameObject targetPointVisuals;
+
+        [SerializeField]
         private PlayerController player;
 
         /// <summary>
-        /// List of points to watch. Every point is a center of a sphere.
+        /// Path to go through.
         /// </summary>
-        public LinkedList<Vector3> PointsToWatch { get; set; }
+        public Path Path { get; set; }
 
         /// <summary>
         /// True if player is detected in the current moment.
         /// </summary>
         public bool IsPlayerDetected { get; private set; }
 
-        /// <summary>
-        /// Event is raised when all points on the path are passed (will not be raised if the path is looped).
-        /// </summary>
-        public event EventHandler WalkthroughCompleted;
-
         private float radiusSqr;
 
         private bool isActive;
 
-        private LinkedListNode<Vector3> currentPoint;
+        private Waypoint? currentPoint;
+
+        public Waypoint? CurrentPoint => currentPoint;
 
         private CancellationTokenSource cancellationTokenSource;
 
         /// <summary>
-        /// Start player watching process. Will go through all the points and check if player is detected.
+        /// Start player watching process. Will go through all the path points and check if player is detected.
         /// </summary>
-        /// <param name="loop">True to not stop after reaching the last point on the path.</param>
-        public void StartPlayerWatching(bool loop)
+        public void StartPlayerWatching()
         {
-            if (isActive || PointsToWatch?.Count == 0)
+            if (isActive || Path == null)
             {
                 return;
             }
@@ -55,21 +53,25 @@ namespace Enemies.Behaviors
 
             cancellationTokenSource?.Cancel();
             cancellationTokenSource = new CancellationTokenSource();
-            WalkThroughPointsAsync(PointsToWatch.First, loop, cancellationTokenSource.Token).Forget();
+            targetPointVisuals.SetActive(true);
+            WalkThroughPointsAsync(Path.NextWaypoint(), cancellationTokenSource.Token).Forget();
         }
 
         public void StopPlayerWatching()
         {
             isActive = false;
+            targetPointVisuals.SetActive(false);
             cancellationTokenSource?.Cancel();
             currentPoint = null;
         }
 
-        private async UniTask WalkThroughPointsAsync(LinkedListNode<Vector3> startPoint, bool loop, CancellationToken cancellationToken)
+        private async UniTask WalkThroughPointsAsync(Waypoint startPoint, CancellationToken cancellationToken)
         {
             currentPoint = startPoint;
-            while (currentPoint != null)
+            while (true)
             {
+                targetPointVisuals.transform.position = currentPoint.Value.Position;
+
                 await UniTask.WaitForSeconds(changePointTimeSec, cancellationToken: cancellationToken).SuppressCancellationThrow();
 
                 if (cancellationToken.IsCancellationRequested)
@@ -77,16 +79,7 @@ namespace Enemies.Behaviors
                     return;
                 }
 
-                currentPoint = currentPoint.Next;
-
-                if (currentPoint == null && loop)
-                {
-                    currentPoint = PointsToWatch.First;
-                }
-                else
-                {
-                    WalkthroughCompleted?.Invoke(this, EventArgs.Empty);
-                }
+                currentPoint = Path.NextWaypoint(currentPoint);
             }
         }
 
@@ -103,14 +96,11 @@ namespace Enemies.Behaviors
             }
 
             var d =
-                Mathf.Pow(player.transform.position.x - currentPoint.Value.x, 2) +
-                Mathf.Pow(player.transform.position.y - currentPoint.Value.y, 2) +
-                Mathf.Pow(player.transform.position.z - currentPoint.Value.z, 2);
+                Mathf.Pow(player.transform.position.x - currentPoint.Value.Position.x, 2) +
+                Mathf.Pow(player.transform.position.y - currentPoint.Value.Position.y, 2) +
+                Mathf.Pow(player.transform.position.z - currentPoint.Value.Position.z, 2);
 
-            if (d < radiusSqr)
-            {
-                IsPlayerDetected = true;
-            }
+            IsPlayerDetected = d < radiusSqr;
         }
 
         private void OnDrawGizmos()
@@ -121,7 +111,7 @@ namespace Enemies.Behaviors
             }
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(currentPoint.Value, sphereRadius);
+            Gizmos.DrawWireSphere(currentPoint.Value.Position, sphereRadius);
         }
 
         private void OnDestroy()

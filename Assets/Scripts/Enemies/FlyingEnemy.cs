@@ -11,10 +11,29 @@ namespace Enemies
         [SerializeField]
         private Path path;
 
+        [SerializeField]
+        private Transform losMeshTransform;
+
+        [SerializeField]
+        private float alertValue = 0.001f;
+
         private void Start()
         {
-            lineOfSightByPatternBehavior.PointsToWatch = path.PathPoints;
-            lineOfSightByPatternBehavior.StartPlayerWatching(true);
+            lineOfSightByPatternBehavior.Path = path;
+            lineOfSightByPatternBehavior.StartPlayerWatching();
+        }
+
+        private void FixedUpdate()
+        {
+            if (lineOfSightByPatternBehavior.CurrentPoint.HasValue)
+            {
+                losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentPoint.Value.Position);
+            }
+
+            if (lineOfSightByPatternBehavior.IsPlayerDetected)
+            {
+                LevelState.UpdateAlert(alertValue);
+            }
         }
     }
 }
