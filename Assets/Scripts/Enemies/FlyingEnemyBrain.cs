@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Enemies
 {
-    public class FlyingEnemy : MonoBehaviour
+    public class FlyingEnemyBrain : MonoBehaviour
     {
         [SerializeField]
         private LineOfSightByPathBehavior lineOfSightByPatternBehavior;
@@ -25,14 +25,14 @@ namespace Enemies
 
         private void FixedUpdate()
         {
-            if (lineOfSightByPatternBehavior.CurrentTargetPosition.HasValue)
+            if (lineOfSightByPatternBehavior.IsActive)
             {
-                losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentTargetPosition.Value);
+                losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentTargetPosition);
             }
 
             if (lineOfSightByPatternBehavior.IsPlayerDetected)
             {
-                LevelState.UpdateAlert(alertValue);
+                LevelState.UpdateAlert(alertValue * Time.fixedDeltaTime);
             }
         }
     }

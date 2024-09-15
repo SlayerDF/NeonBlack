@@ -176,7 +176,7 @@ MonoBehaviour:
   lineOfSightByPatternBehavior: {fileID: 2244017990600756008}
   path: {fileID: 0}
   losMeshTransform: {fileID: 6847257617624481392}
-  alertValue: 0.003
+  alertValue: 0.04
 --- !u!114 &2244017990600756008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changePointTimeSec: 5
+  walkingSpeed: 0.01
   sphereRadius: 4
   targetPointVisuals: {fileID: 7052291447076363990}
   player: {fileID: 0}
