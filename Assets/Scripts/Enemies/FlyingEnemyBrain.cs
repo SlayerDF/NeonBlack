@@ -3,7 +3,7 @@
 public class FlyingEnemyBrain : MonoBehaviour
 {
     [SerializeField]
-    private LineOfSightByPathBehavior lineOfSightByPatternBehavior;
+    private LineOfSightByPathBehavior lineOfSightByPathBehavior;
 
     [SerializeField]
     private Transform losMeshTransform;
@@ -13,9 +13,9 @@ public class FlyingEnemyBrain : MonoBehaviour
 
     private void FixedUpdate()
     {
-        losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentTargetPosition);
+        losMeshTransform.LookAt(lineOfSightByPathBehavior.CurrentTargetPosition);
 
-        if (lineOfSightByPatternBehavior.IsPlayerDetected)
+        if (lineOfSightByPathBehavior.IsPlayerDetected)
         {
             LevelState.UpdateAlert(alertValue * Time.fixedDeltaTime);
         }
