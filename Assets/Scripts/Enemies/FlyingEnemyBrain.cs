@@ -1,39 +1,23 @@
-﻿using Enemies.Behaviors;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Enemies
+public class FlyingEnemyBrain : MonoBehaviour
 {
-    public class FlyingEnemyBrain : MonoBehaviour
+    [SerializeField]
+    private LineOfSightByPathBehavior lineOfSightByPatternBehavior;
+
+    [SerializeField]
+    private Transform losMeshTransform;
+
+    [SerializeField]
+    private float alertValue = 0.001f;
+
+    private void FixedUpdate()
     {
-        [SerializeField]
-        private LineOfSightByPathBehavior lineOfSightByPatternBehavior;
+        losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentTargetPosition);
 
-        [SerializeField]
-        private Path path;
-
-        [SerializeField]
-        private Transform losMeshTransform;
-
-        [SerializeField]
-        private float alertValue = 0.001f;
-
-        private void Start()
+        if (lineOfSightByPatternBehavior.IsPlayerDetected)
         {
-            lineOfSightByPatternBehavior.Path = path;
-            lineOfSightByPatternBehavior.StartPlayerWatching();
-        }
-
-        private void FixedUpdate()
-        {
-            if (lineOfSightByPatternBehavior.IsActive)
-            {
-                losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentTargetPosition);
-            }
-
-            if (lineOfSightByPatternBehavior.IsPlayerDetected)
-            {
-                LevelState.UpdateAlert(alertValue * Time.fixedDeltaTime);
-            }
+            LevelState.UpdateAlert(alertValue * Time.fixedDeltaTime);
         }
     }
 }
