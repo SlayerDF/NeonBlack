@@ -33,9 +33,9 @@ namespace Enemies.Behaviors
 
         private bool isActive;
 
-        private Waypoint? currentPoint;
+        private Vector3? currentTargetPosition;
 
-        public Waypoint? CurrentPoint => currentPoint;
+        public Vector3? CurrentTargetPosition => currentTargetPosition;
 
         private CancellationTokenSource cancellationTokenSource;
 
@@ -62,24 +62,41 @@ namespace Enemies.Behaviors
             isActive = false;
             targetPointVisuals.SetActive(false);
             cancellationTokenSource?.Cancel();
-            currentPoint = null;
+            currentTargetPosition = null;
         }
 
         private async UniTask WalkThroughPointsAsync(Waypoint startPoint, CancellationToken cancellationToken)
         {
-            currentPoint = startPoint;
+            var currentWayPoint = startPoint;
             while (true)
             {
-                targetPointVisuals.transform.position = currentPoint.Value.Position;
-
-                await UniTask.WaitForSeconds(changePointTimeSec, cancellationToken: cancellationToken).SuppressCancellationThrow();
-
                 if (cancellationToken.IsCancellationRequested)
                 {
                     return;
                 }
 
-                currentPoint = Path.NextWaypoint(currentPoint);
+                var nextPoint = Path.NextWaypoint(currentWayPoint);
+
+                await WalkToNextPoint(currentWayPoint.Position, nextPoint.Position, 0.01f, cancellationToken);
+                await UniTask.WaitForSeconds(changePointTimeSec, cancellationToken: cancellationToken).SuppressCancellationThrow();
+
+                currentWayPoint = nextPoint;
+            }
+        }
+
+        private async UniTask WalkToNextPoint(Vector3 startPoint, Vector3 endPoint, float speed, CancellationToken cancellationToken)
+        {
+            var batchesCount = Mathf.RoundToInt(1 / speed);
+            for (int i = 0; i < batchesCount; i++)
+            {
+                currentTargetPosition = Vector3.Lerp(startPoint, endPoint, i * speed);
+                targetPointVisuals.transform.position = currentTargetPosition.Value;
+                await UniTask.NextFrame(PlayerLoopTiming.FixedUpdate, cancellationToken: cancellationToken).SuppressCancellationThrow();
+
+                if (cancellationToken.IsCancellationRequested)
+                {
+                    return;
+                }
             }
         }
 
@@ -90,32 +107,33 @@ namespace Enemies.Behaviors
 
         private void FixedUpdate()
         {
-            if (!isActive || currentPoint == null)
+            if (!isActive || !currentTargetPosition.HasValue)
             {
                 return;
             }
 
             var d =
-                Mathf.Pow(player.transform.position.x - currentPoint.Value.Position.x, 2) +
-                Mathf.Pow(player.transform.position.y - currentPoint.Value.Position.y, 2) +
-                Mathf.Pow(player.transform.position.z - currentPoint.Value.Position.z, 2);
+                Mathf.Pow(player.transform.position.x - currentTargetPosition.Value.x, 2) +
+                Mathf.Pow(player.transform.position.y - currentTargetPosition.Value.y, 2) +
+                Mathf.Pow(player.transform.position.z - currentTargetPosition.Value.z, 2);
 
             IsPlayerDetected = d < radiusSqr;
         }
 
         private void OnDrawGizmos()
         {
-            if (currentPoint == null)
+            if (!currentTargetPosition.HasValue)
             {
                 return;
             }
 
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(currentPoint.Value.Position, sphereRadius);
+            Gizmos.DrawWireSphere(currentTargetPosition.Value, sphereRadius);
         }
 
         private void OnDestroy()
         {
+            cancellationTokenSource?.Cancel();
             cancellationTokenSource?.Dispose();
         }
     }

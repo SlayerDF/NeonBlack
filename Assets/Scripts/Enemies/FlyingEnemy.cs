@@ -25,9 +25,9 @@ namespace Enemies
 
         private void FixedUpdate()
         {
-            if (lineOfSightByPatternBehavior.CurrentPoint.HasValue)
+            if (lineOfSightByPatternBehavior.CurrentTargetPosition.HasValue)
             {
-                losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentPoint.Value.Position);
+                losMeshTransform.LookAt(lineOfSightByPatternBehavior.CurrentTargetPosition.Value);
             }
 
             if (lineOfSightByPatternBehavior.IsPlayerDetected)
