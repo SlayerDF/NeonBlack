@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   changePointTimeSec: 5
-  walkingSpeed: 0.01
+  walkingSpeed: 0.6
   sphereRadius: 4
   targetPointVisuals: {fileID: 7052291447076363990}
   player: {fileID: 0}

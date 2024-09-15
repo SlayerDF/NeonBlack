@@ -91,8 +91,9 @@ namespace Enemies.Behaviors
             }
         }
 
-        private async UniTask WalkToNextPoint(Vector3 startPoint, Vector3 endPoint, float speed, CancellationToken cancellationToken)
+        private async UniTask WalkToNextPoint(Vector3 startPoint, Vector3 endPoint, float speedMultiplier, CancellationToken cancellationToken)
         {
+            var speed = speedMultiplier * Time.fixedDeltaTime;
             var batchesCount = Mathf.RoundToInt(1 / speed);
             for (int i = 0; i < batchesCount; i++)
             {
