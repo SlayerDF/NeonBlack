@@ -173,8 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1e57ea5ec12c04baf936af7ccde2f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineOfSightByPatternBehavior: {fileID: 2244017990600756008}
-  path: {fileID: 0}
+  lineOfSightByPathBehavior: {fileID: 2244017990600756008}
   losMeshTransform: {fileID: 6847257617624481392}
   alertValue: 0.04
 --- !u!114 &2244017990600756008
@@ -193,7 +192,8 @@ MonoBehaviour:
   walkingSpeed: 0.6
   sphereRadius: 4
   targetPointVisuals: {fileID: 7052291447076363990}
-  player: {fileID: 0}
+  playerTransform: {fileID: 0}
+  path: {fileID: 0}
 --- !u!1 &3918242210100704417
 GameObject:
   m_ObjectHideFlags: 0
