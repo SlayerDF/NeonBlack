@@ -10,12 +10,17 @@ public class EnemyAnimation : Animation
 
     #region Event Functions
 
-    private void FixedUpdate()
+    private void Update()
     {
+        if (Time.deltaTime <= 0)
+        {
+            return;
+        }
+
         var currentPosition = transform.position;
         currentPosition.y = 0f;
 
-        var velocity = Vector3.SqrMagnitude(currentPosition - lastPosition) / Time.fixedDeltaTime;
+        var velocity = Vector3.SqrMagnitude(currentPosition - lastPosition) / Time.deltaTime;
 
         lastPosition = currentPosition;
 

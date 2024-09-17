@@ -47,22 +47,27 @@ namespace Player
 
         #region Event Functions
 
-        private void FixedUpdate()
+        private void Update()
         {
+            if (Time.deltaTime <= 0)
+            {
+                return;
+            }
+
             var currentPosition = transform.position;
             currentPosition.y = 0f;
 
             var offset = currentPosition - lastPosition;
-            var currentVelocityMultiplier =
-                Mathf.Clamp(offset.magnitude / Time.fixedDeltaTime / normalVelocity, 1f, 10f);
             var moveDir = transform.InverseTransformDirection(offset.normalized);
+            var currentVelocityMultiplier =
+                Mathf.Clamp(offset.magnitude / Time.deltaTime / normalVelocity, 1f, 10f);
 
             lastPosition = currentPosition;
 
             velocityMultiplier =
-                Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.fixedDeltaTime);
-            xAxisMovement = Mathf.Lerp(xAxisMovement, moveDir.x, blendingLerpSpeed * Time.fixedDeltaTime);
-            zAxisMovement = Mathf.Lerp(zAxisMovement, moveDir.z, blendingLerpSpeed * Time.fixedDeltaTime);
+                Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.deltaTime);
+            xAxisMovement = Mathf.Lerp(xAxisMovement, moveDir.x, blendingLerpSpeed * Time.deltaTime);
+            zAxisMovement = Mathf.Lerp(zAxisMovement, moveDir.z, blendingLerpSpeed * Time.deltaTime);
 
             animator.SetFloat(VelocityMultiplier, velocityMultiplier);
             animator.SetFloat(XAxisMovement, xAxisMovement);
