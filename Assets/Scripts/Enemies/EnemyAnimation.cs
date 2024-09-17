@@ -12,7 +12,7 @@ public class EnemyAnimation : Animation
 
     private void Update()
     {
-        if (!(Time.deltaTime > 0))
+        if (Time.deltaTime <= 0)
         {
             return;
         }
