@@ -9,8 +9,8 @@ public class MenuManager : MonoBehaviour
     {
         Main,
         Controls,
-        Credits,
-        Loader
+        Options,
+        Credits
     }
 
     #endregion

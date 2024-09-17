@@ -116,9 +116,7 @@ public class Path : MonoBehaviour
             InitializeChildren();
         }
 
-#if UNITY_EDITOR
         Debug.Assert(children != null, nameof(children) + " != null");
-#endif
 
         for (var i = 0; i < children.Length; i++)
         {
@@ -127,11 +125,10 @@ public class Path : MonoBehaviour
             if (i < children.Length - 1)
             {
                 Handles.DrawLine(children[i].position, children[i + 1].position);
-
-                if (circular)
-                {
-                    Handles.DrawLine(children[i + 1].position, children[0].position);
-                }
+            }
+            else if (i == children.Length - 1 && circular)
+            {
+                Handles.DrawLine(children[i].position, children[0].position);
             }
         }
     }

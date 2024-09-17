@@ -28,6 +28,11 @@ public partial class PlayerInput : MonoBehaviour
 
     private void Update()
     {
+        if (!(Time.deltaTime > 0))
+        {
+            return;
+        }
+
         input = MovementEnabled ? actions.Move.ReadValue<Vector2>() : Vector2.zero;
 
         playerAnimation.SetInputMagnitude(input.SqrMagnitude());
