@@ -5,6 +5,9 @@ public class BossBrain : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField]
+    private LineOfSightByPathBehavior lineOfSightByPathBehavior;
+
+    [SerializeField]
     private BossEye leftEye;
 
     [SerializeField]
@@ -15,13 +18,25 @@ public class BossBrain : MonoBehaviour
 
     #endregion
 
-    private readonly bool canSeePlayer = true;
-
     #region Event Functions
 
-    private void Awake()
+    private void FixedUpdate()
     {
-        rightEye.Target = playerTransform;
+        // TODO: add events to the behavior to optimize it
+        if (lineOfSightByPathBehavior.IsPlayerDetected)
+        {
+            transform.forward = (playerTransform.position - transform.position).normalized.With(y: 0);
+
+            leftEye.SetTargetPosition(playerTransform.position, true);
+            rightEye.SetTargetPosition(playerTransform.position, true);
+        }
+        else
+        {
+            transform.forward = (lineOfSightByPathBehavior.CurrentTargetPosition - transform.position).normalized.With(y: 0);
+
+            leftEye.SetTargetPosition(lineOfSightByPathBehavior.CurrentTargetPosition);
+            rightEye.SetTargetPosition(lineOfSightByPathBehavior.CurrentTargetPosition);
+        }
     }
 
     #endregion

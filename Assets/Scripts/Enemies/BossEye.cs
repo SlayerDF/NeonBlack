@@ -26,7 +26,7 @@ public class BossEye : MonoBehaviour
     private float focusRadius;
 
     [SerializeField]
-    private float focusSpeed;
+    private float focusSpeed = 1f;
 
     [SerializeField]
     private Color focusColor;
@@ -39,13 +39,6 @@ public class BossEye : MonoBehaviour
 
     private Vector3 targetDirection;
 
-    [Header("Properties")]
-    private float updateTargetFrequency = 1f;
-
-    private float updateTargetTime;
-
-    public Transform Target { get; set; }
-
     #region Event Functions
 
     private void Update()
@@ -56,52 +49,19 @@ public class BossEye : MonoBehaviour
         spotlight.spotAngle = Mathf.Lerp(spotlight.spotAngle, spotAngle, focusSpeed * Time.deltaTime);
     }
 
-    private void FixedUpdate()
+    public void SetTargetPosition(Vector3 targetPosition, bool focus = false)
     {
-        if ((updateTargetTime += Time.fixedDeltaTime) < updateTargetFrequency)
-        {
-            return;
-        }
+        visuals.material.color = focus ? focusColor : defaultColor;
 
-        updateTargetTime = 0f;
-
-        UpdateTarget();
-    }
-
-    #endregion
-
-    private void UpdateTarget()
-    {
-        visuals.material.color = Target != null ? focusColor : defaultColor;
-
-        var distance = Target != null
-            ? Vector3.Distance(transform.position, Target.position)
+        var distance = focus
+            ? Vector3.Distance(transform.position, targetPosition)
             : defaultDistance;
 
-        targetDirection = Target != null ? Target.position - transform.position : Vector3.zero;
+        targetDirection = (targetPosition - transform.position).normalized;
         spotAngle = Mathf.Atan2(focusRadius, distance) * Mathf.Rad2Deg;
         spotRange = distance;
         scale = new Vector3(spotAngle * 0.5f, spotAngle * 0.5f, distance);
     }
 
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        if (!preview)
-        {
-            return;
-        }
-
-        Target = previewTarget;
-        Update();
-    }
-
-
-    [Header("Debug")]
-    [SerializeField]
-    private bool preview;
-
-    [SerializeField]
-    private Transform previewTarget;
-#endif
+    #endregion
 }
