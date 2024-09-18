@@ -21,6 +21,28 @@ public class PlayerController : MonoBehaviour
 
     public Transform VisibilityChecker => visibilityChecker;
 
+    #region Event Functions
+
+    private void OnEnable()
+    {
+        LevelState.AlertChanged += OnAlertChanged;
+    }
+
+    private void OnDisable()
+    {
+        LevelState.AlertChanged -= OnAlertChanged;
+    }
+
+    #endregion
+
+    private void OnAlertChanged(float value)
+    {
+        if (value >= 1)
+        {
+            Kill();
+        }
+    }
+
     public void Kill()
     {
         if (killed)
