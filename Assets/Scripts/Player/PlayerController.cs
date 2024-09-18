@@ -15,6 +15,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private Transform visibilityChecker;
 
+    [SerializeField]
+    private BossBrain bossBrain;
+
     #endregion
 
     private bool killed;
@@ -22,6 +25,11 @@ public class PlayerController : MonoBehaviour
     public Transform VisibilityChecker => visibilityChecker;
 
     #region Event Functions
+
+    private void FixedUpdate()
+    {
+        playerInput.DashEnabled = bossBrain.CurrentState != BossBrain.State.FollowPlayer;
+    }
 
     private void OnEnable()
     {

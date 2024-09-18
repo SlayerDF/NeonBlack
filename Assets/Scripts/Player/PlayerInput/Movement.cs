@@ -50,7 +50,7 @@ public partial class PlayerInput
 
     private void OnDash(InputAction.CallbackContext obj)
     {
-        if (!MovementEnabled || isDashing)
+        if (!MovementEnabled || !DashEnabled || isDashing)
         {
             return;
         }

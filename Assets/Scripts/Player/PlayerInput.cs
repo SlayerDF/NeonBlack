@@ -18,6 +18,7 @@ public partial class PlayerInput : MonoBehaviour
     private Vector2 input;
 
     public bool MovementEnabled { get; set; } = true;
+    public bool DashEnabled { get; set; } = true;
 
     #region Event Functions
 
