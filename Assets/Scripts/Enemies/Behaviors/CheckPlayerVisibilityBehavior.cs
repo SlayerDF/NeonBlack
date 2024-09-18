@@ -44,7 +44,7 @@ public class CheckPlayerVisibilityBehavior : MonoBehaviour
     {
         var direction = playerTransform.position - transform.position;
         var raycast = Physics.Raycast(transform.position, direction.normalized, out raycastHit,
-            direction.magnitude + 5f,
+            direction.magnitude,
             combinedLayer);
 
         return raycast && raycastHit.collider.gameObject.layer == playerLayer;
