@@ -8,17 +8,9 @@ public class CheckPlayerVisibilityBehavior : MonoBehaviour
     [SerializeField]
     private PlayerController player;
 
-    [SerializeField]
-    [SingleLayer]
-    private int playerLayer;
-
-    [SerializeField]
-    [SingleLayer]
-    private int obstacleLayer;
-
     #endregion
 
-    private int combinedLayer;
+    private readonly int raycastLayerMask = Layer.Player.ToMask() | Layer.Terrain.ToMask();
 
     private Transform playerTransform;
 
@@ -29,7 +21,6 @@ public class CheckPlayerVisibilityBehavior : MonoBehaviour
     private void Awake()
     {
         playerTransform = player.VisibilityChecker;
-        combinedLayer = (1 << playerLayer) | (1 << obstacleLayer);
     }
 
     #endregion
@@ -45,8 +36,8 @@ public class CheckPlayerVisibilityBehavior : MonoBehaviour
         var direction = playerTransform.position - transform.position;
         var raycast = Physics.Raycast(transform.position, direction.normalized, out raycastHit,
             direction.magnitude,
-            combinedLayer);
+            raycastLayerMask);
 
-        return raycast && raycastHit.collider.gameObject.layer == playerLayer;
+        return raycast && raycastHit.collider.gameObject.layer == (int)Layer.Player;
     }
 }
