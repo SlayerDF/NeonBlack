@@ -54,8 +54,6 @@ MonoBehaviour:
   focusRadius: 5
   focusSpeed: 5
   focusColor: {r: 1, g: 1, b: 1, a: 0.5019608}
-  preview: 0
-  previewTarget: {fileID: 0}
 --- !u!1 &1359192694377181038
 GameObject:
   m_ObjectHideFlags: 0
@@ -211,7 +209,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: a9781541b273ac24dac88be054dbaeba, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

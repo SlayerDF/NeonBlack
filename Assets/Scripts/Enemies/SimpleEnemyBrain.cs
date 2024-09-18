@@ -1,8 +1,9 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class TestEnemyBrain : MonoBehaviour
+public class SimpleEnemyBrain : MonoBehaviour
 {
     #region Serialized Fields
 
@@ -18,13 +19,17 @@ public class TestEnemyBrain : MonoBehaviour
     private LineOfSightBehavior lineOfSightBehavior;
 
     [SerializeField]
+    private CheckPlayerVisibilityBehavior checkPlayerVisibilityBehavior;
+
+    [SerializeField]
     private PatrolBehavior patrolBehavior;
 
     [SerializeField]
     private PlayerDetectionBehavior playerDetectionBehavior;
 
+    [FormerlySerializedAs("lookAtPlayerBehavior")]
     [SerializeField]
-    private LookAtPlayerBehavior lookAtPlayerBehavior;
+    private LookAtTargetBehavior lookAtTargetBehavior;
 
     [SerializeField]
     private ShootPlayerBehavior shootPlayerBehavior;
@@ -48,7 +53,7 @@ public class TestEnemyBrain : MonoBehaviour
 
     private void Awake()
     {
-        lookAtPlayerBehavior.enabled = false;
+        lookAtTargetBehavior.enabled = false;
         shootPlayerBehavior.enabled = false;
     }
 
@@ -66,7 +71,9 @@ public class TestEnemyBrain : MonoBehaviour
 
         thinkTimer = 0;
 
-        playerDetectionBehavior.CanSeePlayer = lineOfSightBehavior.HasTarget;
+
+        playerDetectionBehavior.CanSeePlayer =
+            lineOfSightBehavior.HasTarget && checkPlayerVisibilityBehavior.IsPlayerVisible();
         playerDetectionBehavior.DistanceToPlayerNormalized = lineOfSightBehavior.DistanceToPlayerNormalized;
 
         if (playerDetectionBehavior.PlayerIsDetected)
@@ -93,7 +100,7 @@ public class TestEnemyBrain : MonoBehaviour
 
     private void OnDetectedUpdate(float deltaTime)
     {
-        lookAtPlayerBehavior.enabled = true;
+        lookAtTargetBehavior.enabled = true;
         patrolBehavior.enabled = false;
 
         if (attackDelayTimer < attackDelay)
@@ -102,7 +109,7 @@ public class TestEnemyBrain : MonoBehaviour
         }
         else
         {
-            lookAtPlayerBehavior.enabled = false;
+            lookAtTargetBehavior.enabled = false;
             shootPlayerBehavior.enabled = true;
 
             enemyAnimation.SetIsAttacking(true);
@@ -115,7 +122,7 @@ public class TestEnemyBrain : MonoBehaviour
         enemyHealth.Invincible = false;
         attackDelayTimer = 0f;
 
-        lookAtPlayerBehavior.enabled = false;
+        lookAtTargetBehavior.enabled = false;
         shootPlayerBehavior.enabled = false;
         patrolBehavior.enabled = true;
 
@@ -127,7 +134,7 @@ public class TestEnemyBrain : MonoBehaviour
         lineOfSightBehavior.enabled = false;
         patrolBehavior.enabled = false;
         playerDetectionBehavior.enabled = false;
-        lookAtPlayerBehavior.enabled = false;
+        lookAtTargetBehavior.enabled = false;
         shootPlayerBehavior.enabled = false;
 
 

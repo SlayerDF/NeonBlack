@@ -2,22 +2,35 @@
 
 public class FlyingEnemyBrain : MonoBehaviour
 {
+    #region Serialized Fields
+
+    [Header("Components")]
+    [SerializeField]
+    private BossBrain bossBrain;
+
+    [Header("Behaviors")]
     [SerializeField]
     private LineOfSightByPathBehavior lineOfSightByPathBehavior;
 
     [SerializeField]
-    private Transform losMeshTransform;
+    private CheckPlayerVisibilityBehavior checkPlayerVisibilityBehavior;
 
-    [SerializeField]
-    private float alertValue = 0.001f;
+    #endregion
+
+    #region Event Functions
 
     private void FixedUpdate()
     {
-        losMeshTransform.LookAt(lineOfSightByPathBehavior.CurrentTargetPosition);
-
-        if (lineOfSightByPathBehavior.IsPlayerDetected)
+        if (lineOfSightByPathBehavior.IsPlayerDetected && checkPlayerVisibilityBehavior.IsPlayerVisible())
         {
-            LevelState.UpdateAlert(alertValue * Time.fixedDeltaTime);
+            NotifyBoss();
         }
+    }
+
+    #endregion
+
+    private void NotifyBoss()
+    {
+        bossBrain.Notify(lineOfSightByPathBehavior.TargetPoint.position);
     }
 }

@@ -222,6 +222,9 @@ PrefabInstance:
       addedObject: {fileID: 5213703120788505677}
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 3256046690734638319}
+    - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1712677700463417707}
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
@@ -312,9 +315,10 @@ MonoBehaviour:
   enemyAnimation: {fileID: 5129818278308910910}
   enemyHealth: {fileID: 9103663542848370163}
   lineOfSightBehavior: {fileID: 5213703120788505677}
+  checkPlayerVisibilityBehavior: {fileID: 3256046690734638319}
   patrolBehavior: {fileID: 1712677700463417707}
   playerDetectionBehavior: {fileID: 3200644549909085846}
-  lookAtPlayerBehavior: {fileID: 8509900191014966761}
+  lookAtTargetBehavior: {fileID: 8509900191014966761}
   shootPlayerBehavior: {fileID: 6797651973981472062}
   thinkFrequency: 0.1
   attackDelay: 1
@@ -340,6 +344,21 @@ MonoBehaviour:
   segments: 8
   showDetectorGizmo: 1
   previewVisualsMeshGeneration: 1
+--- !u!114 &3256046690734638319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874574221070285086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfc30eab0fd743259e4499a78c4a2827, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 0}
+  playerLayer: 3
+  obstacleLayer: 6
 --- !u!114 &1712677700463417707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -422,7 +441,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f69c059497d641638aa79a161342f978, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
+  target: {fileID: 0}
+  rotationSpeed: 30
+  lockPitch: 1
 --- !u!4 &6749831465609205864 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6624365279647454002, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}

@@ -1,7 +1,11 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class BossEye : MonoBehaviour
 {
+    private static readonly string EmissionName = "_EmissionColor";
+    private static readonly int Emission = Shader.PropertyToID(EmissionName);
+
     #region Serialized Fields
 
     [Header("Components")]
@@ -11,6 +15,10 @@ public class BossEye : MonoBehaviour
     [SerializeField]
     private Light spotlight;
 
+    [Header("Behaviors")]
+    [SerializeField]
+    private LookAtTargetBehavior lookAtTargetBehavior;
+
     [Header("Default behaviour")]
     [SerializeField]
     private float defaultRadius;
@@ -19,6 +27,7 @@ public class BossEye : MonoBehaviour
     private float defaultDistance;
 
     [SerializeField]
+    [ColorUsage(true, true)]
     private Color defaultColor;
 
     [Header("Focus behaviour")]
@@ -26,42 +35,97 @@ public class BossEye : MonoBehaviour
     private float focusRadius;
 
     [SerializeField]
-    private float focusSpeed = 1f;
-
-    [SerializeField]
+    [ColorUsage(true, true)]
     private Color focusColor;
 
     #endregion
+
+    private Color currentColor;
 
     private Vector3 scale;
     private float spotAngle;
     private float spotRange;
 
-    private Vector3 targetDirection;
+    [CanBeNull]
+    private Transform target;
+
+    private Color targetColor;
+
+    public float FocusSpeed { get; set; }
+
+    public bool IsFocused { get; set; }
+
+    [CanBeNull]
+    public Transform Target
+    {
+        get => target;
+        set
+        {
+            target = value;
+            lookAtTargetBehavior.Target = target;
+        }
+    }
 
     #region Event Functions
 
-    private void Update()
+    private void Awake()
     {
-        transform.forward = Vector3.Lerp(transform.forward, targetDirection, focusSpeed * Time.deltaTime);
-        transform.localScale = Vector3.Lerp(transform.localScale, scale, focusSpeed * Time.deltaTime);
-        spotlight.range = Mathf.Lerp(spotlight.range, spotRange, focusSpeed * Time.deltaTime);
-        spotlight.spotAngle = Mathf.Lerp(spotlight.spotAngle, spotAngle, focusSpeed * Time.deltaTime);
+        scale = transform.localScale;
+        spotRange = spotlight.range;
+        spotAngle = CalculateSpotAngle(defaultRadius, defaultDistance);
+        targetColor = visuals.material.color;
+
+        visuals.material.EnableKeyword(EmissionName);
     }
 
-    public void SetTargetPosition(Vector3 targetPosition, bool focus = false)
+    private void Update()
     {
-        visuals.material.color = focus ? focusColor : defaultColor;
+        transform.localScale = Vector3.MoveTowards(transform.localScale, scale, FocusSpeed * Time.deltaTime);
+        spotlight.range = Mathf.MoveTowards(spotlight.range, spotRange, FocusSpeed * Time.deltaTime);
+        spotlight.spotAngle = Mathf.MoveTowards(spotlight.spotAngle, spotAngle, FocusSpeed * Time.deltaTime);
 
-        var distance = focus
-            ? Vector3.Distance(transform.position, targetPosition)
+        currentColor = currentColor.MoveTowards(targetColor, FocusSpeed * Time.deltaTime);
+        visuals.material.color = currentColor;
+        visuals.material.SetColor(Emission, currentColor);
+    }
+
+    private void FixedUpdate()
+    {
+        var distance = IsFocused && target
+            ? Vector3.Distance(transform.position, target.position)
             : defaultDistance;
 
-        targetDirection = (targetPosition - transform.position).normalized;
-        spotAngle = Mathf.Atan2(focusRadius, distance) * Mathf.Rad2Deg;
+        var radius = IsFocused ? focusRadius : defaultRadius;
+        var diameter = radius * 2f;
+
+        // Spotlight should always reach actual distance
+        spotAngle = CalculateSpotAngle(radius, distance);
         spotRange = distance;
-        scale = new Vector3(spotAngle * 0.5f, spotAngle * 0.5f, distance);
+
+        // Visuals width and height should match the spotlight
+        scale = new Vector3(diameter, diameter, distance);
+
+        targetColor = IsFocused ? focusColor : defaultColor;
     }
 
     #endregion
+
+    public bool CanSeePoint(Vector3 point)
+    {
+        if (target == null)
+        {
+            return false;
+        }
+
+        var direction = point - transform.position;
+        var angle = Vector3.Angle(transform.forward, direction.normalized);
+        var testAngle = CalculateSpotAngle(IsFocused ? focusRadius : defaultRadius, direction.magnitude) * 0.5f;
+
+        return angle <= testAngle;
+    }
+
+    private static float CalculateSpotAngle(float radius, float distance)
+    {
+        return Mathf.Atan2(radius, distance) * Mathf.Rad2Deg * 2f;
+    }
 }

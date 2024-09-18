@@ -103,14 +103,23 @@ public class Path : MonoBehaviour
 
 #if UNITY_EDITOR
 
+    [Header("Debug")]
+    [SerializeField]
+    private bool alwaysShowGizmos;
+
     [ContextMenu("Reinitialize children")]
-    private void DoSomething()
+    private void ReinitializeChildren()
     {
         InitializeChildren();
     }
 
     private void OnDrawGizmos()
     {
+        if (!alwaysShowGizmos && Selection.activeObject != gameObject)
+        {
+            return;
+        }
+
         if (children == null)
         {
             InitializeChildren();

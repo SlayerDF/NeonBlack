@@ -9,17 +9,9 @@ public class LineOfSightByPathBehavior : MonoBehaviour
 {
     #region Serialized Fields
 
+    [Header("Components")]
     [SerializeField]
-    private float changePointTimeSec = 3.0f;
-
-    [SerializeField]
-    private float walkingSpeed = 0.01f;
-
-    [SerializeField]
-    private float sphereRadius = 1.0f;
-
-    [SerializeField]
-    private Transform targetPointVisuals;
+    private Transform targetPoint;
 
     [SerializeField]
     private Transform playerTransform;
@@ -27,22 +19,31 @@ public class LineOfSightByPathBehavior : MonoBehaviour
     [SerializeField]
     private Path path;
 
-    #endregion Serialized Fields
+    [Header("Properties")]
+    [SerializeField]
+    private float changePointTimeSec = 3.0f;
 
-    private Vector3 currentTargetPosition;
+    [SerializeField]
+    private float walkingSpeed = 5f;
+
+    [SerializeField]
+    private float sphereRadius = 1.0f;
+
+    #endregion
+
+    private Waypoint currentWaypoint;
+
     private float radiusSqr;
 
     private bool waiting;
     private float waitTimer;
-
-    private Waypoint currentWaypoint;
 
     /// <summary>
     /// True if player is detected in the current moment.
     /// </summary>
     public bool IsPlayerDetected { get; private set; }
 
-    public Vector3 CurrentTargetPosition => currentTargetPosition;
+    public Transform TargetPoint => targetPoint;
 
     #region Event Functions
 
@@ -54,21 +55,25 @@ public class LineOfSightByPathBehavior : MonoBehaviour
     private void Start()
     {
         currentWaypoint = path.NextWaypoint();
-        SetTargetPosition(currentWaypoint.Position);
+        targetPoint.position = currentWaypoint.Position;
     }
 
     private void FixedUpdate()
     {
+        // Go the next path point smoothly.
+        targetPoint.position = Vector3.MoveTowards(targetPoint.position, currentWaypoint.Position,
+            walkingSpeed * Time.fixedDeltaTime);
+
         var d =
-            Mathf.Pow(playerTransform.position.x - currentTargetPosition.x, 2) +
-            Mathf.Pow(playerTransform.position.y - currentTargetPosition.y, 2) +
-            Mathf.Pow(playerTransform.position.z - currentTargetPosition.z, 2);
+            Mathf.Pow(playerTransform.position.x - targetPoint.position.x, 2) +
+            Mathf.Pow(playerTransform.position.y - targetPoint.position.y, 2) +
+            Mathf.Pow(playerTransform.position.z - targetPoint.position.z, 2);
 
         IsPlayerDetected = d < radiusSqr;
 
+        // Wait on the path point for some time.
         if (waiting)
         {
-            // Wait on the path point for some time.
             if (waitTimer < changePointTimeSec)
             {
                 waitTimer += Time.fixedDeltaTime;
@@ -81,47 +86,35 @@ public class LineOfSightByPathBehavior : MonoBehaviour
             // Go to the next point.
             currentWaypoint = path.NextWaypoint(currentWaypoint);
         }
-        else if (Vector3.SqrMagnitude(currentTargetPosition - currentWaypoint.Position) < 0.1f) // Check if we arrived to the next path point.
+        // Check if we arrived to the next path point.
+        else if (Vector3.SqrMagnitude(targetPoint.position - currentWaypoint.Position) < 0.1f)
         {
             waiting = true;
-            return;
         }
-
-        // Go the next path point smoothly.
-        SetTargetPosition(Vector3.Lerp(currentTargetPosition, currentWaypoint.Position, walkingSpeed * Time.fixedDeltaTime));
     }
 
     private void OnEnable()
     {
-        if (targetPointVisuals != null)
-        {
-            targetPointVisuals.gameObject.SetActive(true);
-        }
+        targetPoint.gameObject.SetActive(true);
     }
 
     private void OnDisable()
     {
-        if (targetPointVisuals != null)
-        {
-            targetPointVisuals.gameObject.SetActive(false);
-        }
+        targetPoint.gameObject.SetActive(false);
     }
 
+#if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(currentTargetPosition, sphereRadius);
-    }
-
-    #endregion Event Functions
-
-    private void SetTargetPosition(Vector3 position)
-    {
-        currentTargetPosition = position;
-
-        if (targetPointVisuals != null)
+        if (!targetPoint)
         {
-            targetPointVisuals.position = currentTargetPosition;
+            return;
         }
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(targetPoint.position, sphereRadius);
     }
+#endif
+
+    #endregion
 }

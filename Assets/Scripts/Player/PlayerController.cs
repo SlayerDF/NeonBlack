@@ -12,9 +12,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private PlayerAnimation playerAnimation;
 
+    [SerializeField]
+    private Transform visibilityChecker;
+
     #endregion
 
     private bool killed;
+
+    public Transform VisibilityChecker => visibilityChecker;
 
     public void Kill()
     {
