@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SimpleEnemyProjectile : Projectile
 {
@@ -18,9 +19,16 @@ public class SimpleEnemyProjectile : Projectile
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerController player))
+        switch ((Layer)other.gameObject.layer)
         {
-            player.Kill();
+            case Layer.Terrain:
+                PoolManager.Despawn(this);
+                break;
+            case Layer.Player when other.TryGetComponent(out PlayerController player):
+                player.Kill();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
