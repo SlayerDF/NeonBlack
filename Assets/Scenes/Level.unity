@@ -725,6 +725,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: -0.13158926
       objectReference: {fileID: 0}
+    - target: {fileID: 5636212403040135967, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: bossBrain
+      value: 
+      objectReference: {fileID: 1753127799}
     - target: {fileID: 5786838934158267249, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.9887001
