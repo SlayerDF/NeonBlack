@@ -4,6 +4,7 @@ public class EnemyAnimation : Animation
 {
     private static readonly int Velocity = Animator.StringToHash("Velocity");
     private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
+    private static readonly int IsNotifyingBoss = Animator.StringToHash("IsNotifyingBoss");
     public static readonly int Death = Animator.StringToHash("Death");
 
     private Vector3 lastPosition;
@@ -32,6 +33,11 @@ public class EnemyAnimation : Animation
     public void SetIsAttacking(bool value)
     {
         animator.SetBool(IsAttacking, value);
+    }
+
+    public void SetIsNotifyingBoss(bool value)
+    {
+        animator.SetBool(IsNotifyingBoss, value);
     }
 
     public void OnDeath()

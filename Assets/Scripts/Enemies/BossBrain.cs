@@ -1,8 +1,20 @@
-using System;
+using System.ComponentModel;
 using UnityEngine;
 
 public class BossBrain : MonoBehaviour
 {
+    #region State enum
+
+    public enum State
+    {
+        ObserveLevel,
+        FollowPlayer,
+        LostPlayer,
+        Notified
+    }
+
+    #endregion
+
     #region Serialized Fields
 
     [Header("Components")]
@@ -42,9 +54,9 @@ public class BossBrain : MonoBehaviour
 
     private Vector3 notifiedPosition;
 
-    private State state;
-
     private float waitTimer;
+
+    public State CurrentState { get; private set; }
 
     #region Event Functions
 
@@ -61,7 +73,7 @@ public class BossBrain : MonoBehaviour
 
     private void FixedUpdate()
     {
-        switch (state)
+        switch (CurrentState)
         {
             case State.ObserveLevel:
                 HandleObserveLevelState(Time.fixedDeltaTime);
@@ -76,7 +88,7 @@ public class BossBrain : MonoBehaviour
                 HandleNotifiedState(Time.fixedDeltaTime);
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new InvalidEnumArgumentException(nameof(CurrentState), (int)CurrentState, typeof(State));
         }
     }
 
@@ -150,7 +162,7 @@ public class BossBrain : MonoBehaviour
 
     private void SwitchState(State newState, bool force = false)
     {
-        if (state == newState && !force)
+        if (CurrentState == newState && !force)
         {
             return;
         }
@@ -197,10 +209,10 @@ public class BossBrain : MonoBehaviour
                 waitTimer = 0f;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+                throw new InvalidEnumArgumentException(nameof(newState), (int)newState, typeof(State));
         }
 
-        state = newState;
+        CurrentState = newState;
     }
 
     private void Focus()
@@ -226,16 +238,4 @@ public class BossBrain : MonoBehaviour
     {
         return leftEye.CanSeePoint(playerTransform.position) || rightEye.CanSeePoint(playerTransform.position);
     }
-
-    #region Nested type: ${0}
-
-    private enum State
-    {
-        ObserveLevel,
-        FollowPlayer,
-        LostPlayer,
-        Notified
-    }
-
-    #endregion
 }
