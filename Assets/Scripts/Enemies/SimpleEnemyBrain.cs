@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -93,7 +93,7 @@ public class SimpleEnemyBrain : MonoBehaviour
             case State.Death:
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new InvalidEnumArgumentException(nameof(state), (int)state, typeof(State));
         }
     }
 
@@ -187,7 +187,7 @@ public class SimpleEnemyBrain : MonoBehaviour
             case State.Death:
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new InvalidEnumArgumentException(nameof(state), (int)state, typeof(State));
         }
 
         // On Enter State
@@ -257,7 +257,7 @@ public class SimpleEnemyBrain : MonoBehaviour
 
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+                throw new InvalidEnumArgumentException(nameof(newState), (int)newState, typeof(State));
         }
 
         state = newState;

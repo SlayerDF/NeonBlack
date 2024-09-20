@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.ComponentModel;
 using UnityEngine;
 
 public class SimpleEnemyProjectile : Projectile
@@ -19,7 +19,9 @@ public class SimpleEnemyProjectile : Projectile
 
     private void OnTriggerEnter(Collider other)
     {
-        switch ((Layer)other.gameObject.layer)
+        var layer = (Layer)other.gameObject.layer;
+
+        switch (layer)
         {
             case Layer.Terrain:
                 PoolManager.Despawn(this);
@@ -28,7 +30,7 @@ public class SimpleEnemyProjectile : Projectile
                 player.Kill();
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new InvalidEnumArgumentException(nameof(layer), (int)layer, typeof(Layer));
         }
     }
 

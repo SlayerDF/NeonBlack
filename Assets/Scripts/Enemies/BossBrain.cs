@@ -1,4 +1,4 @@
-using System;
+using System.ComponentModel;
 using UnityEngine;
 
 public class BossBrain : MonoBehaviour
@@ -88,7 +88,7 @@ public class BossBrain : MonoBehaviour
                 HandleNotifiedState(Time.fixedDeltaTime);
                 break;
             default:
-                throw new ArgumentOutOfRangeException();
+                throw new InvalidEnumArgumentException(nameof(CurrentState), (int)CurrentState, typeof(State));
         }
     }
 
@@ -209,7 +209,7 @@ public class BossBrain : MonoBehaviour
                 waitTimer = 0f;
                 break;
             default:
-                throw new ArgumentOutOfRangeException(nameof(newState), newState, null);
+                throw new InvalidEnumArgumentException(nameof(newState), (int)newState, typeof(State));
         }
 
         CurrentState = newState;
