@@ -29,10 +29,7 @@ public class LookAtTargetBehavior : MonoBehaviour
 
     private void Start()
     {
-        if (target)
-        {
-            SetInitialRotation().Forget();
-        }
+        SetInitialRotation().Forget();
     }
 
     private void Update()
@@ -52,9 +49,12 @@ public class LookAtTargetBehavior : MonoBehaviour
 
     private async UniTaskVoid SetInitialRotation()
     {
-        await UniTask.Yield(PlayerLoopTiming.LastPostLateUpdate);
+        await UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
 
-        transform.rotation = Quaternion.LookRotation(LookDirection(target));
+        if (target)
+        {
+            transform.rotation = Quaternion.LookRotation(LookDirection(target));
+        }
     }
 
     private Vector3 LookDirection(Transform lookTarget)
