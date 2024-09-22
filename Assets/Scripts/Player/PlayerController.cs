@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour
 {
     #region Serialized Fields
 
+    [Header("Components")]
     [SerializeField]
     private PlayerInput playerInput;
 
@@ -18,17 +19,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private BossBrain bossBrain;
 
+    [Header("Properties")]
+    [SerializeField]
+    private float bossStateDebounceTime = 0.5f;
+
     #endregion
 
+    private DebouncedValue<BossBrain.State> bossStateDebounce;
     private bool killed;
 
     public Transform VisibilityChecker => visibilityChecker;
 
     #region Event Functions
 
+    private void Awake()
+    {
+        bossStateDebounce = new DebouncedValue<BossBrain.State>(() => bossBrain.CurrentState,
+            OnBossStateDebouncedChanged, bossStateDebounceTime);
+    }
+
     private void FixedUpdate()
     {
-        playerInput.DashEnabled = bossBrain.CurrentState != BossBrain.State.FollowPlayer;
+        bossStateDebounce.Update(Time.fixedDeltaTime);
     }
 
     private void OnEnable()
@@ -42,6 +54,14 @@ public class PlayerController : MonoBehaviour
     }
 
     #endregion
+
+    private void OnBossStateDebouncedChanged(BossBrain.State state)
+    {
+        var followsPlayer = state == BossBrain.State.FollowPlayer;
+
+        playerInput.DashEnabled = !followsPlayer;
+        PlayerAudio.NotifyDanger(followsPlayer);
+    }
 
     private void OnAlertChanged(float value)
     {

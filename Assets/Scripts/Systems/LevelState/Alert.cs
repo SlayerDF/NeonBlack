@@ -17,8 +17,8 @@ public partial class LevelState
 
     private float alert;
 
-    public static float CooldownPoint => _instance.cooldownPoint;
-    public static float Alert => _instance.alert;
+    public static float CooldownPoint => Instance.cooldownPoint;
+    public static float Alert => Instance.alert;
 
     private void AwakeAlert()
     {
@@ -39,8 +39,8 @@ public partial class LevelState
 
     public static void UpdateAlert(float diff)
     {
-        _instance.alert = Mathf.Clamp(_instance.alert + diff, 0f, 1f);
+        Instance.alert = Mathf.Clamp(Instance.alert + diff, 0f, 1f);
 
-        AlertChanged?.Invoke(_instance.alert);
+        AlertChanged?.Invoke(Instance.alert);
     }
 }

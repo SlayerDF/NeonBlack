@@ -802,8 +802,8 @@ RectTransform:
   m_Children:
   - {fileID: 269982213}
   - {fileID: 1486606820}
-  - {fileID: 914420726}
   - {fileID: 123247808}
+  - {fileID: 914420726}
   - {fileID: 671878471}
   m_Father: {fileID: 652337167}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -832,7 +832,7 @@ MonoBehaviour:
   - type: 2
     transform: {fileID: 123247808}
   - type: 3
-    transform: {fileID: 671878471}
+    transform: {fileID: 914420726}
 --- !u!1 &481189795 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373805033477565956, guid: 3f4d55c1c3b15154799f430d600f5ae0, type: 3}
@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuManager: {fileID: 418916305}
-  menuType: 2
+  menuType: 3
 --- !u!1 &502510546 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1373805033477565956, guid: 3f4d55c1c3b15154799f430d600f5ae0, type: 3}

@@ -64,6 +64,8 @@ public class MainMenuController : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
         mainMenuRoot.gameObject.SetActive(true);
         paused = true;
     }
@@ -71,6 +73,8 @@ public class MainMenuController : MonoBehaviour
     public void Unpause()
     {
         Time.timeScale = 1f;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         mainMenuRoot.gameObject.SetActive(false);
         paused = false;
     }

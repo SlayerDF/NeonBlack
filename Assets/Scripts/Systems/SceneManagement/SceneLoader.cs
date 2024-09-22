@@ -19,6 +19,8 @@ public static class SceneLoader
 
     public static async UniTask LoadScene(SceneReference mainScene, bool reloadMainScene = true)
     {
+        AudioManager.StopAll();
+
         ShowLoader();
         Time.timeScale = 0f;
 
@@ -85,10 +87,10 @@ public static class SceneLoader
     [RuntimeInitializeOnLoadMethod]
     private static void OnGameStart()
     {
-        LoadBoostrapScene().Forget();
+        LoadBootstrapScene().Forget();
     }
 
-    private static async UniTaskVoid LoadBoostrapScene()
+    private static async UniTaskVoid LoadBootstrapScene()
     {
         if (!_bootstrapScene.IsValid())
         {
@@ -101,10 +103,9 @@ public static class SceneLoader
             return;
         }
 
-        _bootstrapSceneRoot = _bootstrapScene.GetRootGameObjects()[0];
+        var bootstrapper = Object.FindObjectOfType<Bootstrapper>();
+        _bootstrapSceneRoot = bootstrapper.gameObject;
         _ct = _bootstrapSceneRoot.GetCancellationTokenOnDestroy();
-
-        var bootstrapper = _bootstrapSceneRoot.GetComponent<Bootstrapper>();
 
         for (var i = 0; i < bootstrapper.SceneGroups.Length; i++)
         {
