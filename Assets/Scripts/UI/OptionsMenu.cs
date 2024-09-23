@@ -14,6 +14,12 @@ public class OptionsMenu : MonoBehaviour
     [SerializeField]
     private TMP_Text framerateText;
 
+    [SerializeField]
+    private Slider mouseSensitivitySlider;
+
+    [SerializeField]
+    private TMP_Text mouseSensitivityText;
+
     #endregion
 
     private CancellationTokenSource saveTaskCts;
@@ -22,17 +28,22 @@ public class OptionsMenu : MonoBehaviour
 
     private void Start()
     {
-        framerateSlider.value = PlayerPrefs.GetInt("FPS", 60);
+        framerateSlider.value = Settings.Framerate;
+        mouseSensitivitySlider.value = Settings.MouseSensitivity;
     }
 
     private void OnEnable()
     {
         framerateSlider.onValueChanged.AddListener(UpdateFramerate);
+        mouseSensitivitySlider.onValueChanged.AddListener(UpdateMouseSensitivity);
     }
 
     private void OnDisable()
     {
         framerateSlider.onValueChanged.RemoveListener(UpdateFramerate);
+        mouseSensitivitySlider.onValueChanged.RemoveListener(UpdateMouseSensitivity);
+
+        Settings.Save();
     }
 
     #endregion
@@ -41,8 +52,16 @@ public class OptionsMenu : MonoBehaviour
     {
         var intValue = (int)value;
 
-        Application.targetFrameRate = intValue;
+        Settings.Framerate = intValue;
         framerateText.text = intValue.ToString();
+
+        SaveSettings().Forget();
+    }
+
+    private void UpdateMouseSensitivity(float value)
+    {
+        Settings.MouseSensitivity = value;
+        mouseSensitivityText.text = value.ToString("F2");
 
         SaveSettings().Forget();
     }
