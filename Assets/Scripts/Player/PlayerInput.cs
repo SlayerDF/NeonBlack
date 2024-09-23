@@ -27,6 +27,11 @@ public partial class PlayerInput : MonoBehaviour
         actions = new InputActions().Player;
     }
 
+    private void Start()
+    {
+        StartCamera();
+    }
+
     private void Update()
     {
         if (Time.deltaTime <= 0)
@@ -66,6 +71,7 @@ public partial class PlayerInput : MonoBehaviour
         actions.Attack.canceled += OnAttackCanceled;
 
         OnEnableAttack();
+        OnEnableCamera();
     }
 
     private void OnDisable()
@@ -78,6 +84,7 @@ public partial class PlayerInput : MonoBehaviour
         actions.Attack.canceled -= OnAttackCanceled;
 
         OnDisableAttack();
+        OnDisableCamera();
     }
 
     #endregion

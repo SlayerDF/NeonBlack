@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &580388446194673999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 987226908484997205}
+  m_Layer: 3
+  m_Name: CameraTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &987226908484997205
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580388446194673999}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.675, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6624365279647454002}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4041646180691139510
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,6 +135,7 @@ Transform:
   m_Children:
   - {fileID: 7623018849785011505}
   - {fileID: 8928832914431629917}
+  - {fileID: 987226908484997205}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &3872691918901733252
@@ -170,6 +202,8 @@ MonoBehaviour:
   playerInput: {fileID: 2994181435992066486}
   playerAnimation: {fileID: 5465987589290789533}
   visibilityChecker: {fileID: 8928832914431629917}
+  bossBrain: {fileID: 0}
+  bossStateDebounceTime: 0.5
 --- !u!114 &2994181435992066486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,10 +222,15 @@ MonoBehaviour:
   attackFrame: 0.5
   attackCollider: {fileID: 6995467787798607688}
   playerCamera: {fileID: 0}
-  minMaxCameraYaw: {x: 5, y: 90}
-  minMaxCameraDistance: {x: 2, y: 5}
-  cameraHeight: 2
+  cameraTarget: {fileID: 987226908484997205}
+  minMaxCameraPitch: {x: -50, y: 70}
+  minMaxCameraZoom: {x: 2, y: 5}
   cameraZoomStep: 0.2
+  cameraCollisionMask:
+    serializedVersion: 2
+    m_Bits: 200
+  cameraCollisionRadius: 0.4
+  cameraMinObstacleDistance: 0.1
   maxSpeed: {x: 30, y: 30}
   naturalDeceleration: {x: 1, y: 9.8}
   moveSpeed: 5
@@ -384,6 +423,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: -4706228988682842286, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4501530691011011137, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
       propertyPath: m_Layer
       value: 3
@@ -415,6 +458,10 @@ PrefabInstance:
     - target: {fileID: -3090848061168836670, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -3090848061168836670, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -3086436065929644917, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
       propertyPath: m_Layer
@@ -480,9 +527,17 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1082271958561512970, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1082271958561512970, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1339101018200438765, guid: 9b7e2082b86856a4db3db1f1bdc004e7, type: 3}
       propertyPath: m_Layer
