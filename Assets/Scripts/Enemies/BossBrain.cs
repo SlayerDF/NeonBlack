@@ -260,11 +260,11 @@ public class BossBrain : MonoBehaviour
     {
         if (value)
         {
-            AudioManager.Play(AudioManager.BossNotificationsSource, AudioManager.DangerClip, true);
+            AudioManager.Play(AudioManager.BossNotifications, AudioManager.DangerClip, true);
         }
         else
         {
-            AudioManager.Stop(AudioManager.BossNotificationsSource, AudioManager.DangerClip);
+            AudioManager.Stop(AudioManager.BossNotifications, AudioManager.DangerClip);
         }
     }
 

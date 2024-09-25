@@ -217,7 +217,7 @@ public class SimpleEnemyBrain : MonoBehaviour
                 // Player is already detected so the detection rate must be maxed 
                 playerDetectionBehavior.DistanceToPlayerNormalized = 0f;
 
-                AudioManager.Play(AudioManager.EnemiesNotificationsSource, AudioManager.EnemyAlertedClip);
+                AudioManager.Play(AudioManager.EnemiesNotifications, AudioManager.EnemyAlertedClip);
 
                 break;
             case State.Attack:

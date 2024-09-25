@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Systems.AudioManagement
 {
-    public class AudioManager : SceneSingleton<AudioManager>
+    public partial class AudioManager : SceneSingleton<AudioManager>
     {
         #region Serialized Fields
 
@@ -12,31 +12,7 @@ namespace Systems.AudioManagement
         [SerializeField]
         private float fadeSpeed = 2f;
 
-        [Header("Sources")]
-        [SerializeField]
-        private AudioSource bossNotificationsSource;
-
-        [SerializeField]
-        private AudioSource enemiesNotificationsSource;
-
-        [Header("Clips")]
-        [SerializeField]
-        private AudioClip dangerClip;
-
-        [SerializeField]
-        private AudioClip enemyAlertedClip;
-
         #endregion
-
-        private AudioSourceContainer[] audioSourceContainers;
-
-        // Sources
-        public static AudioSourceContainer BossNotificationsSource { get; private set; }
-        public static AudioSourceContainer EnemiesNotificationsSource { get; private set; }
-
-        // Clips
-        public static AudioClip DangerClip => Instance.dangerClip;
-        public static AudioClip EnemyAlertedClip => Instance.enemyAlertedClip;
 
         #region Event Functions
 
@@ -44,47 +20,25 @@ namespace Systems.AudioManagement
         {
             base.Awake();
 
-            audioSourceContainers = new[]
-            {
-                BossNotificationsSource = new AudioSourceContainer(Instance.bossNotificationsSource),
-                EnemiesNotificationsSource = new AudioSourceContainer(Instance.enemiesNotificationsSource)
-            };
-        }
-
-        protected override void OnDestroy()
-        {
-            for (var i = 0; i < Instance.audioSourceContainers.Length; i++)
-            {
-                Instance.audioSourceContainers[i].Dispose();
-            }
-
-            base.OnDestroy();
+            ConfigureSources();
         }
 
         #endregion
 
-        public static void Play(AudioSourceContainer cont, AudioClip clip, bool loop = false)
+        public static void Play(NonSpatialAudio audio, AudioClip clip, bool loop = false)
         {
-            if (cont.Source.clip == clip && (cont.State == AudioSourceContainer.PrepareState.Starting ||
-                                             (cont.State == AudioSourceContainer.PrepareState.Finished &&
-                                              cont.Source.isPlaying)))
+            if (audio.Source.clip != clip || audio.ReadyToStart)
             {
-                return;
+                Instance.PlayAsync(audio, clip, loop).Forget();
             }
-
-            Instance.PlayAsync(cont, clip, loop).Forget();
         }
 
-        public static void Stop(AudioSourceContainer cont, AudioClip clip)
+        public static void Stop(NonSpatialAudio audio, AudioClip clip)
         {
-            if (cont.Source.clip != clip ||
-                cont.State == AudioSourceContainer.PrepareState.Stopping ||
-                (cont.State == AudioSourceContainer.PrepareState.Finished && !cont.Source.isPlaying))
+            if (audio.Source.clip == clip && audio.ReadyToStop)
             {
-                return;
+                Instance.StopAsync(audio).Forget();
             }
-
-            Instance.StopAsync(cont).Forget();
         }
 
         public static void PauseAll()
@@ -94,9 +48,9 @@ namespace Systems.AudioManagement
                 return;
             }
 
-            for (var i = 0; i < Instance.audioSourceContainers.Length; i++)
+            for (var i = 0; i < Instance.nonSpatialAudio.Length; i++)
             {
-                Instance.audioSourceContainers[i].Source.Pause();
+                Instance.nonSpatialAudio[i].Source.Pause();
             }
         }
 
@@ -107,9 +61,9 @@ namespace Systems.AudioManagement
                 return;
             }
 
-            for (var i = 0; i < Instance.audioSourceContainers.Length; i++)
+            for (var i = 0; i < Instance.nonSpatialAudio.Length; i++)
             {
-                Instance.audioSourceContainers[i].Source.UnPause();
+                Instance.nonSpatialAudio[i].Source.UnPause();
             }
         }
 
@@ -120,17 +74,17 @@ namespace Systems.AudioManagement
                 return;
             }
 
-            for (var i = 0; i < Instance.audioSourceContainers.Length; i++)
+            for (var i = 0; i < Instance.nonSpatialAudio.Length; i++)
             {
-                Instance.audioSourceContainers[i].CancelTask();
-                Instance.audioSourceContainers[i].Source.Stop();
+                Instance.nonSpatialAudio[i].CancelTask();
+                Instance.nonSpatialAudio[i].Source.Stop();
             }
         }
 
-        private async UniTask PlayAsync(AudioSourceContainer cont, AudioClip clip, bool loop = false)
+        private async UniTask PlayAsync(NonSpatialAudio cont, AudioClip clip, bool loop = false)
         {
             var cts = cont.StartTask();
-            cont.State = AudioSourceContainer.PrepareState.Starting;
+            cont.State = PlayState.Starting;
 
             if (cont.Source.isPlaying)
             {
@@ -156,13 +110,13 @@ namespace Systems.AudioManagement
                 return;
             }
 
-            cont.State = AudioSourceContainer.PrepareState.Finished;
+            cont.State = PlayState.Finished;
         }
 
-        private async UniTask StopAsync(AudioSourceContainer cont)
+        private async UniTask StopAsync(NonSpatialAudio cont)
         {
             var cts = cont.StartTask();
-            cont.State = AudioSourceContainer.PrepareState.Stopping;
+            cont.State = PlayState.Stopping;
 
             await FadeVolumeAsync(cont.Source, 0f, fadeSpeed, cts.Token);
 
@@ -172,7 +126,7 @@ namespace Systems.AudioManagement
             }
 
             cont.Source.Stop();
-            cont.State = AudioSourceContainer.PrepareState.Finished;
+            cont.State = PlayState.Finished;
         }
 
         private static async UniTask FadeVolumeAsync(AudioSource src, float targetVolume, float speed,
