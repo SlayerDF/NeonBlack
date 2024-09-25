@@ -1,4 +1,3 @@
-using Systems.AudioManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -69,7 +68,7 @@ public class MainMenuController : MonoBehaviour
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
-        AudioManager.PauseAll();
+        AudioListener.pause = true;
 
         mainMenuRoot.gameObject.SetActive(true);
 
@@ -83,7 +82,7 @@ public class MainMenuController : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        AudioManager.UnPauseAll();
+        AudioListener.pause = false;
 
         mainMenuRoot.gameObject.SetActive(false);
 

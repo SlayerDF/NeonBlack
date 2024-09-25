@@ -29,7 +29,7 @@ namespace Systems.AudioManagement
         {
             if (audio.Source.clip != clip || audio.ReadyToStart)
             {
-                Instance.PlayAsync(audio, clip, loop).Forget();
+                Instance.PlayNonSpatialAsync(audio, clip, loop).Forget();
             }
         }
 
@@ -37,34 +37,13 @@ namespace Systems.AudioManagement
         {
             if (audio.Source.clip == clip && audio.ReadyToStop)
             {
-                Instance.StopAsync(audio).Forget();
+                Instance.StopNonSpatialAsync(audio).Forget();
             }
         }
 
-        public static void PauseAll()
+        public static SpatialAudio Play(SpatialAudio audioPrefab, AudioClip clip, Vector3 position)
         {
-            if (Instance == null)
-            {
-                return;
-            }
-
-            for (var i = 0; i < Instance.nonSpatialAudio.Length; i++)
-            {
-                Instance.nonSpatialAudio[i].Source.Pause();
-            }
-        }
-
-        public static void UnPauseAll()
-        {
-            if (Instance == null)
-            {
-                return;
-            }
-
-            for (var i = 0; i < Instance.nonSpatialAudio.Length; i++)
-            {
-                Instance.nonSpatialAudio[i].Source.UnPause();
-            }
+            return PlaySpatial(audioPrefab, clip, position);
         }
 
         public static void StopAll()
@@ -79,54 +58,6 @@ namespace Systems.AudioManagement
                 Instance.nonSpatialAudio[i].CancelTask();
                 Instance.nonSpatialAudio[i].Source.Stop();
             }
-        }
-
-        private async UniTask PlayAsync(NonSpatialAudio cont, AudioClip clip, bool loop = false)
-        {
-            var cts = cont.StartTask();
-            cont.State = PlayState.Starting;
-
-            if (cont.Source.isPlaying)
-            {
-                await FadeVolumeAsync(cont.Source, 0f, fadeSpeed, cts.Token);
-
-                if (cts.IsCancellationRequested)
-                {
-                    return;
-                }
-
-                cont.Source.Stop();
-            }
-
-            cont.Source.volume = 0f;
-            cont.Source.loop = loop;
-            cont.Source.clip = clip;
-            cont.Source.Play();
-
-            await FadeVolumeAsync(cont.Source, 1f, fadeSpeed, cts.Token);
-
-            if (cts.IsCancellationRequested)
-            {
-                return;
-            }
-
-            cont.State = PlayState.Finished;
-        }
-
-        private async UniTask StopAsync(NonSpatialAudio cont)
-        {
-            var cts = cont.StartTask();
-            cont.State = PlayState.Stopping;
-
-            await FadeVolumeAsync(cont.Source, 0f, fadeSpeed, cts.Token);
-
-            if (cts.IsCancellationRequested)
-            {
-                return;
-            }
-
-            cont.Source.Stop();
-            cont.State = PlayState.Finished;
         }
 
         private static async UniTask FadeVolumeAsync(AudioSource src, float targetVolume, float speed,
