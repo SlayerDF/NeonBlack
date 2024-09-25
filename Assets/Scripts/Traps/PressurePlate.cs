@@ -17,6 +17,6 @@ public class PressurePlate : MonoBehaviour
 
     public void Interact()
     {
-        GetComponentInParent<ProjectileTrap>().ShootCoroutine();
+        GetComponentInParent<ProjectileTrap>().Shoot();
     }
 }

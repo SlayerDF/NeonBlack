@@ -18,12 +18,12 @@ public class ProjectileTrap : MonoBehaviour
     GameObject trapProjectilePrefab;
 
 
-    public void ShootCoroutine()
+    public void Shoot()
     {
-        if (shootReady) StartCoroutine(Shoot());
+        if (shootReady) StartCoroutine(ShootCoroutine());
     } 
 
-    IEnumerator Shoot()
+    IEnumerator ShootCoroutine()
     {
         shootReady = false;
 
