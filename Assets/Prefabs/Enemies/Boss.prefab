@@ -346,7 +346,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rotationSpeed: 5
+  rotationSpeed: 30
   lockPitch: 0
 --- !u!4 &7591598536057314339 stripped
 Transform:
@@ -621,8 +621,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerLayer: 3
-  obstacleLayer: 6
 --- !u!114 &2131698076619479444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -780,5 +778,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  rotationSpeed: 5
+  rotationSpeed: 30
   lockPitch: 0
