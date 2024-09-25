@@ -2,13 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour, Interact
+public class PressurePlate : MonoBehaviour
 {
-
-
-
-
-
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("detected");
@@ -20,9 +15,8 @@ public class PressurePlate : MonoBehaviour, Interact
         }
     }
 
-
     public void Interact()
     {
-        GetComponentInParent<ProyectileTrap>().CheckShoot();
+        GetComponentInParent<ProjectileTrap>().ShootCoroutine();
     }
 }
