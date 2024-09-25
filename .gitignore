@@ -102,3 +102,7 @@ Assets/BuildReports.meta
 
 # Github Actions generated files
 version_info.txt
+
+# Nuget packages
+Assets/Packages
+Assets/Packages.meta

@@ -1,5 +1,14 @@
 {
   "dependencies": {
+    "com.cysharp.r3": {
+      "version": "https://github.com/Cysharp/R3.git?path=src/R3.Unity/Assets/R3.Unity#1.2.8",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.modules.imgui": "1.0.0"
+      },
+      "hash": "01da4b42df832539e83a908dce95105ac195f51c"
+    },
     "com.cysharp.unitask": {
       "version": "https://github.com/Cysharp/UniTask.git?path=src/UniTask/Assets/Plugins/UniTask#2.5.5",
       "depth": 0,
@@ -16,6 +25,13 @@
         "com.unity.nuget.newtonsoft-json": "3.0.2"
       },
       "hash": "b849990020c30ac6ead4e4fb4881428f86dcde0d"
+    },
+    "com.github-glitchenzo.nugetforunity": {
+      "version": "https://github.com/GlitchEnzo/NuGetForUnity.git?path=/src/NuGetForUnity#v4.1.1",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "c7a7bbf74e102495c2afeb03e4b25ffb802611b7"
     },
     "com.unity.ai.navigation": {
       "version": "1.1.5",
