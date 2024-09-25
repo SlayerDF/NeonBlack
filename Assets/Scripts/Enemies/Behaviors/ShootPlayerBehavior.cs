@@ -5,9 +5,6 @@ public class ShootPlayerBehavior : MonoBehaviour
     #region Serialized Fields
 
     [SerializeField]
-    private ObjectPoolManager poolManager;
-
-    [SerializeField]
     private Projectile projectilePrefab;
 
     [SerializeField]
@@ -56,7 +53,7 @@ public class ShootPlayerBehavior : MonoBehaviour
 
     private void SpawnProjectile()
     {
-        poolManager.Spawn(projectilePrefab, out Projectile projectile);
+        ObjectPoolManager.Spawn(projectilePrefab, out Projectile projectile);
 
         projectile.transform.position = spawnPoint.position;
         projectile.transform.forward = targetDirection;

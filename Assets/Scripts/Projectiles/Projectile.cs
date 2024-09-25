@@ -17,7 +17,7 @@ public class Projectile : PoolObject
     {
         if ((time += Time.fixedDeltaTime) >= lifetime)
         {
-            PoolManager.Despawn(this);
+            ObjectPoolManager.Despawn(this);
         }
     }
 
