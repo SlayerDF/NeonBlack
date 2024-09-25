@@ -180,6 +180,7 @@ MonoBehaviour:
   bossNotificationsPrefab: {fileID: 8974805419504618717, guid: 2bd5040894737fe42b91450818cb5051, type: 3}
   enemiesNotificationsPrefab: {fileID: 8974805419504618717, guid: ac5a27bf7578aaf44b9ae42945797a6e, type: 3}
   shotsPrefab: {fileID: 6091517183807396057, guid: 2e28d7af7af72284e861ca1a68780309, type: 3}
+  footstepsPrefab: {fileID: 6091517183807396057, guid: c055ef2554380374ca87ceed191fab47, type: 3}
 --- !u!1 &8654950846094188700
 GameObject:
   m_ObjectHideFlags: 0

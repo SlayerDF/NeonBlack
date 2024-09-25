@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace Player
 {
@@ -114,6 +115,12 @@ namespace Player
 
             animator.SetTrigger(Attack);
             animator.SetInteger(AttackIndex, attackIndex);
+        }
+
+        [UsedImplicitly]
+        private void OnFootsteps()
+        {
+            // TODO: play footsteps sound
         }
     }
 }
