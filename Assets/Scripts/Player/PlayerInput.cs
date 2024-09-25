@@ -17,6 +17,9 @@ public partial class PlayerInput : MonoBehaviour
     private InputActions.PlayerActions actions;
     private Vector2 input;
 
+    public bool MovementEnabled { get; set; } = true;
+    public bool DashEnabled { get; set; } = true;
+
     #region Event Functions
 
     private void Awake()
@@ -24,9 +27,19 @@ public partial class PlayerInput : MonoBehaviour
         actions = new InputActions().Player;
     }
 
+    private void Start()
+    {
+        StartCamera();
+    }
+
     private void Update()
     {
-        input = actions.Move.ReadValue<Vector2>();
+        if (Time.deltaTime <= 0)
+        {
+            return;
+        }
+
+        input = MovementEnabled ? actions.Move.ReadValue<Vector2>() : Vector2.zero;
 
         playerAnimation.SetInputMagnitude(input.SqrMagnitude());
 
@@ -40,6 +53,7 @@ public partial class PlayerInput : MonoBehaviour
         }
 
         MoveCamera();
+        UpdateAttack();
     }
 
     private void LateUpdate()
@@ -53,6 +67,11 @@ public partial class PlayerInput : MonoBehaviour
         actions.CameraZoom.performed += OnCameraZoomChange;
         actions.Jump.performed += OnJump;
         actions.Dash.performed += OnDash;
+        actions.Attack.started += OnAttackStarted;
+        actions.Attack.canceled += OnAttackCanceled;
+
+        OnEnableAttack();
+        OnEnableCamera();
     }
 
     private void OnDisable()
@@ -61,6 +80,11 @@ public partial class PlayerInput : MonoBehaviour
         actions.CameraZoom.performed -= OnCameraZoomChange;
         actions.Jump.performed -= OnJump;
         actions.Dash.performed -= OnDash;
+        actions.Attack.started -= OnAttackStarted;
+        actions.Attack.canceled -= OnAttackCanceled;
+
+        OnDisableAttack();
+        OnDisableCamera();
     }
 
     #endregion

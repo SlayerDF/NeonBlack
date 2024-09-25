@@ -41,7 +41,9 @@ public class Path : MonoBehaviour
         {
             InitializeChildren();
 
+#if UNITY_EDITOR
             Debug.Assert(children != null, nameof(children) + " != null");
+#endif
         }
 
         var waypoint = currentWaypoint ?? new Waypoint(Vector3.zero, false, -1);
@@ -101,14 +103,23 @@ public class Path : MonoBehaviour
 
 #if UNITY_EDITOR
 
+    [Header("Debug")]
+    [SerializeField]
+    private bool alwaysShowGizmos;
+
     [ContextMenu("Reinitialize children")]
-    private void DoSomething()
+    private void ReinitializeChildren()
     {
         InitializeChildren();
     }
 
     private void OnDrawGizmos()
     {
+        if (!alwaysShowGizmos && Selection.activeObject != gameObject)
+        {
+            return;
+        }
+
         if (children == null)
         {
             InitializeChildren();
@@ -123,11 +134,10 @@ public class Path : MonoBehaviour
             if (i < children.Length - 1)
             {
                 Handles.DrawLine(children[i].position, children[i + 1].position);
-
-                if (circular)
-                {
-                    Handles.DrawLine(children[i + 1].position, children[0].position);
-                }
+            }
+            else if (i == children.Length - 1 && circular)
+            {
+                Handles.DrawLine(children[i].position, children[0].position);
             }
         }
     }

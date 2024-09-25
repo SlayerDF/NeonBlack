@@ -2,23 +2,25 @@
 
 namespace Player
 {
-    public class PlayerAnimation : MonoBehaviour
+    public class PlayerAnimation : Animation
     {
+        private const int AttackTypesCount = 4;
+
         private static readonly int XAxisMovement = Animator.StringToHash("XAxis");
         private static readonly int ZAxisMovement = Animator.StringToHash("ZAxis");
         private static readonly int InputMagnitude = Animator.StringToHash("InputMagnitude");
         private static readonly int VelocityMultiplier = Animator.StringToHash("VelocityMultiplier");
+        private static readonly int AttackIndex = Animator.StringToHash("AttackIndex");
         private static readonly int Falling = Animator.StringToHash("Falling");
         private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Dashing = Animator.StringToHash("Dashing");
+        private static readonly int Attacking = Animator.StringToHash("Attacking");
         private static readonly int Jump = Animator.StringToHash("Jump");
         private static readonly int Dash = Animator.StringToHash("Dash");
+        public static readonly int Death = Animator.StringToHash("Death");
+        private static readonly int Attack = Animator.StringToHash("Attack");
 
         #region Serialized Fields
-
-        [Header("Components")]
-        [SerializeField]
-        private Animator animator;
 
         [SerializeField]
         private CharacterController characterController;
@@ -35,6 +37,8 @@ namespace Player
 
         #endregion
 
+        private int attackIndex;
+
         private Vector3 lastPosition;
 
         private float velocityMultiplier;
@@ -43,22 +47,27 @@ namespace Player
 
         #region Event Functions
 
-        private void FixedUpdate()
+        private void Update()
         {
+            if (Time.deltaTime <= 0)
+            {
+                return;
+            }
+
             var currentPosition = transform.position;
             currentPosition.y = 0f;
 
             var offset = currentPosition - lastPosition;
-            var currentVelocityMultiplier =
-                Mathf.Clamp(offset.magnitude / Time.fixedDeltaTime / normalVelocity, 1f, 10f);
             var moveDir = transform.InverseTransformDirection(offset.normalized);
+            var currentVelocityMultiplier =
+                Mathf.Clamp(offset.magnitude / Time.deltaTime / normalVelocity, 1f, 10f);
 
             lastPosition = currentPosition;
 
             velocityMultiplier =
-                Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.fixedDeltaTime);
-            xAxisMovement = Mathf.Lerp(xAxisMovement, moveDir.x, blendingLerpSpeed * Time.fixedDeltaTime);
-            zAxisMovement = Mathf.Lerp(zAxisMovement, moveDir.z, blendingLerpSpeed * Time.fixedDeltaTime);
+                Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.deltaTime);
+            xAxisMovement = Mathf.Lerp(xAxisMovement, moveDir.x, blendingLerpSpeed * Time.deltaTime);
+            zAxisMovement = Mathf.Lerp(zAxisMovement, moveDir.z, blendingLerpSpeed * Time.deltaTime);
 
             animator.SetFloat(VelocityMultiplier, velocityMultiplier);
             animator.SetFloat(XAxisMovement, xAxisMovement);
@@ -67,6 +76,7 @@ namespace Player
 
             if (!characterController.isGrounded)
             {
+                animator.SetBool(Attacking, false);
                 return;
             }
 
@@ -91,6 +101,19 @@ namespace Player
         {
             animator.SetBool(Dashing, true);
             animator.SetTrigger(Dash);
+        }
+
+        public void OnDeath()
+        {
+            animator.SetTrigger(Death);
+        }
+
+        public void OnAttack()
+        {
+            attackIndex = (attackIndex + 1) % AttackTypesCount;
+
+            animator.SetTrigger(Attack);
+            animator.SetInteger(AttackIndex, attackIndex);
         }
     }
 }

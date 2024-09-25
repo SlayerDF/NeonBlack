@@ -39,7 +39,7 @@ public partial class PlayerInput
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (!IsGrounded)
+        if (!MovementEnabled || !IsGrounded)
         {
             return;
         }
@@ -50,7 +50,7 @@ public partial class PlayerInput
 
     private void OnDash(InputAction.CallbackContext obj)
     {
-        if (isDashing)
+        if (!MovementEnabled || !DashEnabled || isDashing)
         {
             return;
         }
@@ -97,6 +97,11 @@ public partial class PlayerInput
             var targetDirection = CameraDirectionToMoveDirection(input);
 
             UpdateMoveDirection(targetDirection);
+            RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
+        }
+
+        if (isAttacking)
+        {
             RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
         }
 
