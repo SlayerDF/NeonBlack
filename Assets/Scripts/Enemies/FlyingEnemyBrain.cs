@@ -1,7 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using R3;
+using Systems.AudioManagement;
+using UnityEngine;
 
 public class FlyingEnemyBrain : MonoBehaviour
 {
+    private const float CheckVisibilityInterval = 0.5f;
+
     #region Serialized Fields
 
     [Header("Components")]
@@ -15,22 +20,35 @@ public class FlyingEnemyBrain : MonoBehaviour
     [SerializeField]
     private CheckPlayerVisibilityBehavior checkPlayerVisibilityBehavior;
 
+    [SerializeField]
+    private PlayerDetectionBehavior playerDetectionBehavior;
+
     #endregion
 
     #region Event Functions
 
+    private void Awake()
+    {
+        playerDetectionBehavior.PlayerIsDetected.Debounce(TimeSpan.FromSeconds(CheckVisibilityInterval))
+            .Subscribe(CheckVisibility).AddTo(this);
+    }
+
     private void FixedUpdate()
     {
-        if (lineOfSightByPathBehavior.IsPlayerDetected && checkPlayerVisibilityBehavior.IsPlayerVisible())
-        {
-            NotifyBoss();
-        }
+        playerDetectionBehavior.CanSeePlayer =
+            lineOfSightByPathBehavior.IsPlayerDetected && checkPlayerVisibilityBehavior.IsPlayerVisible();
     }
 
     #endregion
 
-    private void NotifyBoss()
+    private void CheckVisibility(bool visible)
     {
+        if (!visible)
+        {
+            return;
+        }
+
         bossBrain.Notify(lineOfSightByPathBehavior.TargetPoint.position);
+        AudioManager.Play(AudioManager.EnemiesNotificationsSource, AudioManager.EnemyAlertedClip);
     }
 }

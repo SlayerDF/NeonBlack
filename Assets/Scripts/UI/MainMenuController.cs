@@ -1,3 +1,4 @@
+using Systems.AudioManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -64,18 +65,28 @@ public class MainMenuController : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        AudioManager.PauseAll();
+
         mainMenuRoot.gameObject.SetActive(true);
+
         paused = true;
     }
 
     public void Unpause()
     {
         Time.timeScale = 1f;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        AudioManager.UnPauseAll();
+
         mainMenuRoot.gameObject.SetActive(false);
+
         paused = false;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using Cysharp.Threading.Tasks;
+using Systems.AudioManagement;
 using UnityEngine;
 
 public class SimpleEnemyBrain : MonoBehaviour
@@ -115,7 +116,7 @@ public class SimpleEnemyBrain : MonoBehaviour
             lineOfSightBehavior.HasTarget && checkPlayerVisibilityBehavior.IsPlayerVisible();
         playerDetectionBehavior.DistanceToPlayerNormalized = lineOfSightBehavior.DistanceToPlayerNormalized;
 
-        if (playerDetectionBehavior.PlayerIsDetected)
+        if (playerDetectionBehavior.PlayerIsDetected.CurrentValue)
         {
             SwitchState(State.PrepareForAttack);
         }
@@ -125,7 +126,7 @@ public class SimpleEnemyBrain : MonoBehaviour
     {
         playerDetectionBehavior.CanSeePlayer = checkPlayerVisibilityBehavior.IsPlayerVisible();
 
-        if (!playerDetectionBehavior.PlayerIsDetected)
+        if (!playerDetectionBehavior.PlayerIsDetected.CurrentValue)
         {
             SwitchState(State.NotifyBoss);
             return;
@@ -143,7 +144,7 @@ public class SimpleEnemyBrain : MonoBehaviour
     {
         playerDetectionBehavior.CanSeePlayer = checkPlayerVisibilityBehavior.IsPlayerVisible();
 
-        if (!playerDetectionBehavior.PlayerIsDetected)
+        if (!playerDetectionBehavior.PlayerIsDetected.CurrentValue)
         {
             SwitchState(State.NotifyBoss);
             return;
@@ -215,6 +216,8 @@ public class SimpleEnemyBrain : MonoBehaviour
 
                 // Player is already detected so the detection rate must be maxed 
                 playerDetectionBehavior.DistanceToPlayerNormalized = 0f;
+
+                AudioManager.Play(AudioManager.EnemiesNotificationsSource, AudioManager.EnemyAlertedClip);
 
                 break;
             case State.Attack:
