@@ -7,6 +7,8 @@ public class TrapProjectile : Projectile
 
     [SerializeField]
     private float speed = 10f;
+
+    [SerializeField]
     private float damage = 1f;
 
     #endregion
