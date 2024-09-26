@@ -3,7 +3,7 @@ using Player;
 using Systems.AudioManagement;
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IEntityHealth
 {
     #region Serialized Fields
 
@@ -63,4 +63,10 @@ public class PlayerController : MonoBehaviour
             playerAnimation.WaitAnimationEnd(PlayerAnimation.Death, 2)
         ).ContinueWith(SceneLoader.RestartLevel);
     }
+
+    public void TakeDamage(float dmg)
+    {
+
+    }
+
 }
