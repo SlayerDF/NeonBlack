@@ -1,3 +1,4 @@
+using R3;
 using UnityEditor;
 using UnityEngine;
 
@@ -21,11 +22,13 @@ public class PlayerDetectionBehavior : MonoBehaviour
 
     private float detectionLevel;
 
+    private readonly ReactiveProperty<bool> playerIsDetected = new();
+
     public bool CanSeePlayer { get; set; }
 
     public float DistanceToPlayerNormalized { get; set; }
 
-    public bool PlayerIsDetected { get; private set; }
+    public ReadOnlyReactiveProperty<bool> PlayerIsDetected => playerIsDetected;
 
     #region Event Functions
 
@@ -43,7 +46,7 @@ public class PlayerDetectionBehavior : MonoBehaviour
 
         detectionLevel = Mathf.Clamp(detectionLevel, 0f, 1f);
 
-        PlayerIsDetected = detectionLevel >= detectionThreshold;
+        playerIsDetected.Value = detectionLevel >= detectionThreshold;
     }
 
 #if UNITY_EDITOR

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Systems.AudioManagement;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 public partial class PlayerInput
@@ -43,10 +44,17 @@ public partial class PlayerInput
 
     private static void OnAttackTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out EnemyHealth enemyHealth))
+        if (!other.TryGetComponent(out EnemyHealth enemyHealth))
         {
-            enemyHealth.TakeDamage(1f);
+            return;
         }
+
+        if (!enemyHealth.Dead)
+        {
+            AudioManager.Play(AudioManager.HitsPrefab, AudioManager.PlayerHitResultClip, other.transform.position);
+        }
+
+        enemyHealth.TakeDamage(1f);
     }
 
     private void UpdateAttack()

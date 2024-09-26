@@ -4,10 +4,9 @@ using UnityEngine;
 
 public class PoolObject : MonoBehaviour
 {
-    public ObjectPoolManager PoolManager { get; set; }
 }
 
-public class ObjectPoolManager : MonoBehaviour
+public class ObjectPoolManager : SceneSingleton<ObjectPoolManager>
 {
     private const int MaxCapacity = 20;
 
@@ -18,7 +17,7 @@ public class ObjectPoolManager : MonoBehaviour
 
     #region Event Functions
 
-    public void OnDestroy()
+    protected override void OnDestroy()
     {
         foreach (var obj in prefabPools.Values.SelectMany(pool => pool))
         {
@@ -27,17 +26,34 @@ public class ObjectPoolManager : MonoBehaviour
                 Destroy(obj.gameObject);
             }
         }
+
+        base.OnDestroy();
     }
 
     #endregion
 
+
     /// <summary>
-    ///     Instantiate a new GameObject or retrieve it from the pool
+    /// Instantiate a new GameObject or retrieve it from the pool
     /// </summary>
     /// <param name="prefab">Prefab object to spawn</param>
     /// <param name="obj">Spawned object</param>
     /// <returns>Whether a new GameObject was instantiated</returns>
-    public bool Spawn<T>(PoolObject prefab, out T obj) where T : PoolObject
+    public static bool Spawn<T>(PoolObject prefab, out T obj) where T : PoolObject
+    {
+        return Instance.SpawnInternal(prefab, out obj);
+    }
+
+    /// <summary>
+    /// Release the GameObject to the pool or destroy it
+    /// </summary>
+    /// <param name="obj">GameObject to despawn</param>
+    public static void Despawn(PoolObject obj)
+    {
+        Instance.DespawnInternal(obj);
+    }
+
+    private bool SpawnInternal<T>(PoolObject prefab, out T obj) where T : PoolObject
     {
         var prefabId = prefab.GetInstanceID();
 
@@ -57,16 +73,11 @@ public class ObjectPoolManager : MonoBehaviour
         }
 
         obj = (T)Instantiate(prefab);
-        obj.PoolManager = this;
         gameObjectPrefabs.Add(obj.GetInstanceID(), prefabId);
         return true;
     }
 
-    /// <summary>
-    ///     Release the GameObject to the pool or destroy it
-    /// </summary>
-    /// <param name="obj">GameObject to despawn</param>
-    public void Despawn(PoolObject obj)
+    private void DespawnInternal(PoolObject obj)
     {
         var gameObjectId = obj.GetInstanceID();
         var prefabId = gameObjectPrefabs[gameObjectId];

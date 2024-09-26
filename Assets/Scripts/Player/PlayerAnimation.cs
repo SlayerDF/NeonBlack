@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using Systems.AudioManagement;
+using UnityEngine;
 
 namespace Player
 {
@@ -65,9 +67,9 @@ namespace Player
             lastPosition = currentPosition;
 
             velocityMultiplier =
-                Mathf.Lerp(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.deltaTime);
-            xAxisMovement = Mathf.Lerp(xAxisMovement, moveDir.x, blendingLerpSpeed * Time.deltaTime);
-            zAxisMovement = Mathf.Lerp(zAxisMovement, moveDir.z, blendingLerpSpeed * Time.deltaTime);
+                Mathf.MoveTowards(velocityMultiplier, currentVelocityMultiplier, velocityLerpSpeed * Time.deltaTime);
+            xAxisMovement = Mathf.MoveTowards(xAxisMovement, moveDir.x, blendingLerpSpeed * Time.deltaTime);
+            zAxisMovement = Mathf.MoveTowards(zAxisMovement, moveDir.z, blendingLerpSpeed * Time.deltaTime);
 
             animator.SetFloat(VelocityMultiplier, velocityMultiplier);
             animator.SetFloat(XAxisMovement, xAxisMovement);
@@ -114,6 +116,36 @@ namespace Player
 
             animator.SetTrigger(Attack);
             animator.SetInteger(AttackIndex, attackIndex);
+        }
+
+        [UsedImplicitly]
+        private void OnFootsteps(AnimationEvent animationEvent)
+        {
+            var clipsInfo = animator.GetCurrentAnimatorClipInfo(0);
+
+            var highestWeight = float.MinValue;
+            AnimatorClipInfo highestWeightClipInfo = default;
+            for (var i = 0; i < clipsInfo.Length; i++)
+            {
+                if (clipsInfo[i].weight < highestWeight)
+                {
+                    continue;
+                }
+
+                highestWeight = clipsInfo[i].weight;
+                highestWeightClipInfo = clipsInfo[i];
+            }
+
+            if (animationEvent.animatorClipInfo.clip == highestWeightClipInfo.clip)
+            {
+                AudioManager.Play(AudioManager.FootstepsPrefab, AudioManager.PlayerFootstepsClip, transform.position);
+            }
+        }
+
+        [UsedImplicitly]
+        private void OnHit()
+        {
+            AudioManager.Play(AudioManager.HitsPrefab, AudioManager.PlayerHitClip, transform.position);
         }
     }
 }

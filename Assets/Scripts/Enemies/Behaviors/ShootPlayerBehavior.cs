@@ -1,11 +1,9 @@
+using System;
 using UnityEngine;
 
 public class ShootPlayerBehavior : MonoBehaviour
 {
     #region Serialized Fields
-
-    [SerializeField]
-    private ObjectPoolManager poolManager;
 
     [SerializeField]
     private Projectile projectilePrefab;
@@ -50,13 +48,16 @@ public class ShootPlayerBehavior : MonoBehaviour
         shootTimer = 0f;
 
         SpawnProjectile();
+        Shoot?.Invoke();
     }
 
     #endregion
 
+    public event Action Shoot;
+
     private void SpawnProjectile()
     {
-        poolManager.Spawn(projectilePrefab, out Projectile projectile);
+        ObjectPoolManager.Spawn(projectilePrefab, out Projectile projectile);
 
         projectile.transform.position = spawnPoint.position;
         projectile.transform.forward = targetDirection;

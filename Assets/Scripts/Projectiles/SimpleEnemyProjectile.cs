@@ -24,7 +24,7 @@ public class SimpleEnemyProjectile : Projectile
         switch (layer)
         {
             case Layer.Terrain:
-                PoolManager.Despawn(this);
+                ObjectPoolManager.Despawn(this);
                 break;
             case Layer.Player when other.TryGetComponent(out PlayerController player):
                 player.Kill();

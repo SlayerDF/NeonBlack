@@ -1,19 +1,12 @@
+using System;
 using System.ComponentModel;
+using R3;
+using Systems.AudioManagement;
 using UnityEngine;
 
 public class BossBrain : MonoBehaviour
 {
-    #region State enum
-
-    public enum State
-    {
-        ObserveLevel,
-        FollowPlayer,
-        LostPlayer,
-        Notified
-    }
-
-    #endregion
+    private const float ToggleFollowSoundDebounceInterval = 0.5f;
 
     #region Serialized Fields
 
@@ -52,11 +45,10 @@ public class BossBrain : MonoBehaviour
 
     #endregion
 
+    private readonly ReactiveProperty<State> state = new();
+
     private Vector3 notifiedPosition;
-
     private float waitTimer;
-
-    public State CurrentState { get; private set; }
 
     #region Event Functions
 
@@ -64,6 +56,11 @@ public class BossBrain : MonoBehaviour
     {
         leftEye.FocusSpeed = focusSpeed;
         rightEye.FocusSpeed = focusSpeed;
+
+        state.Debounce(TimeSpan.FromSeconds(ToggleFollowSoundDebounceInterval))
+            .Select(it => it == State.FollowPlayer)
+            .Subscribe(ToggleFollowSound)
+            .AddTo(this);
     }
 
     private void Start()
@@ -73,7 +70,7 @@ public class BossBrain : MonoBehaviour
 
     private void FixedUpdate()
     {
-        switch (CurrentState)
+        switch (state.Value)
         {
             case State.ObserveLevel:
                 HandleObserveLevelState(Time.fixedDeltaTime);
@@ -88,7 +85,7 @@ public class BossBrain : MonoBehaviour
                 HandleNotifiedState(Time.fixedDeltaTime);
                 break;
             default:
-                throw new InvalidEnumArgumentException(nameof(CurrentState), (int)CurrentState, typeof(State));
+                throw new InvalidEnumArgumentException(nameof(state), (int)state.Value, typeof(State));
         }
     }
 
@@ -162,9 +159,27 @@ public class BossBrain : MonoBehaviour
 
     private void SwitchState(State newState, bool force = false)
     {
-        if (CurrentState == newState && !force)
+        if (state.Value == newState && !force)
         {
             return;
+        }
+
+        // On Exit State
+        switch (state.Value)
+        {
+            case State.FollowPlayer:
+                if (newState == State.Notified)
+                {
+                    return;
+                }
+
+                break;
+            case State.ObserveLevel:
+            case State.LostPlayer:
+            case State.Notified:
+                break;
+            default:
+                throw new InvalidEnumArgumentException(nameof(state), (int)state.Value, typeof(State));
         }
 
         // On Enter State
@@ -212,7 +227,7 @@ public class BossBrain : MonoBehaviour
                 throw new InvalidEnumArgumentException(nameof(newState), (int)newState, typeof(State));
         }
 
-        CurrentState = newState;
+        state.Value = newState;
     }
 
     private void Focus()
@@ -238,4 +253,28 @@ public class BossBrain : MonoBehaviour
     {
         return leftEye.CanSeePoint(playerTransform.position) || rightEye.CanSeePoint(playerTransform.position);
     }
+
+    private static void ToggleFollowSound(bool value)
+    {
+        if (value)
+        {
+            AudioManager.Play(AudioManager.BossNotifications, AudioManager.DangerClip, true);
+        }
+        else
+        {
+            AudioManager.Stop(AudioManager.BossNotifications, AudioManager.DangerClip);
+        }
+    }
+
+    #region Nested type: ${0}
+
+    private enum State
+    {
+        ObserveLevel,
+        FollowPlayer,
+        LostPlayer,
+        Notified
+    }
+
+    #endregion
 }

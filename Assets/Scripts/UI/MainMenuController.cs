@@ -64,18 +64,28 @@ public class MainMenuController : MonoBehaviour
     public void Pause()
     {
         Time.timeScale = 0f;
+
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+
+        AudioListener.pause = true;
+
         mainMenuRoot.gameObject.SetActive(true);
+
         paused = true;
     }
 
     public void Unpause()
     {
         Time.timeScale = 1f;
+
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        AudioListener.pause = false;
+
         mainMenuRoot.gameObject.SetActive(false);
+
         paused = false;
     }
 }
