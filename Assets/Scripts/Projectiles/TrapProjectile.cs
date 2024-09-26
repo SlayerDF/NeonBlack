@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using UnityEngine;
 
@@ -27,10 +25,14 @@ public class TrapProjectile : Projectile
         switch (layer)
         {
             case Layer.Terrain:
-                PoolManager.Despawn(this);
+                ObjectPoolManager.Despawn(this);
                 break;
-            case Layer.Enemies when other.TryGetComponent(out EnemyHealth enemy):
-                enemy.TakeDamage(damage);
+            case Layer.Enemies:
+            case Layer.Player:
+                if (other.TryGetComponent(out IEntityHealth entityHealth))
+                {
+                    entityHealth.TakeDamage(damage);
+                }
                 break;
             default:
                 throw new InvalidEnumArgumentException(nameof(layer), (int)layer, typeof(Layer));
@@ -38,9 +40,4 @@ public class TrapProjectile : Projectile
     }
 
     #endregion
-
-
-
-
-
 }

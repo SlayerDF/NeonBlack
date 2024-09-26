@@ -1,13 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PressurePlate : MonoBehaviour
 {
+    [SerializeField]
+    private SimpleTrap trap;
+
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("detected");
-
         if (other.gameObject.GetComponent<IEntityHealth>() != null)
         {
             Debug.Log("Pressure detected");
@@ -17,6 +16,6 @@ public class PressurePlate : MonoBehaviour
 
     public void Interact()
     {
-        GetComponentInParent<ProjectileTrap>().Shoot();
+        trap.Shoot();
     }
 }
