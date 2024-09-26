@@ -37,7 +37,7 @@ namespace Systems.AudioManagement
 
         public void Stop()
         {
-            if (!this)
+            if (this == null) // If already despawned
             {
                 return;
             }

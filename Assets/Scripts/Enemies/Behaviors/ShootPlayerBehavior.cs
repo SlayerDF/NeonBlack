@@ -19,8 +19,6 @@ public class ShootPlayerBehavior : MonoBehaviour
 
     #endregion
 
-    public Action Shoot;
-
     private float shootTimer;
 
     private Transform spawnPoint;
@@ -54,6 +52,8 @@ public class ShootPlayerBehavior : MonoBehaviour
     }
 
     #endregion
+
+    public event Action Shoot;
 
     private void SpawnProjectile()
     {

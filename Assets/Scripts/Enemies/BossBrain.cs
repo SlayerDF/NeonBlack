@@ -167,8 +167,6 @@ public class BossBrain : MonoBehaviour
         // On Exit State
         switch (state.Value)
         {
-            case State.ObserveLevel:
-                break;
             case State.FollowPlayer:
                 if (newState == State.Notified)
                 {
@@ -176,8 +174,8 @@ public class BossBrain : MonoBehaviour
                 }
 
                 break;
+            case State.ObserveLevel:
             case State.LostPlayer:
-                break;
             case State.Notified:
                 break;
             default:
