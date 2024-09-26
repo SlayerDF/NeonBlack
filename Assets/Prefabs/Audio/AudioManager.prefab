@@ -177,9 +177,17 @@ MonoBehaviour:
   fadeSpeed: 2
   dangerClip: {fileID: 8300000, guid: 74b7db0ea24190f48b4d1e51e3eaf603, type: 3}
   enemyAlertedClip: {fileID: 8300000, guid: fe0e99f4b57d71841b7b3d7f195e2d05, type: 3}
+  playerFootstepsClip: {fileID: 8300000, guid: c537ec5924513b341953808897e2890b, type: 3}
+  enemyFootstepsClip: {fileID: 8300000, guid: e52788f249c9cbb418afd8f7af48dfc5, type: 3}
+  simpleEnemyShootClip: {fileID: 8300000, guid: 3d88a453c6a1cb947b520722aea1ea48, type: 3}
+  playerHitClip: {fileID: 8300000, guid: 53d1eac799bc56f4c9faaa7307b41ceb, type: 3}
+  playerHitResultClip: {fileID: 8300000, guid: 881438cc986d614429180ab94845c674, type: 3}
+  playerDeathMusicClip: {fileID: 8300000, guid: 2563d2a4b295dfc4db82f26bbb327e1e, type: 3}
   bossNotificationsPrefab: {fileID: 8974805419504618717, guid: 2bd5040894737fe42b91450818cb5051, type: 3}
-  enemiesNotificationsPrefab: {fileID: 8974805419504618717, guid: ac5a27bf7578aaf44b9ae42945797a6e, type: 3}
+  musicPrefab: {fileID: 8974805419504618717, guid: 970d8fcdc981438428952f9abc9553ba, type: 3}
+  enemiesNotificationsPrefab: {fileID: 9168111218509779219, guid: ac5a27bf7578aaf44b9ae42945797a6e, type: 3}
   shotsPrefab: {fileID: 6091517183807396057, guid: 2e28d7af7af72284e861ca1a68780309, type: 3}
+  hitsPrefab: {fileID: 6091517183807396057, guid: 647067e3e960538469315272fa9d74c1, type: 3}
   footstepsPrefab: {fileID: 6091517183807396057, guid: c055ef2554380374ca87ceed191fab47, type: 3}
 --- !u!1 &8654950846094188700
 GameObject:

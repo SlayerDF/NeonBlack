@@ -101,14 +101,22 @@ public class SimpleEnemyBrain : MonoBehaviour
     private void OnEnable()
     {
         enemyHealth.Death += OnDeath;
+        shootPlayerBehavior.Shoot += OnShoot;
     }
+
 
     private void OnDisable()
     {
         enemyHealth.Death -= OnDeath;
+        shootPlayerBehavior.Shoot -= OnShoot;
     }
 
     #endregion
+
+    private void OnShoot()
+    {
+        AudioManager.Play(AudioManager.ShotsPrefab, AudioManager.SimpleEnemyShootClip, transform.position);
+    }
 
     private void HandlePatrolState(float _)
     {
@@ -217,7 +225,8 @@ public class SimpleEnemyBrain : MonoBehaviour
                 // Player is already detected so the detection rate must be maxed 
                 playerDetectionBehavior.DistanceToPlayerNormalized = 0f;
 
-                AudioManager.Play(AudioManager.EnemiesNotifications, AudioManager.EnemyAlertedClip);
+                AudioManager.Play(AudioManager.EnemiesNotificationsPrefab, AudioManager.EnemyAlertedClip,
+                    transform.position);
 
                 break;
             case State.Attack:

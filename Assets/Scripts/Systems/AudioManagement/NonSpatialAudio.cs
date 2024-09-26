@@ -1,4 +1,5 @@
 ﻿using System.Threading;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace Systems.AudioManagement
@@ -36,6 +37,18 @@ namespace Systems.AudioManagement
         }
 
         #endregion
+
+        public async UniTask WaitFinish()
+        {
+            if (!Source.isPlaying || Source.loop)
+            {
+                return;
+            }
+
+            var clip = Source.clip;
+
+            await UniTask.WaitWhile(() => Source.isPlaying && Source.clip == clip);
+        }
 
         internal void CancelTask()
         {

@@ -1,3 +1,5 @@
+using JetBrains.Annotations;
+using Systems.AudioManagement;
 using UnityEngine;
 
 public class EnemyAnimation : Animation
@@ -43,5 +45,11 @@ public class EnemyAnimation : Animation
     public void OnDeath()
     {
         animator.SetTrigger(Death);
+    }
+
+    [UsedImplicitly]
+    private void OnFootsteps()
+    {
+        AudioManager.Play(AudioManager.FootstepsPrefab, AudioManager.EnemyFootstepsClip, transform.position);
     }
 }

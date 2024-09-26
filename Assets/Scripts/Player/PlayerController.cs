@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using Player;
+using Systems.AudioManagement;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -55,6 +56,11 @@ public class PlayerController : MonoBehaviour
         playerInput.MovementEnabled = false;
         playerAnimation.OnDeath();
 
-        playerAnimation.WaitAnimationEnd(PlayerAnimation.Death, 2).ContinueWith(SceneLoader.RestartLevel);
+        AudioManager.Play(AudioManager.Music, AudioManager.PlayerDeathMusicClip);
+
+        UniTask.WhenAll(
+            AudioManager.Music.WaitFinish(),
+            playerAnimation.WaitAnimationEnd(PlayerAnimation.Death, 2)
+        ).ContinueWith(SceneLoader.RestartLevel);
     }
 }

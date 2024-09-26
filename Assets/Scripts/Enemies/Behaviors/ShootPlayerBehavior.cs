@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class ShootPlayerBehavior : MonoBehaviour
@@ -17,6 +18,8 @@ public class ShootPlayerBehavior : MonoBehaviour
     private float shootInterval = 0.5f;
 
     #endregion
+
+    public Action Shoot;
 
     private float shootTimer;
 
@@ -47,6 +50,7 @@ public class ShootPlayerBehavior : MonoBehaviour
         shootTimer = 0f;
 
         SpawnProjectile();
+        Shoot?.Invoke();
     }
 
     #endregion

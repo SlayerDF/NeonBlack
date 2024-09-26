@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8583907634117112472}
-  - component: {fileID: 6091517183807396057}
+  - component: {fileID: 9168111218509779219}
   - component: {fileID: 3141108302601117894}
   m_Layer: 0
-  m_Name: Footsteps
+  m_Name: EnemyNotifications
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -33,7 +33,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6091517183807396057
+--- !u!114 &9168111218509779219
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 3141108302601117894}
-  pitchRandomization: {x: 0.95, y: 1.05}
+  pitchRandomization: {x: 0.9, y: 1.1}
 --- !u!82 &3141108302601117894
 AudioSource:
   m_ObjectHideFlags: 0
@@ -56,7 +56,7 @@ AudioSource:
   m_GameObject: {fileID: 8754210896663506390}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 2213745393459576833, guid: f13638f05d40f694fa3a8a5f9934a82d, type: 2}
+  OutputAudioMixerGroup: {fileID: 2589565427689518487, guid: f13638f05d40f694fa3a8a5f9934a82d, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 1
@@ -65,10 +65,10 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 200
+  Priority: 50
   DopplerLevel: 0
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -103,7 +103,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0.9
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -118,7 +118,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 0.1388889
       inSlope: 0
       outSlope: 0
       tangentMode: 0

@@ -49,6 +49,6 @@ public class FlyingEnemyBrain : MonoBehaviour
         }
 
         bossBrain.Notify(lineOfSightByPathBehavior.TargetPoint.position);
-        AudioManager.Play(AudioManager.EnemiesNotifications, AudioManager.EnemyAlertedClip);
+        AudioManager.Play(AudioManager.EnemiesNotificationsPrefab, AudioManager.EnemyAlertedClip, transform.position);
     }
 }

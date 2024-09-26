@@ -12,70 +12,71 @@ namespace Systems.AudioManagement
         private NonSpatialAudio bossNotificationsPrefab;
 
         [SerializeField]
-        private NonSpatialAudio enemiesNotificationsPrefab;
+        private NonSpatialAudio musicPrefab;
 
         #endregion
 
         private NonSpatialAudio[] nonSpatialAudio;
 
         public static NonSpatialAudio BossNotifications { get; private set; }
-        public static NonSpatialAudio EnemiesNotifications { get; private set; }
+
+        public static NonSpatialAudio Music { get; private set; }
 
         private void ConfigureSources()
         {
             nonSpatialAudio = new[]
             {
                 BossNotifications = Instantiate(bossNotificationsPrefab, transform),
-                EnemiesNotifications = Instantiate(enemiesNotificationsPrefab, transform)
+                Music = Instantiate(musicPrefab, transform)
             };
         }
 
-        private async UniTask PlayNonSpatialAsync(NonSpatialAudio cont, AudioClip clip, bool loop = false)
+        private async UniTask PlayNonSpatialAsync(NonSpatialAudio audio, AudioClip clip, bool loop = false)
         {
-            var cts = cont.StartTask();
-            cont.State = PlayState.Starting;
+            var cts = audio.StartTask();
+            audio.State = PlayState.Starting;
 
-            if (cont.Source.isPlaying)
+            if (audio.Source.isPlaying)
             {
-                await FadeVolumeAsync(cont.Source, 0f, fadeSpeed, cts.Token);
+                await FadeVolumeAsync(audio.Source, 0f, fadeSpeed, cts.Token);
 
                 if (cts.IsCancellationRequested)
                 {
                     return;
                 }
 
-                cont.Source.Stop();
+                audio.Source.Stop();
             }
 
-            cont.Source.volume = 0f;
-            cont.Source.loop = loop;
-            cont.Source.clip = clip;
-            cont.Source.Play();
+            audio.Source.volume = 0f;
+            audio.Source.loop = loop;
+            audio.Source.clip = clip;
+            audio.Source.Play();
 
-            await FadeVolumeAsync(cont.Source, 1f, fadeSpeed, cts.Token);
+            await FadeVolumeAsync(audio.Source, 1f, fadeSpeed, cts.Token);
 
             if (cts.IsCancellationRequested)
             {
                 return;
             }
 
-            cont.State = PlayState.Finished;
+            audio.State = PlayState.Finished;
         }
 
-        private async UniTask StopNonSpatialAsync(NonSpatialAudio cont)
+        private async UniTask StopNonSpatialAsync(NonSpatialAudio audio)
         {
-            var cts = cont.StartTask();
-            cont.State = PlayState.Stopping;
+            var cts = audio.StartTask();
+            audio.State = PlayState.Stopping;
 
-            await FadeVolumeAsync(cont.Source, 0f, fadeSpeed, cts.Token);
+            await FadeVolumeAsync(audio.Source, 0f, fadeSpeed, cts.Token);
 
             if (cts.IsCancellationRequested)
             {
                 return;
             }
 
-            cont.Source.Stop();
-            cont.State = PlayState.Finished;
+            audio.Source.Stop();
+            audio.State = PlayState.Finished;
         }
     }
 }
