@@ -66,7 +66,6 @@ public class PlayerController : MonoBehaviour, IEntityHealth
 
     public void TakeDamage(float dmg)
     {
-
+        Kill();
     }
-
 }

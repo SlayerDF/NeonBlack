@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : MonoBehaviour, IEntityHealth
 {
     #region Serialized Fields
 
@@ -35,7 +35,10 @@ public class EnemyHealth : MonoBehaviour
 
     public void Kill()
     {
-        Destroy(gameObject);
+        if (gameObject != null)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public event Action Death;

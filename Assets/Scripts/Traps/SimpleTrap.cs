@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileTrap : MonoBehaviour
+public class SimpleTrap : MonoBehaviour
 {
     [SerializeField]
     bool shootReady;
@@ -15,8 +14,7 @@ public class ProjectileTrap : MonoBehaviour
     Transform projectileSpawnPoint;
 
     [SerializeField]
-    GameObject trapProjectilePrefab;
-
+    Projectile trapProjectilePrefab;
 
     public void Shoot()
     {
@@ -29,7 +27,8 @@ public class ProjectileTrap : MonoBehaviour
 
         for (int i = 0; i < shootQuantity; i++)
         {
-            Instantiate(trapProjectilePrefab, projectileSpawnPoint.position, projectileSpawnPoint.rotation, this.transform);
+            ObjectPoolManager.Spawn(trapProjectilePrefab, out Projectile projectile);
+            projectile.transform.SetPositionAndRotation(projectileSpawnPoint.position, projectileSpawnPoint.rotation);
 
             yield return new WaitForSeconds(0.5f);
         }
