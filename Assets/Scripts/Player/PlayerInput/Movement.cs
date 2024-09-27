@@ -127,9 +127,9 @@ public partial class PlayerInput
             currentSpeed.x = 0f;
             currentSpeed.y -= naturalDeceleration.y * Time.deltaTime;
 
-            if (currentSpeed.y < -2f)
+            if (currentSpeed.y < -6f)
             {
-                currentSpeed.y = -2f;
+                currentSpeed.y = -6f;
             }
         }
         else
