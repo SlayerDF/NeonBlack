@@ -28,7 +28,7 @@ public class SimpleTrap : MonoBehaviour
         for (int i = 0; i < shootQuantity; i++)
         {
             ObjectPoolManager.Spawn(trapProjectilePrefab, out Projectile projectile);
-            projectile.transform.SetPositionAndRotation(projectileSpawnPoint.position, projectileSpawnPoint.rotation);
+            projectile.transform.position = projectileSpawnPoint.position;
 
             yield return new WaitForSeconds(0.5f);
         }

@@ -20,8 +20,6 @@ public class PlayerDetectionBehavior : MonoBehaviour
 
     #endregion
 
-    private float detectionLevel;
-
     private readonly ReactiveProperty<bool> playerIsDetected = new();
 
     public bool CanSeePlayer { get; set; }
@@ -30,33 +28,35 @@ public class PlayerDetectionBehavior : MonoBehaviour
 
     public ReadOnlyReactiveProperty<bool> PlayerIsDetected => playerIsDetected;
 
+    public float DetectionLevel { get; private set; }
+
     #region Event Functions
 
     private void FixedUpdate()
     {
         if (CanSeePlayer)
         {
-            detectionLevel += Time.fixedDeltaTime * detectionHeatingRate *
+            DetectionLevel += Time.fixedDeltaTime * detectionHeatingRate *
                               detectionDistanceMultiplier.Evaluate(DistanceToPlayerNormalized);
         }
         else
         {
-            detectionLevel -= Time.fixedDeltaTime * detectionCoolingRate;
+            DetectionLevel -= Time.fixedDeltaTime * detectionCoolingRate;
         }
 
-        detectionLevel = Mathf.Clamp(detectionLevel, 0f, 1f);
+        DetectionLevel = Mathf.Clamp(DetectionLevel, 0f, 1f);
 
-        playerIsDetected.Value = detectionLevel >= detectionThreshold;
+        playerIsDetected.Value = DetectionLevel >= detectionThreshold;
     }
 
 #if UNITY_EDITOR
     private void OnDrawGizmos()
     {
-        Handles.color = detectionLevel < detectionThreshold
-            ? Color.Lerp(Color.green, Color.red, detectionLevel)
+        Handles.color = DetectionLevel < detectionThreshold
+            ? Color.Lerp(Color.green, Color.red, DetectionLevel)
             : Color.red;
 
-        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, detectionLevel * 360f, 1f);
+        Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, DetectionLevel * 360f, 1f);
     }
 #endif
 

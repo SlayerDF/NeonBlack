@@ -46,6 +46,8 @@ public partial class PlayerInput : MonoBehaviour
 
         playerAnimation.SetInputMagnitude(input.SqrMagnitude());
 
+        RaycastObstacleCamera();
+
         if (isDashing)
         {
             DashPlayer();

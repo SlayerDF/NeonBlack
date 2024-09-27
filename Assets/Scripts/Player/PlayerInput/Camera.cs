@@ -35,6 +35,9 @@ public partial class PlayerInput
     #endregion
 
     private float cameraCurrentZoom;
+
+    private bool cameraHasObstacle;
+    private RaycastHit cameraObstacleHit;
     private Vector3 cameraOrbit;
     private float cameraSensitivity;
     private float currentCameraDistance;
@@ -69,6 +72,17 @@ public partial class PlayerInput
         cameraSensitivity = Settings.MouseSensitivity * DefaultSensitivity;
     }
 
+    private void RaycastObstacleCamera()
+    {
+        const float raycastSphereRadius = 0.5f;
+
+        var castDirection = Quaternion.Euler(cameraOrbit) * -Vector3.forward;
+
+        cameraHasObstacle = Physics.SphereCast(cameraTarget.position, raycastSphereRadius, castDirection,
+            out cameraObstacleHit, cameraCurrentZoom + cameraMinObstacleDistance, cameraCollisionMask,
+            QueryTriggerInteraction.Ignore);
+    }
+
     // Retrieve camera input
     private void MoveCamera()
     {
@@ -81,22 +95,14 @@ public partial class PlayerInput
     // Update camera rotation and position
     private void UpdateCamera()
     {
-        const float raycastSphereRadius = 0.5f;
-
         var target = cameraTarget.position;
         var lookRotation = Quaternion.Euler(cameraOrbit);
         var lookDirection = lookRotation * Vector3.forward;
-
-        // Set camera distance to the selected zoom by default
         var cameraDistance = cameraCurrentZoom;
 
-        // Raycast to check if the camera has obstacles
-        var cast = Physics.SphereCast(target, raycastSphereRadius, -lookDirection, out var hit,
-            cameraDistance + cameraMinObstacleDistance, cameraCollisionMask, QueryTriggerInteraction.Ignore);
-
-        if (cast)
+        if (cameraHasObstacle)
         {
-            cameraDistance = Mathf.Max(0f, hit.distance - cameraMinObstacleDistance);
+            cameraDistance = Mathf.Max(0f, cameraObstacleHit.distance - cameraMinObstacleDistance);
         }
 
         // Set camera position to the circle orbit around the player head if the obstacle is too close

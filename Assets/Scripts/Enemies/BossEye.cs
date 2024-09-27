@@ -3,9 +3,6 @@ using UnityEngine;
 
 public class BossEye : MonoBehaviour
 {
-    private static readonly string EmissionName = "_EmissionColor";
-    private static readonly int Emission = Shader.PropertyToID(EmissionName);
-
     #region Serialized Fields
 
     [Header("Components")]
@@ -74,8 +71,6 @@ public class BossEye : MonoBehaviour
         spotRange = spotlight.range;
         spotAngle = CalculateSpotAngle(defaultRadius, defaultDistance);
         targetColor = visuals.material.color;
-
-        visuals.material.EnableKeyword(EmissionName);
     }
 
     private void Update()
@@ -86,7 +81,7 @@ public class BossEye : MonoBehaviour
 
         currentColor = currentColor.MoveTowards(targetColor, FocusSpeed * Time.deltaTime);
         visuals.material.color = currentColor;
-        visuals.material.SetColor(Emission, currentColor);
+        visuals.material.SetEmissionColor(currentColor);
     }
 
     private void FixedUpdate()

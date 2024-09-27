@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 
 public partial class PlayerInput
 {
+    private const float GroundGravity = -6.0f;
+
     #region Serialized Fields
 
     [Header("Movement")]
@@ -127,9 +129,9 @@ public partial class PlayerInput
             currentSpeed.x = 0f;
             currentSpeed.y -= naturalDeceleration.y * Time.deltaTime;
 
-            if (currentSpeed.y < -2f)
+            if (currentSpeed.y < GroundGravity)
             {
-                currentSpeed.y = -2f;
+                currentSpeed.y = GroundGravity;
             }
         }
         else
