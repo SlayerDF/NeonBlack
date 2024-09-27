@@ -29431,7 +29431,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8928701106033544940, guid: c21f0c1938fae234d8f0ab55711cc896, type: 3}
       propertyPath: m_Name
-      value: ProjectileTrap
+      value: SimpleTrap
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
