@@ -72,7 +72,7 @@ public partial class PlayerInput
     // Retrieve camera input
     private void MoveCamera()
     {
-        var moveOffset = actions.CameraMove.ReadValue<Vector2>() * cameraSensitivity;
+        var moveOffset = cameraActions.CameraMove.ReadValue<Vector2>() * cameraSensitivity;
 
         cameraOrbit.x = Mathf.Clamp(cameraOrbit.x - moveOffset.y, minMaxCameraPitch.x, minMaxCameraPitch.y);
         cameraOrbit.y += moveOffset.x;
@@ -118,7 +118,7 @@ public partial class PlayerInput
 
     private void OnCameraZoomChange(InputAction.CallbackContext obj)
     {
-        var value = actions.CameraZoom.ReadValue<Vector2>();
+        var value = cameraActions.CameraZoom.ReadValue<Vector2>();
         var change = value.y < 0 ? cameraZoomStep : -cameraZoomStep;
 
         cameraCurrentZoom = Mathf.Clamp(cameraCurrentZoom + change, minMaxCameraZoom.x, minMaxCameraZoom.y);

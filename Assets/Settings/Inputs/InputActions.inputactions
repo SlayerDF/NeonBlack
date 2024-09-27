@@ -2,13 +2,13 @@
     "name": "InputActions",
     "maps": [
         {
-            "name": "Player",
+            "name": "PlayerMovement",
             "id": "b3e0f309-f951-402e-a575-4bdae7f99d43",
             "actions": [
                 {
                     "name": "Move",
                     "type": "Value",
-                    "id": "dd9a819f-16b7-4329-9712-fc4127ab938a",
+                    "id": "45660656-6d08-49f9-8f15-aaf94c85cae7",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -17,7 +17,7 @@
                 {
                     "name": "Jump",
                     "type": "Button",
-                    "id": "3cfe06f3-73e5-4c9e-8f73-7d71f9b44d57",
+                    "id": "56ddf64d-f64b-4c52-9826-21576c93e1fe",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -26,34 +26,7 @@
                 {
                     "name": "Dash",
                     "type": "Button",
-                    "id": "4e019464-daae-4067-940f-5d3d649f4b20",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "CameraZoom",
-                    "type": "Value",
-                    "id": "a529eea2-cce9-48ec-b7a6-0dda354238e9",
-                    "expectedControlType": "Delta",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "CameraMove",
-                    "type": "Value",
-                    "id": "4f10bec3-e5ea-4ffe-a6fc-ef2c96089905",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Attack",
-                    "type": "Button",
-                    "id": "3a36f11e-7ac7-4b2b-afe8-12c60692463d",
+                    "id": "69d2a440-5182-4629-b39f-487de8613705",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -63,7 +36,7 @@
             "bindings": [
                 {
                     "name": "Keyboard WASD",
-                    "id": "326577a0-7d6a-4971-a253-6429de6f9eeb",
+                    "id": "6b8886c7-31f8-4f53-8bfe-d410bc12e83e",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -74,7 +47,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "28c976f5-e499-4837-a93d-4fa4fc8d8e4c",
+                    "id": "04aab050-d25d-4f6d-ad66-1095fbe704a7",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -85,7 +58,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "eb6b2931-b363-4dc4-b4d8-9a655abe5d04",
+                    "id": "45821957-bf38-46cd-9084-a80060e03328",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -96,7 +69,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "c61c9b0e-ee31-436c-92c2-43acf3cee118",
+                    "id": "adbf9d62-7e9a-457e-a233-f0ee5305e180",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -107,7 +80,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "7db9ae23-9844-4a2e-8087-c109ab77eafa",
+                    "id": "e2067e79-e211-430d-840e-ead7829285d6",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -118,29 +91,7 @@
                 },
                 {
                     "name": "",
-                    "id": "692f74eb-bc97-40cb-956a-1be7722c2010",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraZoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2e6335b2-1cc8-458d-b054-f9675772bd30",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraMove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "b309f32c-14cc-4619-acc7-99b755546b18",
+                    "id": "e6aa9e34-5560-4370-88c5-1047b1950f82",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
@@ -151,7 +102,7 @@
                 },
                 {
                     "name": "",
-                    "id": "53b8a68a-61c1-43db-99cc-cbb4552506d1",
+                    "id": "59e8033c-6061-4949-95dc-fdab3d01a87b",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
@@ -159,15 +110,80 @@
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
+                }
+            ]
+        },
+        {
+            "name": "PlayerAttack",
+            "id": "bc9e450f-9cf1-48e9-b7eb-1aeb67ad2cba",
+            "actions": [
+                {
+                    "name": "Attack",
+                    "type": "Button",
+                    "id": "924db241-c824-4e0c-8b9c-366de13af9f4",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
                 {
                     "name": "",
-                    "id": "6286437c-4562-4ad8-84a4-b0122e0aaa56",
+                    "id": "be47cc3c-c331-415f-bb6b-f23785b4ca55",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "PlayerCamera",
+            "id": "0cdc1b94-f24f-473b-8262-bb2c79ca02b8",
+            "actions": [
+                {
+                    "name": "CameraZoom",
+                    "type": "Value",
+                    "id": "822c9281-674c-4d51-8a27-67dad72ea09d",
+                    "expectedControlType": "Delta",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "CameraMove",
+                    "type": "Value",
+                    "id": "3715e9ce-0f3e-49e5-b27f-82b609d8d898",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "df81db40-99db-46b5-aa99-457a6a0fe8dd",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraZoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "7fdc7d22-8482-47ab-979a-207267ba3bca",
+                    "path": "<Mouse>/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CameraMove",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
