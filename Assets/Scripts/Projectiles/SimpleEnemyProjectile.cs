@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class SimpleEnemyProjectile : Projectile
 {
@@ -29,8 +28,6 @@ public class SimpleEnemyProjectile : Projectile
             case Layer.Player when other.TryGetComponent(out PlayerController player):
                 player.Kill();
                 break;
-            default:
-                throw new InvalidEnumArgumentException(nameof(layer), (int)layer, typeof(Layer));
         }
     }
 

@@ -39,7 +39,7 @@ public partial class PlayerInput
 
     private void OnJump(InputAction.CallbackContext context)
     {
-        if (!MovementEnabled || !IsGrounded)
+        if (!IsGrounded)
         {
             return;
         }
@@ -50,7 +50,7 @@ public partial class PlayerInput
 
     private void OnDash(InputAction.CallbackContext obj)
     {
-        if (!MovementEnabled || !DashEnabled || isDashing)
+        if (isDashing)
         {
             return;
         }
@@ -125,13 +125,17 @@ public partial class PlayerInput
         if (IsGrounded)
         {
             currentSpeed.x = 0f;
+            currentSpeed.y -= naturalDeceleration.y * Time.deltaTime;
+
+            if (currentSpeed.y < -2f)
+            {
+                currentSpeed.y = -2f;
+            }
         }
         else
         {
-            currentSpeed.x -= naturalDeceleration.x * Time.deltaTime;
+            currentSpeed -= naturalDeceleration * Time.deltaTime;
         }
-
-        currentSpeed.y -= naturalDeceleration.y * Time.deltaTime;
     }
 
     private void ClampSpeed()

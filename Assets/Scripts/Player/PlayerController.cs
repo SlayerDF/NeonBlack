@@ -37,6 +37,15 @@ public class PlayerController : MonoBehaviour, IEntityHealth
 
     #endregion
 
+    #region IEntityHealth Members
+
+    public void TakeDamage(float dmg)
+    {
+        Kill();
+    }
+
+    #endregion
+
     private void OnAlertChanged(float value)
     {
         if (value >= 1)
@@ -53,19 +62,15 @@ public class PlayerController : MonoBehaviour, IEntityHealth
         }
 
         killed = true;
-        playerInput.MovementEnabled = false;
+        playerInput.ToggleMovementActions(false);
+        playerInput.ToggleAttackActions(false);
         playerAnimation.OnDeath();
 
         AudioManager.Play(AudioManager.Music, AudioManager.PlayerDeathMusicClip);
 
         UniTask.WhenAll(
             AudioManager.Music.WaitFinish(),
-            playerAnimation.WaitAnimationEnd(PlayerAnimation.Death, 2)
+            playerAnimation.WaitAnimationEnd(PlayerAnimation.Dead, 2)
         ).ContinueWith(SceneLoader.RestartLevel);
-    }
-
-    public void TakeDamage(float dmg)
-    {
-        Kill();
     }
 }

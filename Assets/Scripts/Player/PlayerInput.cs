@@ -14,17 +14,20 @@ public partial class PlayerInput : MonoBehaviour
 
     #endregion
 
-    private InputActions.PlayerActions actions;
+    private InputActions.PlayerAttackActions attackActions;
+    private InputActions.PlayerCameraActions cameraActions;
+
     private Vector2 input;
 
-    public bool MovementEnabled { get; set; } = true;
-    public bool DashEnabled { get; set; } = true;
+    private InputActions.PlayerMovementActions movementActions;
 
     #region Event Functions
 
     private void Awake()
     {
-        actions = new InputActions().Player;
+        movementActions = new InputActions().PlayerMovement;
+        attackActions = new InputActions().PlayerAttack;
+        cameraActions = new InputActions().PlayerCamera;
     }
 
     private void Start()
@@ -39,7 +42,7 @@ public partial class PlayerInput : MonoBehaviour
             return;
         }
 
-        input = MovementEnabled ? actions.Move.ReadValue<Vector2>() : Vector2.zero;
+        input = movementActions.Move.ReadValue<Vector2>();
 
         playerAnimation.SetInputMagnitude(input.SqrMagnitude());
 
@@ -63,12 +66,15 @@ public partial class PlayerInput : MonoBehaviour
 
     private void OnEnable()
     {
-        actions.Enable();
-        actions.CameraZoom.performed += OnCameraZoomChange;
-        actions.Jump.performed += OnJump;
-        actions.Dash.performed += OnDash;
-        actions.Attack.started += OnAttackStarted;
-        actions.Attack.canceled += OnAttackCanceled;
+        ToggleMovementActions(true);
+        ToggleAttackActions(true);
+        ToggleCameraActions(true);
+
+        movementActions.Jump.performed += OnJump;
+        movementActions.Dash.performed += OnDash;
+        attackActions.Attack.started += OnAttackStarted;
+        attackActions.Attack.canceled += OnAttackCanceled;
+        cameraActions.CameraZoom.performed += OnCameraZoomChange;
 
         OnEnableAttack();
         OnEnableCamera();
@@ -76,16 +82,55 @@ public partial class PlayerInput : MonoBehaviour
 
     private void OnDisable()
     {
-        actions.Disable();
-        actions.CameraZoom.performed -= OnCameraZoomChange;
-        actions.Jump.performed -= OnJump;
-        actions.Dash.performed -= OnDash;
-        actions.Attack.started -= OnAttackStarted;
-        actions.Attack.canceled -= OnAttackCanceled;
+        ToggleMovementActions(false);
+        ToggleAttackActions(false);
+        ToggleCameraActions(false);
+
+        movementActions.Jump.performed -= OnJump;
+        movementActions.Dash.performed -= OnDash;
+        attackActions.Attack.started -= OnAttackStarted;
+        attackActions.Attack.canceled -= OnAttackCanceled;
+        cameraActions.CameraZoom.performed -= OnCameraZoomChange;
 
         OnDisableAttack();
         OnDisableCamera();
     }
 
     #endregion
+
+    public void ToggleMovementActions(bool value)
+    {
+        if (value)
+        {
+            movementActions.Enable();
+        }
+        else
+        {
+            movementActions.Disable();
+        }
+    }
+
+    public void ToggleAttackActions(bool value)
+    {
+        if (value)
+        {
+            attackActions.Enable();
+        }
+        else
+        {
+            attackActions.Disable();
+        }
+    }
+
+    public void ToggleCameraActions(bool value)
+    {
+        if (value)
+        {
+            cameraActions.Enable();
+        }
+        else
+        {
+            cameraActions.Disable();
+        }
+    }
 }

@@ -17,9 +17,9 @@ namespace Player
         private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Dashing = Animator.StringToHash("Dashing");
         private static readonly int Attacking = Animator.StringToHash("Attacking");
+        public static readonly int Dead = Animator.StringToHash("Dead");
         private static readonly int Jump = Animator.StringToHash("Jump");
         private static readonly int Dash = Animator.StringToHash("Dash");
-        public static readonly int Death = Animator.StringToHash("Death");
         private static readonly int Attack = Animator.StringToHash("Attack");
 
         #region Serialized Fields
@@ -107,7 +107,7 @@ namespace Player
 
         public void OnDeath()
         {
-            animator.SetTrigger(Death);
+            animator.SetBool(Dead, true);
         }
 
         public void OnAttack()
