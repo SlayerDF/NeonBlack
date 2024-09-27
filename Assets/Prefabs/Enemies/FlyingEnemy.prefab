@@ -129,7 +129,7 @@ GameObject:
   - component: {fileID: 4528631364858346921}
   - component: {fileID: 634990824974711761}
   - component: {fileID: 8552451741350664978}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -34873,6 +34873,10 @@ MonoBehaviour:
   lineOfSightByPathBehavior: {fileID: 8218788075927382710}
   checkPlayerVisibilityBehavior: {fileID: 2707003243118688980}
   playerDetectionBehavior: {fileID: 7493885340609151391}
+  lineOfSightVisuals: {fileID: 2308014945799621164}
+  targetPointLight: {fileID: 0}
+  highAlertColor: {r: 3.789027, g: 1.1704324, b: 0, a: 1}
+  lowAlertColor: {r: 0, g: 1.1902703, b: 0, a: 1}
 --- !u!114 &8218788075927382710
 MonoBehaviour:
   m_ObjectHideFlags: 0

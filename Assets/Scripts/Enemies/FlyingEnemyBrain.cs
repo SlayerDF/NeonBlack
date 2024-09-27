@@ -23,7 +23,24 @@ public class FlyingEnemyBrain : MonoBehaviour
     [SerializeField]
     private PlayerDetectionBehavior playerDetectionBehavior;
 
+    [Header("Visuals")]
+    [SerializeField]
+    private MeshRenderer lineOfSightVisuals;
+
+    [SerializeField]
+    private Light targetPointLight;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color highAlertColor;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color lowAlertColor;
+
     #endregion
+
+    private Color currentAlertColor;
 
     #region Event Functions
 
@@ -37,6 +54,11 @@ public class FlyingEnemyBrain : MonoBehaviour
     {
         playerDetectionBehavior.CanSeePlayer =
             lineOfSightByPathBehavior.IsPlayerDetected && checkPlayerVisibilityBehavior.IsPlayerVisible();
+
+        var color = Color.Lerp(lowAlertColor, highAlertColor, playerDetectionBehavior.DetectionLevel);
+        lineOfSightVisuals.material.SetEmissionColor(color);
+
+        targetPointLight.color = color;
     }
 
     #endregion

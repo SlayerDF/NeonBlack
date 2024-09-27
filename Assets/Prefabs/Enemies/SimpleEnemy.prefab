@@ -314,6 +314,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyAnimation: {fileID: 5129818278308910910}
   enemyHealth: {fileID: 9103663542848370163}
+  bossBrain: {fileID: 0}
   lineOfSightBehavior: {fileID: 5213703120788505677}
   checkPlayerVisibilityBehavior: {fileID: 3256046690734638319}
   patrolBehavior: {fileID: 1712677700463417707}
@@ -322,6 +323,10 @@ MonoBehaviour:
   shootPlayerBehavior: {fileID: 6797651973981472062}
   thinkFrequency: 0.1
   attackDelay: 1
+  notifyBossDelay: 3
+  lineOfSightVisuals: {fileID: 2296553332579151280}
+  highAlertColor: {r: 2.9960785, g: 0.6901961, b: 0.1254902, a: 1}
+  lowAlertColor: {r: 0.14117648, g: 0.98039216, b: 0.0627451, a: 1}
 --- !u!114 &5213703120788505677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,8 +362,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  playerLayer: 3
-  obstacleLayer: 6
 --- !u!114 &1712677700463417707
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -385,7 +388,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083a2b20910aed749bfa2d0adbf34f14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  detectionHeatingRate: 1.5
+  detectionHeatingRate: 1.25
   detectionCoolingRate: 0.05
   detectionThreshold: 0.75
   detectionDistanceMultiplier:
@@ -424,7 +427,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67008b35ec8d15741b13f527e23bcc50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poolManager: {fileID: 0}
   projectilePrefab: {fileID: 4128963942802171205, guid: 697d98f8886179d4aaa7a525c4d76521, type: 3}
   projectileSpawnPoint: {fileID: 8149004209287114767}
   playerTransform: {fileID: 0}

@@ -2489,7 +2489,7 @@ Light:
   m_Type: 0
   m_Shape: 0
   m_Color: {r: 0.8773585, g: 0.11105359, b: 0, a: 1}
-  m_Intensity: 12
+  m_Intensity: 2
   m_Range: 6
   m_SpotAngle: 90
   m_InnerSpotAngle: 3
@@ -2861,6 +2861,10 @@ PrefabInstance:
       propertyPath: bossBrain
       value: 
       objectReference: {fileID: 1753127799}
+    - target: {fileID: 2899624844788222817, guid: 273aad7756bcf834ebb225c0d871febb, type: 3}
+      propertyPath: targetPointLight
+      value: 
+      objectReference: {fileID: 312876492}
     - target: {fileID: 3412154672698922204, guid: 273aad7756bcf834ebb225c0d871febb, type: 3}
       propertyPath: m_Mesh
       value: 

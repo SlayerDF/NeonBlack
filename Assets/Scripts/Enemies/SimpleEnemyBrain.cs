@@ -46,6 +46,18 @@ public class SimpleEnemyBrain : MonoBehaviour
     [SerializeField]
     private float notifyBossDelay = 3f;
 
+    [Header("Visuals")]
+    [SerializeField]
+    private MeshRenderer lineOfSightVisuals;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color highAlertColor;
+
+    [SerializeField]
+    [ColorUsage(true, true)]
+    private Color lowAlertColor;
+
     #endregion
 
     private float actionTimer;
@@ -123,6 +135,9 @@ public class SimpleEnemyBrain : MonoBehaviour
         playerDetectionBehavior.CanSeePlayer =
             lineOfSightBehavior.HasTarget && checkPlayerVisibilityBehavior.IsPlayerVisible();
         playerDetectionBehavior.DistanceToPlayerNormalized = lineOfSightBehavior.DistanceToPlayerNormalized;
+
+        var color = Color.Lerp(lowAlertColor, highAlertColor, playerDetectionBehavior.DetectionLevel);
+        lineOfSightVisuals.material.SetEmissionColor(color);
 
         if (playerDetectionBehavior.PlayerIsDetected.CurrentValue)
         {
