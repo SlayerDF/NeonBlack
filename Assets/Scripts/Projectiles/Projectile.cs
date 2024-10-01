@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Projectile : PoolObject
+public abstract class Projectile : PoolObject
 {
     #region Serialized Fields
 
