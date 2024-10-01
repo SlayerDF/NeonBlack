@@ -27,7 +27,7 @@ jobs:
       - name: Set env
         run: echo "BUILD_PATH=$(echo $GITHUB_WORKSPACE)/out" >> $GITHUB_ENV
       - name: Build
-        run: Unity 
+        run: $UNITY_PATH/Unity 
           \ -quit
           \ -batchmode
           \ -buildTarget webgl
