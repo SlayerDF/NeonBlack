@@ -2,20 +2,23 @@
 using Eflatun.SceneReference;
 using UnityEngine;
 
-[Serializable]
-public class SceneGroup
+namespace NeonBlack.Systems.SceneManagement
 {
-    #region Serialized Fields
+    [Serializable]
+    public class SceneGroup
+    {
+        #region Serialized Fields
 
-    [SerializeField]
-    private SceneReference mainScene;
+        [SerializeField]
+        private SceneReference mainScene;
 
-    [SerializeField]
-    private SceneReference[] additionalScenes;
+        [SerializeField]
+        private SceneReference[] additionalScenes;
 
-    #endregion
+        #endregion
 
-    public SceneReference MainScene => mainScene;
+        public SceneReference MainScene => mainScene;
 
-    public SceneReference[] AdditionalScenes => additionalScenes;
+        public SceneReference[] AdditionalScenes => additionalScenes;
+    }
 }

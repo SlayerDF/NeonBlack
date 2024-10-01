@@ -1,16 +1,20 @@
+using NeonBlack.Interfaces;
 using UnityEngine;
 
-public class DeathZone : MonoBehaviour
+namespace NeonBlack.Interactables
 {
-    #region Event Functions
-
-    private void OnTriggerEnter(Collider other)
+    public class DeathZone : MonoBehaviour
     {
-        if (other.TryGetComponent(out IEntityHealth entityHealth))
-        {
-            entityHealth.TakeDamage(float.MaxValue);
-        }
-    }
+        #region Event Functions
 
-    #endregion
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.TryGetComponent(out IEntityHealth entityHealth))
+            {
+                entityHealth.TakeDamage(float.MaxValue);
+            }
+        }
+
+        #endregion
+    }
 }

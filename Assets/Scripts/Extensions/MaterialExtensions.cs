@@ -1,17 +1,20 @@
 ﻿using UnityEngine;
 
-public static class MaterialExtensions
+namespace NeonBlack.Extensions
 {
-    private const string EmissionName = "_EmissionColor";
-    private static readonly int Emission = Shader.PropertyToID(EmissionName);
-
-    public static void SetEmissionColor(this Material material, Color emissionColor)
+    public static class MaterialExtensions
     {
-        if (!material.IsKeywordEnabled(EmissionName))
-        {
-            material.EnableKeyword(EmissionName);
-        }
+        private const string EmissionName = "_EmissionColor";
+        private static readonly int Emission = Shader.PropertyToID(EmissionName);
 
-        material.SetColor(Emission, emissionColor);
+        public static void SetEmissionColor(this Material material, Color emissionColor)
+        {
+            if (!material.IsKeywordEnabled(EmissionName))
+            {
+                material.EnableKeyword(EmissionName);
+            }
+
+            material.SetColor(Emission, emissionColor);
+        }
     }
 }

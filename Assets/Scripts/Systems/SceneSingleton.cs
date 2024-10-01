@@ -1,30 +1,33 @@
 ﻿using UnityEngine;
 
-public abstract class SceneSingleton<T> : MonoBehaviour where T : SceneSingleton<T>
+namespace NeonBlack.Systems
 {
-    protected static T Instance { get; private set; }
-
-    public static bool Instantiated => Instance != null;
-
-    #region Event Functions
-
-    protected virtual void Awake()
+    public abstract class SceneSingleton<T> : MonoBehaviour where T : SceneSingleton<T>
     {
-        if (Instance != null)
+        protected static T Instance { get; private set; }
+
+        public static bool Instantiated => Instance != null;
+
+        #region Event Functions
+
+        protected virtual void Awake()
         {
-            Debug.LogWarning("Multiple instances of singleton");
+            if (Instance != null)
+            {
+                Debug.LogWarning("Multiple instances of singleton");
+            }
+
+            Instance = (T)this;
         }
 
-        Instance = (T)this;
-    }
-
-    protected virtual void OnDestroy()
-    {
-        if (Instance == this)
+        protected virtual void OnDestroy()
         {
-            Instance = null;
+            if (Instance == this)
+            {
+                Instance = null;
+            }
         }
-    }
 
-    #endregion
+        #endregion
+    }
 }

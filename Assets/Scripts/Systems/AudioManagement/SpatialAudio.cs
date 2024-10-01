@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using NeonBlack.Utilities;
+using UnityEngine;
 
-namespace Systems.AudioManagement
+namespace NeonBlack.Systems.AudioManagement
 {
     public class SpatialAudio : PoolObject
     {

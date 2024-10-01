@@ -1,40 +1,52 @@
 using System.Collections;
+using NeonBlack.Projectiles;
+using NeonBlack.Utilities;
 using UnityEngine;
 
-public class SimpleTrap : MonoBehaviour
+namespace NeonBlack.Traps
 {
-    [SerializeField]
-    bool shootReady;
-
-    [SerializeField]
-    float shootQuantity;
-
-    [Header("References")]
-    [SerializeField]
-    Transform projectileSpawnPoint;
-
-    [SerializeField]
-    Projectile trapProjectilePrefab;
-
-    public void Shoot()
+    public class SimpleTrap : MonoBehaviour
     {
-        if (shootReady) StartCoroutine(ShootCoroutine());
-    } 
+        #region Serialized Fields
 
-    IEnumerator ShootCoroutine()
-    {
-        shootReady = false;
+        [SerializeField]
+        private bool shootReady;
 
-        for (int i = 0; i < shootQuantity; i++)
+        [SerializeField]
+        private float shootQuantity;
+
+        [Header("References")]
+        [SerializeField]
+        private Transform projectileSpawnPoint;
+
+        [SerializeField]
+        private Projectile trapProjectilePrefab;
+
+        #endregion
+
+        public void Shoot()
         {
-            ObjectPoolManager.Spawn(trapProjectilePrefab, out Projectile projectile);
-            projectile.transform.position = projectileSpawnPoint.position;
-
-            yield return new WaitForSeconds(0.5f);
+            if (shootReady)
+            {
+                StartCoroutine(ShootCoroutine());
+            }
         }
 
-        yield return new WaitForSeconds(1f);
+        private IEnumerator ShootCoroutine()
+        {
+            shootReady = false;
 
-        shootReady = true;
+            for (var i = 0; i < shootQuantity; i++)
+            {
+                ObjectPoolManager.Spawn(trapProjectilePrefab, out Projectile projectile);
+                projectile.transform.position = projectileSpawnPoint.position;
+
+                yield return new WaitForSeconds(0.5f);
+            }
+
+            yield return new WaitForSeconds(1f);
+
+            shootReady = true;
+        }
     }
 }

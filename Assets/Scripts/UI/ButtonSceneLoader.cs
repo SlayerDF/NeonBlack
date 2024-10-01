@@ -1,24 +1,28 @@
 ﻿using Cysharp.Threading.Tasks;
 using Eflatun.SceneReference;
+using NeonBlack.Systems.SceneManagement;
 using UnityEngine;
 
-public class ButtonSceneLoader : ButtonBehaviour
+namespace NeonBlack.UI
 {
-    #region Serialized Fields
-
-    [SerializeField]
-    private MainMenuController mainMenuController;
-
-    [SerializeField]
-    private SceneReference scene;
-
-    #endregion
-
-    /// <inheritdoc />
-    protected override void OnClick()
+    public class ButtonSceneLoader : ButtonBehaviour
     {
-        SceneLoader.LoadScene(scene).Forget();
+        #region Serialized Fields
 
-        mainMenuController.Unpause();
+        [SerializeField]
+        private MainMenuController mainMenuController;
+
+        [SerializeField]
+        private SceneReference scene;
+
+        #endregion
+
+        /// <inheritdoc />
+        protected override void OnClick()
+        {
+            SceneLoader.LoadScene(scene).Forget();
+
+            mainMenuController.Unpause();
+        }
     }
 }

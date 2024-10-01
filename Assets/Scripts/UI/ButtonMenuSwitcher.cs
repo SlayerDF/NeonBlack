@@ -1,20 +1,23 @@
 using UnityEngine;
 
-public class ButtonMenuSwitcher : ButtonBehaviour
+namespace NeonBlack.UI
 {
-    #region Serialized Fields
-
-    [SerializeField]
-    private MenuManager menuManager;
-
-    [SerializeField]
-    private MenuManager.MenuType menuType;
-
-    #endregion Serialized Fields
-
-    /// <inheritdoc />
-    protected override void OnClick()
+    public class ButtonMenuSwitcher : ButtonBehaviour
     {
-        menuManager.SwitchToMenu(menuType);
+        #region Serialized Fields
+
+        [SerializeField]
+        private MenuManager menuManager;
+
+        [SerializeField]
+        private MenuManager.MenuType menuType;
+
+        #endregion
+
+        /// <inheritdoc />
+        protected override void OnClick()
+        {
+            menuManager.SwitchToMenu(menuType);
+        }
     }
 }
