@@ -504,7 +504,7 @@ MonoBehaviour:
   m_StartGridSize: 64
   m_LastFolders: []
   m_LastFoldersGridSize: -1
-  m_LastProjectPath: C:\Users\Slaye\ENProject2
+  m_LastProjectPath: 
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
