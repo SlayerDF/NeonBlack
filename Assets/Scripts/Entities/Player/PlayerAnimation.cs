@@ -1,10 +1,10 @@
 ﻿using JetBrains.Annotations;
-using Systems.AudioManagement;
+using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 
-namespace Player
+namespace NeonBlack.Entities.Player
 {
-    public class PlayerAnimation : Animation
+    public class PlayerAnimation : EntityAnimation
     {
         private const int AttackTypesCount = 4;
 
@@ -27,15 +27,15 @@ namespace Player
         [SerializeField]
         private CharacterController characterController;
 
+        [SerializeField]
+        private float blendingLerpSpeed = 5f;
+
         [Header("Parameters")]
         [SerializeField]
         private float normalVelocity = 5f;
 
         [SerializeField]
         private float velocityLerpSpeed = 5f;
-
-        [SerializeField]
-        private float blendingLerpSpeed = 5f;
 
         #endregion
 

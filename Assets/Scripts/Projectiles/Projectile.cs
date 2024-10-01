@@ -1,30 +1,34 @@
-﻿using UnityEngine;
+﻿using NeonBlack.Utilities;
+using UnityEngine;
 
-public abstract class Projectile : PoolObject
+namespace NeonBlack.Projectiles
 {
-    #region Serialized Fields
-
-    [SerializeField]
-    private float lifetime = 10f;
-
-    #endregion
-
-    private float time;
-
-    #region Event Functions
-
-    protected virtual void FixedUpdate()
+    public abstract class Projectile : PoolObject
     {
-        if ((time += Time.fixedDeltaTime) >= lifetime)
+        #region Serialized Fields
+
+        [SerializeField]
+        private float lifetime = 10f;
+
+        #endregion
+
+        private float time;
+
+        #region Event Functions
+
+        protected virtual void FixedUpdate()
         {
-            ObjectPoolManager.Despawn(this);
+            if ((time += Time.fixedDeltaTime) >= lifetime)
+            {
+                ObjectPoolManager.Despawn(this);
+            }
         }
-    }
 
-    protected virtual void OnEnable()
-    {
-        time = 0f;
-    }
+        protected virtual void OnEnable()
+        {
+            time = 0f;
+        }
 
-    #endregion
+        #endregion
+    }
 }

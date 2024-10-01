@@ -1,4 +1,7 @@
-public interface IEntityHealth
+namespace NeonBlack.Interfaces
 {
-    public void TakeDamage(float dmg);
+    public interface IEntityHealth
+    {
+        public void TakeDamage(float dmg);
+    }
 }

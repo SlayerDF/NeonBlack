@@ -1,23 +1,26 @@
 using TMPro;
 using UnityEngine;
 
-public class ButtonRename : MonoBehaviour
+namespace NeonBlack.UI
 {
-    #region Serialized Fields
+    public class ButtonRename : MonoBehaviour
+    {
+        #region Serialized Fields
 
-    [SerializeField]
-    private TMP_Text text;
+        [SerializeField]
+        private TMP_Text text;
 
-    #endregion
+        #endregion
 
-    #region Event Functions
+        #region Event Functions
 
 #if UNITY_EDITOR
-    private void OnValidate()
-    {
-        text.text = name;
-    }
+        private void OnValidate()
+        {
+            text.text = name;
+        }
 #endif
 
-    #endregion
+        #endregion
+    }
 }

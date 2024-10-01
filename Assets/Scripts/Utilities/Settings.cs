@@ -1,52 +1,55 @@
 using UnityEngine;
 
-public static class Settings
+namespace NeonBlack.Utilities
 {
-    public delegate void SettingChangedEventHandler(string settingKey);
-
-    public const string FramerateKey = "Framerate";
-    public const string MouseSensitivityKey = "MouseSensitivity";
-
-    private static int _framerate;
-
-    private static float _mouseSensitivity;
-
-    public static int Framerate
+    public static class Settings
     {
-        get => _framerate;
-        set
+        public delegate void SettingChangedEventHandler(string settingKey);
+
+        public const string FramerateKey = "Framerate";
+        public const string MouseSensitivityKey = "MouseSensitivity";
+
+        private static int _framerate;
+
+        private static float _mouseSensitivity;
+
+        public static int Framerate
         {
-            _framerate = value;
+            get => _framerate;
+            set
+            {
+                _framerate = value;
 
-            Application.targetFrameRate = _framerate;
-            PlayerPrefs.SetInt(FramerateKey, _framerate);
-            SettingChanged?.Invoke(FramerateKey);
+                Application.targetFrameRate = _framerate;
+                PlayerPrefs.SetInt(FramerateKey, _framerate);
+                SettingChanged?.Invoke(FramerateKey);
+            }
         }
-    }
 
-    public static float MouseSensitivity
-    {
-        get => _mouseSensitivity;
-        set
+        public static float MouseSensitivity
         {
-            _mouseSensitivity = value;
+            get => _mouseSensitivity;
+            set
+            {
+                _mouseSensitivity = value;
 
-            PlayerPrefs.SetFloat(MouseSensitivityKey, _mouseSensitivity);
-            SettingChanged?.Invoke(MouseSensitivityKey);
+                PlayerPrefs.SetFloat(MouseSensitivityKey, _mouseSensitivity);
+                SettingChanged?.Invoke(MouseSensitivityKey);
+            }
         }
-    }
 
-    public static event SettingChangedEventHandler SettingChanged;
+        public static event SettingChangedEventHandler SettingChanged;
 
-    public static void Save()
-    {
-        PlayerPrefs.Save();
-    }
+        public static void Save()
+        {
+            PlayerPrefs.Save();
+        }
 
-    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
-    private static void OnGameStart()
-    {
-        Framerate = PlayerPrefs.GetInt(FramerateKey, 60);
-        MouseSensitivity = PlayerPrefs.GetFloat(MouseSensitivityKey, 1f);
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+        private static void OnGameStart()
+        {
+            Framerate = PlayerPrefs.GetInt(FramerateKey, 60);
+            MouseSensitivity = PlayerPrefs.GetFloat(MouseSensitivityKey, 1f);
+        }
     }
 }

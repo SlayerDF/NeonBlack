@@ -1,18 +1,21 @@
-public partial class LevelState : SceneSingleton<LevelState>
+namespace NeonBlack.Systems
 {
-    #region Event Functions
-
-    protected override void Awake()
+    public partial class LevelState : SceneSingleton<LevelState>
     {
-        base.Awake();
+        #region Event Functions
 
-        AwakeAlert();
+        protected override void Awake()
+        {
+            base.Awake();
+
+            AwakeAlert();
+        }
+
+        private void FixedUpdate()
+        {
+            FixedUpdateAlert();
+        }
+
+        #endregion
     }
-
-    private void FixedUpdate()
-    {
-        FixedUpdateAlert();
-    }
-
-    #endregion
 }

@@ -1,9 +1,13 @@
-﻿using UnityEngine;
+﻿using NeonBlack.Enums;
+using UnityEngine;
 
-public static class LayerExtensions
+namespace NeonBlack.Extensions
 {
-    public static LayerMask ToMask(this Layer layer)
+    public static class LayerExtensions
     {
-        return 1 << (int)layer;
+        public static LayerMask ToMask(this Layer layer)
+        {
+            return 1 << (int)layer;
+        }
     }
 }

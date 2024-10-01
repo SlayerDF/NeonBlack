@@ -1,66 +1,72 @@
 using System.ComponentModel;
+using NeonBlack.Enums;
+using NeonBlack.Interfaces;
+using NeonBlack.Utilities;
 using UnityEngine;
 
-public class TrapProjectile : Projectile
+namespace NeonBlack.Projectiles
 {
-    #region Serialized Fields
-
-    [SerializeField]
-    private Vector2 initialVelocity = new(10f, 0f);
-
-    [SerializeField]
-    private Vector2 maxVelocity = new(10f, 9.8f);
-
-    [SerializeField]
-    private Vector2 deceleration = new(2f, 9.8f);
-
-    [SerializeField]
-    private float damage = 1f;
-
-    #endregion
-
-    private Vector2 velocity;
-
-    #region Event Functions
-
-    private void Update()
+    public class TrapProjectile : Projectile
     {
-        velocity -= deceleration * Time.deltaTime;
-        velocity.x = Mathf.Clamp(velocity.x, 0, maxVelocity.x);
-        velocity.y = Mathf.Clamp(velocity.y, -maxVelocity.y, maxVelocity.y);
+        #region Serialized Fields
 
-        transform.position +=
-            transform.forward * (velocity.x * Time.deltaTime) + transform.up * (velocity.y * Time.deltaTime);
-    }
+        [SerializeField]
+        private Vector2 initialVelocity = new(10f, 0f);
 
-    protected override void OnEnable()
-    {
-        base.OnEnable();
+        [SerializeField]
+        private Vector2 maxVelocity = new(10f, 9.8f);
 
-        velocity = initialVelocity;
-    }
+        [SerializeField]
+        private Vector2 deceleration = new(2f, 9.8f);
 
-    private void OnTriggerEnter(Collider other)
-    {
-        var layer = (Layer)other.gameObject.layer;
+        [SerializeField]
+        private float damage = 1f;
 
-        switch (layer)
+        #endregion
+
+        private Vector2 velocity;
+
+        #region Event Functions
+
+        private void Update()
         {
-            case Layer.Terrain:
-                ObjectPoolManager.Despawn(this);
-                break;
-            case Layer.Enemies:
-            case Layer.Player:
-                if (other.TryGetComponent(out IEntityHealth entityHealth))
-                {
-                    entityHealth.TakeDamage(damage);
-                }
+            velocity -= deceleration * Time.deltaTime;
+            velocity.x = Mathf.Clamp(velocity.x, 0, maxVelocity.x);
+            velocity.y = Mathf.Clamp(velocity.y, -maxVelocity.y, maxVelocity.y);
 
-                break;
-            default:
-                throw new InvalidEnumArgumentException(nameof(layer), (int)layer, typeof(Layer));
+            transform.position +=
+                transform.forward * (velocity.x * Time.deltaTime) + transform.up * (velocity.y * Time.deltaTime);
         }
-    }
 
-    #endregion
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+
+            velocity = initialVelocity;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            var layer = (Layer)other.gameObject.layer;
+
+            switch (layer)
+            {
+                case Layer.Terrain:
+                    ObjectPoolManager.Despawn(this);
+                    break;
+                case Layer.Enemies:
+                case Layer.Player:
+                    if (other.TryGetComponent(out IEntityHealth entityHealth))
+                    {
+                        entityHealth.TakeDamage(damage);
+                    }
+
+                    break;
+                default:
+                    throw new InvalidEnumArgumentException(nameof(layer), (int)layer, typeof(Layer));
+            }
+        }
+
+        #endregion
+    }
 }

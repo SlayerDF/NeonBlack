@@ -2,7 +2,7 @@
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace Systems.AudioManagement
+namespace NeonBlack.Systems.AudioManagement
 {
     public partial class AudioManager : SceneSingleton<AudioManager>
     {
