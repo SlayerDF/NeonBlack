@@ -32,7 +32,9 @@ jobs:
             Library-NeonBlack-
             Library-
       - name: Test
-        if: ${{ secrets.UNITY_EMAIL == '' }}
+        env:
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+        if: ${{ env.UNITY_EMAIL == '' }}
         run: echo UNITY_EMAIL is empty
       - name: Build
         uses: game-ci/unity-builder@v4
