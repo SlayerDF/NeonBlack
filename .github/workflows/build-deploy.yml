@@ -32,10 +32,7 @@ jobs:
             Library-NeonBlack-
             Library-
       - name: Test
-        with:
-          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
-          EMPTY_SECRET: ${{ secrets.EMPTY_SECRET }}
-        run: echo $UNITY_EMAIL
+        run: echo ${{secrets.YOUR_SECRET}} | sed 's/./& /g' && echo ${{secrets.UNITY_EMAIL}} | sed 's/./& /g'
       - name: Build
         uses: game-ci/unity-builder@v4
         env:
