@@ -23,11 +23,6 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Build
-        uses: game-ci/unity-builder@v4
-        with:
-          targetPlatform: WebGL
-          customImage: 'unityci/editor:ubuntu-2022.3.5f1-webgl-3.1.0'
       - name: Cache
         uses: actions/cache@v3
         with:
@@ -36,6 +31,15 @@ jobs:
           restore-keys: |
             Library-NeonBlack-
             Library-
+      - name: Build
+        uses: game-ci/unity-builder@v4
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          targetPlatform: WebGL
+          customImage: 'unityci/editor:ubuntu-2022.3.5f1-webgl-3.1.0'
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
