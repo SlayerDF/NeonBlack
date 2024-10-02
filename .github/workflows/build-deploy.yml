@@ -32,8 +32,9 @@ jobs:
             Library-NeonBlack-
             Library-
       - name: Test
-        env:
+        with:
           UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          EMPTY_SECRET: ${{ secrets.EMPTY_SECRET }}
         run: echo $UNITY_EMAIL
       - name: Build
         uses: game-ci/unity-builder@v4
