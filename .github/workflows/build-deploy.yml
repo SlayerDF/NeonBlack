@@ -18,24 +18,28 @@ concurrency:
 jobs:
   build:
     runs-on: [self-hosted, linux]
-    container: unityci/editor:ubuntu-2022.3.5f1-webgl-3.1.0
     steps:
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
-      - name: Set env
-        run: echo "BUILD_PATH=$(echo $GITHUB_WORKSPACE)/out" >> $GITHUB_ENV
       - name: Build
-        run: $UNITY_PATH/Editor/Unity 
-          \ -quit
-          \ -batchmode
-          \ -buildTarget webgl
-          \ -executeMethod NeonBlack.Editor.ProjectBuilder.PerformBuild
+        uses: game-ci/unity-builder@v4
+        with:
+          targetPlatform: WebGL
+          customImage: 'unityci/editor:ubuntu-2022.3.5f1-webgl-3.1.0'
+      - name: Cache
+        uses: actions/cache@v3
+        with:
+          path: /Library
+          key: Library-NeonBlack-WebGL
+          restore-keys: |
+            Library-NeonBlack-
+            Library-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: build
 
   deploy:
     environment:
