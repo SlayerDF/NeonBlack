@@ -30,7 +30,10 @@ jobs:
           key: Library-NeonBlack-WebGL
           restore-keys: |
             Library-NeonBlack-
-            Library-
+            Library-      
+      - name: Make NuGet packages readable
+        run: |
+          sudo chmod -R o+r /Library/PackageCache
       - name: Build
         uses: game-ci/unity-builder@v4
         env:
