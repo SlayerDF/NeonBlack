@@ -31,10 +31,10 @@ jobs:
           restore-keys: |
             Library-NeonBlack-
             Library-
-      - name: Install tools
+      - name: Restore NuGet packages
         run: |
           sudo apt-get install -y dotnet-sdk-8.0
-          dotnet tool install --global NuGetForUnity.Cli
+          dotnet tool install --global NuGetForUnity.Cli --version 4.1.1 || true
           /root/.dotnet/tools/nugetforunity restore
       - name: Build
         uses: game-ci/unity-builder@v4
