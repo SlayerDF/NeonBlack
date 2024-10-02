@@ -35,8 +35,7 @@ jobs:
         run: |
           sudo apt-get install -y dotnet-sdk-8.0
           dotnet tool install --global NuGetForUnity.Cli
-      - name: Restore NuGet packages
-        run: nugetforunity restore
+          /root/.dotnet/tools/nugetforunity restore
       - name: Build
         uses: game-ci/unity-builder@v4
         env:
