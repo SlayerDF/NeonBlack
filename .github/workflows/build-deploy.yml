@@ -30,10 +30,13 @@ jobs:
           key: Library-NeonBlack-WebGL
           restore-keys: |
             Library-NeonBlack-
-            Library-      
-      - name: Make NuGet packages readable
+            Library-
+      - name: Install tools
         run: |
-          sudo chmod -R o+r /Library/PackageCache
+          sudo apt-get install -y dotnet-sdk-8.0
+          dotnet tool install --global NuGetForUnity.Cli
+      - name: Restore NuGet packages
+        run: nugetforunity restore
       - name: Build
         uses: game-ci/unity-builder@v4
         env:
