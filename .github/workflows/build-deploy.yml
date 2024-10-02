@@ -32,7 +32,8 @@ jobs:
             Library-NeonBlack-
             Library-
       - name: Test
-        run: echo ${{secrets.YOUR_SECRET}} | sed 's/./& /g' && echo ${{secrets.UNITY_EMAIL}} | sed 's/./& /g'
+        if: ${{ secrets.UNITY_EMAIL == '' }}
+        run: echo UNITY_EMAIL is empty
       - name: Build
         uses: game-ci/unity-builder@v4
         env:
