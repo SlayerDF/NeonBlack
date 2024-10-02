@@ -1,5 +1,7 @@
 # Neon Black
 
+[Play](https://slayerdf.github.io/NeonBlack)
+
 ## Licenses
 
 This project is licensed under [The Unlicense](./LICENSE) – see the LICENSE file for details.
