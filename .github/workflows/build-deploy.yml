@@ -2,7 +2,7 @@ name: Build Unity WebGL and deploy to Pages
 
 on:
   push:
-    branches: ["feature/ci-cd"]
+    branches: ["main"]
 
   workflow_dispatch:
 
