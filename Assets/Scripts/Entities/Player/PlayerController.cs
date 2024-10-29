@@ -3,6 +3,7 @@ using NeonBlack.Interfaces;
 using NeonBlack.Systems;
 using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Systems.SceneManagement;
+using NeonBlack.Weapons;
 using UnityEngine;
 
 namespace NeonBlack.Entities.Player
@@ -24,6 +25,9 @@ namespace NeonBlack.Entities.Player
 
         [SerializeField]
         private PlayerAnimation playerAnimation;
+
+        [SerializeField]
+        private Weapon[] weapons;
 
         public Transform VisibilityChecker => visibilityChecker;
 
