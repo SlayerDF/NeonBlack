@@ -18,14 +18,18 @@ namespace NeonBlack.Entities.Player
         [SerializeField]
         private Transform visibilityChecker;
 
+        [SerializeField]
+        private PlayerAnimation playerAnimation;
+
         #endregion
 
         private bool killed;
 
-        [SerializeField]
-        private PlayerAnimation playerAnimation;
-
         public Transform VisibilityChecker => visibilityChecker;
+
+        public bool IsInShadowZone { get; set; }
+
+        public bool IsVisible => !IsInShadowZone;
 
         #region Event Functions
 
