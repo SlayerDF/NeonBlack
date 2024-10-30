@@ -150,9 +150,9 @@ namespace NeonBlack.Entities.Player
 
         private Vector3 CameraDirectionToMoveDirection(Vector2 inputValues)
         {
-            var cameraPitch = Quaternion.Euler(0, cameraOrbit.y, 0);
+            var cameraYaw = Quaternion.Euler(0, cameraOrbit.y, 0);
 
-            return cameraPitch * Vector3.forward * inputValues.y + cameraPitch * Vector3.right * inputValues.x;
+            return cameraYaw * Vector3.forward * inputValues.y + cameraYaw * Vector3.right * inputValues.x;
         }
 
         private void UpdateMoveDirection(Vector3 targetDirection)

@@ -1,19 +1,30 @@
+using NeonBlack.Projectiles;
 using NeonBlack.Utilities;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace NeonBlack.Weapons
 {
     public class ThrowingKnife : Weapon
     {
-        [SerializeField]
-        private float damage;
+        #region Serialized Fields
 
-        public override void Shoot()
+        [SerializeField]
+        private float damage = 1f;
+
+        [SerializeField]
+        private Transform projectileSpawnPoint;
+
+        #endregion
+
+        public override void Shoot(Vector3 direction)
         {
-            //ObjectPoolManager.Spawn<ThrowingKnifeProjectile>(ProjectilePrefab, out var projectile);
-            //projectile.
+            base.Shoot(direction);
+
+            ObjectPoolManager.Spawn<ThrowingKnifeProjectile>(ProjectilePrefab, out var projectile, true);
+            projectile.transform.position = projectileSpawnPoint.position;
+            projectile.transform.forward = direction;
+            projectile.Damage = damage;
+            projectile.gameObject.SetActive(true);
         }
     }
 }

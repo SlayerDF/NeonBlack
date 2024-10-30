@@ -10,6 +10,12 @@ namespace NeonBlack.Entities.Player
         [SerializeField]
         private CharacterController controller;
 
+        [SerializeField]
+        private PlayerInventory inventory;
+
+        [SerializeField]
+        private PlayerAnimation playerAnimation;
+
         #endregion
 
         private InputActions.PlayerAttackActions attackActions;
@@ -18,9 +24,6 @@ namespace NeonBlack.Entities.Player
         private Vector2 input;
 
         private InputActions.PlayerMovementActions movementActions;
-
-        [SerializeField]
-        private PlayerAnimation playerAnimation;
 
         #region Event Functions
 
@@ -77,6 +80,7 @@ namespace NeonBlack.Entities.Player
             movementActions.Dash.performed += OnDash;
             attackActions.Attack.started += OnAttackStarted;
             attackActions.Attack.canceled += OnAttackCanceled;
+            attackActions.Shoot.performed += OnShoot;
             cameraActions.CameraZoom.performed += OnCameraZoomChange;
 
             OnEnableAttack();
@@ -93,6 +97,7 @@ namespace NeonBlack.Entities.Player
             movementActions.Dash.performed -= OnDash;
             attackActions.Attack.started -= OnAttackStarted;
             attackActions.Attack.canceled -= OnAttackCanceled;
+            attackActions.Shoot.performed -= OnShoot;
             cameraActions.CameraZoom.performed -= OnCameraZoomChange;
 
             OnDisableAttack();
