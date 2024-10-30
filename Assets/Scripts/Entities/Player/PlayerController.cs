@@ -27,6 +27,10 @@ namespace NeonBlack.Entities.Player
 
         public Transform VisibilityChecker => visibilityChecker;
 
+        public bool IsInShadowZone { get; set; }
+
+        public bool IsVisible => !IsInShadowZone;
+
         #region Event Functions
 
         private void OnEnable()

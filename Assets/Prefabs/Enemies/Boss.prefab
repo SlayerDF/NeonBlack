@@ -621,6 +621,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  ignorePlayerInvisibility: 1
 --- !u!114 &2131698076619479444
 MonoBehaviour:
   m_ObjectHideFlags: 0

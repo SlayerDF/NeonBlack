@@ -13,6 +13,10 @@ namespace NeonBlack.Entities.Enemies.Behaviors
         [SerializeField]
         private PlayerController player;
 
+        [Header("Settings")]
+        [SerializeField]
+        private bool ignorePlayerInvisibility;
+
         #endregion
 
         private readonly int raycastLayerMask = Layer.Player.ToMask() | Layer.Terrain.ToMask();
@@ -32,8 +36,7 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         public bool IsPlayerVisible()
         {
-            // TODO: add invisible zone check here
-            return RaycastToPlayer();
+            return (player.IsVisible || ignorePlayerInvisibility) && RaycastToPlayer();
         }
 
         private bool RaycastToPlayer()
