@@ -1,4 +1,5 @@
 using System.Collections;
+using NeonBlack.Extensions;
 using UnityEngine;
 
 namespace NeonBlack.Traps
@@ -38,7 +39,7 @@ namespace NeonBlack.Traps
 
         private void OnTriggerEnter(Collider other)
         {
-            if ((activatedBy.value & (1 << other.gameObject.layer)) == 0)
+            if (!other.gameObject.BelongsTo(activatedBy))
             {
                 return;
             }
@@ -53,7 +54,7 @@ namespace NeonBlack.Traps
 
         private void OnTriggerExit(Collider other)
         {
-            if ((activatedBy.value & (1 << other.gameObject.layer)) == 0)
+            if (!other.gameObject.BelongsTo(activatedBy))
             {
                 return;
             }
