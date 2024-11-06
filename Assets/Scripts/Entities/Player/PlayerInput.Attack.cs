@@ -46,6 +46,18 @@ namespace NeonBlack.Entities.Player
             isAttacking = false;
         }
 
+        private void OnShoot(InputAction.CallbackContext context)
+        {
+            var weapon = inventory.CurrentWeapon;
+
+            if (!weapon || !weapon.ReadyToShoot)
+            {
+                return;
+            }
+
+            weapon.Shoot(Quaternion.Euler(cameraOrbit.x, cameraOrbit.y, 0) * Vector3.forward);
+        }
+
         private static void OnAttackTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out EnemyHealth enemyHealth))
@@ -74,7 +86,7 @@ namespace NeonBlack.Entities.Player
                 return;
             }
 
-            if (!isAttacking || !IsGrounded)
+            if (!IsGrounded || !isAttacking)
             {
                 return;
             }

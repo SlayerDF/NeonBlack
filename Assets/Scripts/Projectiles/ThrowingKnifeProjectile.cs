@@ -1,18 +1,13 @@
-using NeonBlack.Enums;
+﻿using NeonBlack.Enums;
 using NeonBlack.Interfaces;
 using NeonBlack.Utilities;
 using UnityEngine;
 
 namespace NeonBlack.Projectiles
 {
-    public class TrapProjectile : PhysicsProjectile
+    public class ThrowingKnifeProjectile : PhysicsProjectile
     {
-        #region Serialized Fields
-
-        [SerializeField]
-        private float damage = 1f;
-
-        #endregion
+        public float Damage { get; set; }
 
         #region Event Functions
 
@@ -23,10 +18,9 @@ namespace NeonBlack.Projectiles
             switch (layer)
             {
                 case Layer.Enemies:
-                case Layer.Player:
                     if (other.TryGetComponent(out IEntityHealth entityHealth))
                     {
-                        entityHealth.TakeDamage(damage);
+                        entityHealth.TakeDamage(Damage);
                     }
 
                     break;

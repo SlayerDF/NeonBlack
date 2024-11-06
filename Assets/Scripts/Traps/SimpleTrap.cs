@@ -38,8 +38,10 @@ namespace NeonBlack.Traps
 
             for (var i = 0; i < shootQuantity; i++)
             {
-                ObjectPoolManager.Spawn(trapProjectilePrefab, out Projectile projectile);
+                ObjectPoolManager.Spawn(trapProjectilePrefab, out Projectile projectile, true);
                 projectile.transform.position = projectileSpawnPoint.position;
+                projectile.transform.rotation = projectileSpawnPoint.rotation;
+                projectile.gameObject.SetActive(true);
 
                 yield return new WaitForSeconds(0.5f);
             }
