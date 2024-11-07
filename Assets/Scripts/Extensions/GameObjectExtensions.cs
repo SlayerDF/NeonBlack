@@ -8,5 +8,10 @@ namespace NeonBlack.Extensions
         {
             return (layerMask.value & (1 << gameObject.layer)) != 0;
         }
+
+        public static bool IsValidAndEnabled(this GameObject gameObject)
+        {
+            return gameObject && gameObject.activeInHierarchy;
+        }
     }
 }

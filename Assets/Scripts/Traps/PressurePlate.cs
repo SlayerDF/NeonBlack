@@ -34,7 +34,7 @@ namespace NeonBlack.Traps
 
         #endregion
 
-        private readonly Collider[] colliders = new Collider[1];
+        private readonly Collider[] colliders = new Collider[10];
         private float activationCooldownTime;
 
         private int collisions;
@@ -87,6 +87,21 @@ namespace NeonBlack.Traps
                 transform.position + Vector3.Scale(transform.localScale, collisionCenter),
                 Vector3.Scale(transform.localScale, collisionSize) * 0.5f,
                 colliders, transform.rotation, activatedBy);
+
+            // Process includeLayers and excludeLayers
+            var newCollisions = collisions;
+            for (var i = 0; i < collisions; i++)
+            {
+                var excluded = (colliders[i].excludeLayers & (1 << gameObject.layer)) != 0;
+                var included = (colliders[i].includeLayers & (1 << gameObject.layer)) != 0;
+
+                if (excluded && !included)
+                {
+                    newCollisions--;
+                }
+            }
+
+            collisions = newCollisions;
         }
 
         private float AnimateVisuals(float deltaTime)
