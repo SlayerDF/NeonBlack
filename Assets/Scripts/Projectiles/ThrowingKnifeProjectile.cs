@@ -11,6 +11,11 @@ namespace NeonBlack.Projectiles
 
         #region Event Functions
 
+        protected virtual void Update()
+        {
+            transform.forward = RigidBody.velocity;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             var layer = (Layer)other.gameObject.layer;

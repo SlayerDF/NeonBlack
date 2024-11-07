@@ -15,12 +15,9 @@ namespace NeonBlack.Projectiles
 
         #endregion
 
-        #region Event Functions
+        protected Rigidbody RigidBody => rigidBody;
 
-        protected virtual void Update()
-        {
-            transform.forward = rigidBody.velocity;
-        }
+        #region Event Functions
 
         protected override void OnEnable()
         {

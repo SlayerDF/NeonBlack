@@ -2,12 +2,13 @@
 using Cysharp.Threading.Tasks;
 using NeonBlack.Entities.Enemies.Behaviors;
 using NeonBlack.Extensions;
+using NeonBlack.Interfaces;
 using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 
 namespace NeonBlack.Entities.Enemies
 {
-    public class SimpleEnemyBrain : MonoBehaviour
+    public class SimpleEnemyBrain : MonoBehaviour, IDistractible
     {
         #region Serialized Fields
 
@@ -58,15 +59,19 @@ namespace NeonBlack.Entities.Enemies
         [ColorUsage(true, true)]
         private Color lowAlertColor;
 
-        #endregion
-
-        private float actionTimer;
-
         [Header("Components")]
         [SerializeField]
         private EnemyAnimation enemyAnimation;
 
+        #endregion
+
+        private float actionTimer;
+        private GameObject distractionGameObject;
+        private float distractionTime;
+
         private Vector3 lastSeenPlayerPosition;
+
+        private Transform lookAtOriginalTarget;
 
         private State state = State.Patrol;
 
@@ -107,6 +112,10 @@ namespace NeonBlack.Entities.Enemies
                 case State.NotifyBoss:
                     HandleNotifyBossState(thinkFrequency);
                     break;
+                case State.BeDistracted:
+                    HandlePatrolState(thinkFrequency);
+                    HandleBeDistractedState(thinkFrequency);
+                    break;
                 case State.Death:
                     break;
                 default:
@@ -125,6 +134,22 @@ namespace NeonBlack.Entities.Enemies
         {
             enemyHealth.Death -= OnDeath;
             shootPlayerBehavior.Shoot -= OnShoot;
+        }
+
+        #endregion
+
+        #region IDistractible Members
+
+        public void Distract(GameObject distractor, float maxTime)
+        {
+            if (state is not (State.Patrol or State.BeDistracted))
+            {
+                return;
+            }
+
+            distractionGameObject = distractor;
+            distractionTime = maxTime;
+            SwitchState(State.BeDistracted, true);
         }
 
         #endregion
@@ -191,6 +216,19 @@ namespace NeonBlack.Entities.Enemies
             SwitchState(State.Patrol);
         }
 
+        private void HandleBeDistractedState(float deltaTime)
+        {
+            if (distractionGameObject.IsValidAndEnabled() && (actionTimer += deltaTime) < distractionTime)
+            {
+                return;
+            }
+
+            if (state == State.BeDistracted)
+            {
+                SwitchState(State.Patrol);
+            }
+        }
+
         private void SwitchState(State newState, bool force = false)
         {
             if (state == newState && !force)
@@ -213,6 +251,10 @@ namespace NeonBlack.Entities.Enemies
                     enemyAnimation.SetIsNotifyingBoss(false);
                     break;
                 case State.Death:
+                    break;
+                case State.BeDistracted:
+                    lookAtTargetBehavior.Target = lookAtOriginalTarget;
+                    distractionGameObject = null;
                     break;
                 default:
                     throw new InvalidEnumArgumentException(nameof(state), (int)state, typeof(State));
@@ -276,6 +318,20 @@ namespace NeonBlack.Entities.Enemies
                     enemyAnimation.SetIsNotifyingBoss(true);
 
                     break;
+                case State.BeDistracted:
+                    checkPlayerVisibilityBehavior.enabled = true;
+                    lookAtTargetBehavior.enabled = true;
+                    playerDetectionBehavior.enabled = true;
+                    lineOfSightBehavior.enabled = true;
+
+                    shootPlayerBehavior.enabled = false;
+                    patrolBehavior.enabled = false;
+
+                    lookAtOriginalTarget = lookAtTargetBehavior.Target;
+                    lookAtTargetBehavior.Target = distractionGameObject?.transform;
+                    actionTimer = 0f;
+
+                    break;
                 case State.Death:
                     checkPlayerVisibilityBehavior.enabled = false;
                     lookAtTargetBehavior.enabled = false;
@@ -316,6 +372,7 @@ namespace NeonBlack.Entities.Enemies
             PrepareForAttack,
             Attack,
             NotifyBoss,
+            BeDistracted,
             Death
         }
 
