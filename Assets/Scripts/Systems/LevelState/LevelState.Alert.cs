@@ -1,12 +1,13 @@
 using System;
 using UnityEngine;
 
-namespace NeonBlack.Systems
+namespace NeonBlack.Systems.LevelState
 {
     public partial class LevelState
     {
         #region Serialized Fields
 
+        [Header("Alert")]
         [SerializeField]
         [Range(0f, 1f)]
         private float cooldownPoint = 0.8f;
