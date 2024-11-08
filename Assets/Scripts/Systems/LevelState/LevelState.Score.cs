@@ -4,15 +4,17 @@ namespace NeonBlack.Systems.LevelState
 {
     public partial class LevelState
     {
-        public float Score { get; private set; }
+        private float score;
+
+        public static float Score => Instance.score;
 
         public static event Action<float> ScoreChanged;
 
-        public void IncrementScore(float value)
+        public static void IncrementScore(float value)
         {
-            Score += value;
+            Instance.score += value;
 
-            ScoreChanged?.Invoke(Score);
+            ScoreChanged?.Invoke(Instance.score);
         }
     }
 }
