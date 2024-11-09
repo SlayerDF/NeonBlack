@@ -22,6 +22,9 @@ namespace NeonBlack.Traps
         [SerializeField]
         private float activateTime = 0.5f;
 
+        [SerializeField]
+        private ParticleSystem activationParticles;
+
         #endregion
 
         private bool activated;
@@ -71,6 +74,8 @@ namespace NeonBlack.Traps
         private IEnumerator Activate()
         {
             activated = true;
+
+            activationParticles.Play();
 
             var elapsedTime = 0f;
             while (elapsedTime < activateTime)
