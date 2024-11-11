@@ -3,6 +3,7 @@ using System.ComponentModel;
 using NeonBlack.Entities.Enemies.Behaviors;
 using NeonBlack.Systems;
 using NeonBlack.Systems.AudioManagement;
+using NeonBlack.Systems.LevelState;
 using R3;
 using UnityEngine;
 
