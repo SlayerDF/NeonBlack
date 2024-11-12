@@ -21,6 +21,10 @@ namespace NeonBlack.Entities.Player
         [SerializeField]
         private PlayerAnimation playerAnimation;
 
+        [Header("Visuals")]
+        [SerializeField]
+        private ParticleSystem bloodParticles;
+
         #endregion
 
         private bool killed;
@@ -73,6 +77,8 @@ namespace NeonBlack.Entities.Player
             playerInput.ToggleMovementActions(false);
             playerInput.ToggleAttackActions(false);
             playerAnimation.OnDeath();
+
+            bloodParticles.Play();
 
             AudioManager.Play(AudioManager.Music, AudioManager.PlayerDeathMusicClip);
 

@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 3505d4323027828438741c1e928eea07, type: 2}
+    - target: {fileID: 8652816938144366249, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: bloodParticles
+      value: 
+      objectReference: {fileID: 1733764704955606044}
     m_RemovedComponents:
     - {fileID: 101545119707041750, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
     m_RemovedGameObjects:
@@ -207,6 +211,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6624365279647454002, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8149004209287114767}
+    - targetCorrespondingSourceObject: {fileID: 6624365279647454002, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5697703171989319951}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
@@ -2281,4 +2288,71 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 26d9f8274e68c5242acb9281013a7d34, type: 3}
   m_PrefabInstance: {fileID: 6652264610613598622}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9196976461657739968
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6749831465609205864}
+    m_Modifications:
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.371
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4797308804514322514, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+      propertyPath: m_Name
+      value: BloodParticles
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+--- !u!198 &1733764704955606044 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 7470812680660465372, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+  m_PrefabInstance: {fileID: 9196976461657739968}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &5697703171989319951 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3508435526572516303, guid: a7686e1b3950e5e47b8b7b1832c2d5b2, type: 3}
+  m_PrefabInstance: {fileID: 9196976461657739968}
   m_PrefabAsset: {fileID: 0}
