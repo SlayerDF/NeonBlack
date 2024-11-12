@@ -3613,6 +3613,7 @@ MonoBehaviour:
   rigidBody: {fileID: 6387417302311601193}
   initialVelocity: 35
   damage: 1
+  trailRenderer: {fileID: 7758263516560738553}
 --- !u!136 &8650211015109169313
 CapsuleCollider:
   m_ObjectHideFlags: 0
