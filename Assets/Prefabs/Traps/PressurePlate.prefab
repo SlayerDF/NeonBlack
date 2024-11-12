@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5995447241190369145}
   - component: {fileID: 2398495868026095357}
-  - component: {fileID: 7581192618304272280}
   m_Layer: 9
   m_Name: PressurePlate
   m_TagString: Untagged
@@ -130,6 +129,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c2248094d3ca364f91fe653079c5db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  collisionCenter: {x: 0, y: 2, z: 0}
+  collisionSize: {x: 1, y: 5, z: 1}
   trap: {fileID: 0}
   activatedBy:
     serializedVersion: 2

@@ -147,6 +147,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""540b3fb0-89f0-4ca4-899b-790eb18d48e3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -158,6 +167,17 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Attack"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""82f22fbd-e2c9-4725-8040-574bef54b1a1"",
+                    ""path"": ""<Mouse>/middleButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -250,6 +270,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         // PlayerAttack
         m_PlayerAttack = asset.FindActionMap("PlayerAttack", throwIfNotFound: true);
         m_PlayerAttack_Attack = m_PlayerAttack.FindAction("Attack", throwIfNotFound: true);
+        m_PlayerAttack_Shoot = m_PlayerAttack.FindAction("Shoot", throwIfNotFound: true);
         // PlayerCamera
         m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
         m_PlayerCamera_CameraZoom = m_PlayerCamera.FindAction("CameraZoom", throwIfNotFound: true);
@@ -381,11 +402,13 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_PlayerAttack;
     private List<IPlayerAttackActions> m_PlayerAttackActionsCallbackInterfaces = new List<IPlayerAttackActions>();
     private readonly InputAction m_PlayerAttack_Attack;
+    private readonly InputAction m_PlayerAttack_Shoot;
     public struct PlayerAttackActions
     {
         private @InputActions m_Wrapper;
         public PlayerAttackActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Attack => m_Wrapper.m_PlayerAttack_Attack;
+        public InputAction @Shoot => m_Wrapper.m_PlayerAttack_Shoot;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAttack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -398,6 +421,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Attack.started += instance.OnAttack;
             @Attack.performed += instance.OnAttack;
             @Attack.canceled += instance.OnAttack;
+            @Shoot.started += instance.OnShoot;
+            @Shoot.performed += instance.OnShoot;
+            @Shoot.canceled += instance.OnShoot;
         }
 
         private void UnregisterCallbacks(IPlayerAttackActions instance)
@@ -405,6 +431,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Attack.started -= instance.OnAttack;
             @Attack.performed -= instance.OnAttack;
             @Attack.canceled -= instance.OnAttack;
+            @Shoot.started -= instance.OnShoot;
+            @Shoot.performed -= instance.OnShoot;
+            @Shoot.canceled -= instance.OnShoot;
         }
 
         public void RemoveCallbacks(IPlayerAttackActions instance)
@@ -531,6 +560,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     public interface IPlayerAttackActions
     {
         void OnAttack(InputAction.CallbackContext context);
+        void OnShoot(InputAction.CallbackContext context);
     }
     public interface IPlayerCameraActions
     {

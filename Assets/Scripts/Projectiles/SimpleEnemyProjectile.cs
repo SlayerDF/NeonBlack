@@ -27,13 +27,12 @@ namespace NeonBlack.Projectiles
 
             switch (layer)
             {
-                case Layer.Terrain:
-                    ObjectPoolManager.Despawn(this);
-                    break;
                 case Layer.Player when other.TryGetComponent(out PlayerController player):
                     player.Kill();
                     break;
             }
+
+            ObjectPoolManager.Despawn(this);
         }
 
         #endregion

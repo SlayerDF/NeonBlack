@@ -1,7 +1,7 @@
 using Cysharp.Threading.Tasks;
 using NeonBlack.Interfaces;
-using NeonBlack.Systems;
 using NeonBlack.Systems.AudioManagement;
+using NeonBlack.Systems.LevelState;
 using NeonBlack.Systems.SceneManagement;
 using UnityEngine;
 

@@ -1,110 +1,122 @@
-using System.Collections;
 using UnityEngine;
 
 namespace NeonBlack.Traps
 {
     public class PressurePlate : MonoBehaviour
     {
+        private const float UpdateCollidersInterval = 0.5f;
+
         #region Serialized Fields
 
+        [Header("Collisions")]
         [SerializeField]
-        private SimpleTrap trap;
+        private Vector3 collisionCenter;
+
+        [SerializeField]
+        private Vector3 collisionSize;
 
         [SerializeField]
         private LayerMask activatedBy;
 
+        [Header("Components")]
+        [SerializeField]
+        private SimpleTrap trap;
+
         [SerializeField]
         private Transform visuals;
 
+        [Header("Configuration")]
         [SerializeField]
         private Vector3 visualsPressedPosition;
 
         [SerializeField]
-        private float activateTime = 0.5f;
+        private float pressTime = 0.5f;
 
         [SerializeField]
         private ParticleSystem activationParticles;
 
         #endregion
 
-        private bool activated;
+        private readonly Collider[] colliders = new Collider[10];
+        private float activationCooldownTime;
 
-        private int collisionsCount;
-        private Vector3 originalPosition;
+        private int collisions;
+        private float pressCurrentTime;
+        private float updateCollidersTime;
+
+        private Vector3 visualsOriginalPosition;
 
         #region Event Functions
 
-        private void Awake()
+        private void Update()
         {
-            originalPosition = visuals.localPosition;
-        }
+            UpdateColliders(Time.deltaTime);
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if ((activatedBy.value & (1 << other.gameObject.layer)) == 0)
+            var progress = AnimateVisuals(Time.deltaTime);
+
+            if (activationCooldownTime > 0f)
+            {
+                activationCooldownTime -= Time.deltaTime;
+            }
+
+            if (progress < 1f || activationCooldownTime > 0f)
             {
                 return;
             }
 
-            collisionsCount++;
-
-            if (collisionsCount == 1 && !activated)
-            {
-                StartCoroutine(Activate());
-            }
+            activationParticles.Play();
+            trap.Shoot();
+            activationCooldownTime = pressTime * 2f;
         }
 
-        private void OnTriggerExit(Collider other)
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
         {
-            if ((activatedBy.value & (1 << other.gameObject.layer)) == 0)
-            {
-                return;
-            }
-
-            collisionsCount--;
-
-            if (collisionsCount == 0)
-            {
-                StartCoroutine(Deactivate());
-            }
+            Gizmos.DrawWireCube(transform.position + Vector3.Scale(transform.localScale, collisionCenter),
+                Vector3.Scale(transform.localScale, collisionSize));
         }
+#endif
 
         #endregion
 
-        private IEnumerator Activate()
+        private void UpdateColliders(float deltaTime)
         {
-            activated = true;
-
-            activationParticles.Play();
-
-            var elapsedTime = 0f;
-            while (elapsedTime < activateTime)
+            if ((updateCollidersTime -= deltaTime) > 0f)
             {
-                elapsedTime += Time.deltaTime;
-
-                visuals.localPosition =
-                    Vector3.Lerp(visuals.localPosition, visualsPressedPosition, elapsedTime / activateTime);
-
-                yield return null;
+                return;
             }
 
-            trap.Shoot();
+            updateCollidersTime = UpdateCollidersInterval;
+            collisions = Physics.OverlapBoxNonAlloc(
+                transform.position + Vector3.Scale(transform.localScale, collisionCenter),
+                Vector3.Scale(transform.localScale, collisionSize) * 0.5f,
+                colliders, transform.rotation, activatedBy);
+
+            // Process includeLayers and excludeLayers
+            var newCollisions = collisions;
+            for (var i = 0; i < collisions; i++)
+            {
+                var excluded = (colliders[i].excludeLayers & (1 << gameObject.layer)) != 0;
+                var included = (colliders[i].includeLayers & (1 << gameObject.layer)) != 0;
+
+                if (excluded && !included)
+                {
+                    newCollisions--;
+                }
+            }
+
+            collisions = newCollisions;
         }
 
-        private IEnumerator Deactivate()
+        private float AnimateVisuals(float deltaTime)
         {
-            var elapsedTime = 0f;
-            while (elapsedTime < activateTime)
-            {
-                elapsedTime += Time.deltaTime;
+            pressCurrentTime += collisions > 0 ? deltaTime : -deltaTime;
+            pressCurrentTime = Mathf.Clamp(pressCurrentTime, 0f, pressTime);
 
-                visuals.localPosition =
-                    Vector3.Lerp(visuals.localPosition, originalPosition, elapsedTime / activateTime);
+            var progress = pressCurrentTime / pressTime;
+            visuals.localPosition = Vector3.Lerp(visualsOriginalPosition, visualsPressedPosition, progress);
 
-                yield return null;
-            }
-
-            activated = false;
+            return progress;
         }
     }
 }

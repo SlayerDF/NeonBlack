@@ -34832,6 +34832,9 @@ PrefabInstance:
       addedObject: {fileID: 2532286981961057555}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      insertIndex: 1
+      addedObject: {fileID: 8290339243973886515}
+    - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2899624844788222817}
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
@@ -34857,6 +34860,32 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
   m_PrefabInstance: {fileID: 3335058859929449709}
   m_PrefabAsset: {fileID: 0}
+--- !u!143 &8290339243973886515
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8758483773930587817}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0.5
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &2899624844788222817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34873,6 +34902,8 @@ MonoBehaviour:
   lineOfSightByPathBehavior: {fileID: 8218788075927382710}
   checkPlayerVisibilityBehavior: {fileID: 2707003243118688980}
   playerDetectionBehavior: {fileID: 7493885340609151391}
+  lookAtTargetBehavior: {fileID: 3777260926845254964}
+  thinkFrequency: 0.1
   lineOfSightVisuals: {fileID: 2308014945799621164}
   targetPointLight: {fileID: 0}
   highAlertColor: {r: 3.789027, g: 1.1704324, b: 0, a: 1}
@@ -34962,3 +34993,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  ignorePlayerInvisibility: 0

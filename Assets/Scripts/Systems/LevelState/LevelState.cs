@@ -1,4 +1,4 @@
-namespace NeonBlack.Systems
+namespace NeonBlack.Systems.LevelState
 {
     public partial class LevelState : SceneSingleton<LevelState>
     {
