@@ -11,14 +11,24 @@ namespace NeonBlack.Projectiles
 
         [SerializeField]
         private float damage = 1f;
+        
+        [SerializeField]
+        private TrailRenderer trailRenderer;
 
         #endregion
 
         #region Event Functions
 
-        protected virtual void Update()
+        private void Update()
         {
             transform.forward = RigidBody.velocity;
+        }
+
+        protected override void OnEnable()
+        {
+            base.OnEnable();
+            
+            trailRenderer.Clear();
         }
 
         private void OnTriggerEnter(Collider other)

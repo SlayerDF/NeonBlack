@@ -32,6 +32,9 @@ namespace NeonBlack.Traps
         [SerializeField]
         private float pressTime = 0.5f;
 
+        [SerializeField]
+        private ParticleSystem activationParticles;
+
         #endregion
 
         private readonly Collider[] colliders = new Collider[10];
@@ -39,6 +42,7 @@ namespace NeonBlack.Traps
 
         private int collisions;
         private float pressCurrentTime;
+        private float pressProgress;
         private float updateCollidersTime;
 
         private Vector3 visualsOriginalPosition;
@@ -49,16 +53,22 @@ namespace NeonBlack.Traps
         {
             UpdateColliders(Time.deltaTime);
 
-            var progress = AnimateVisuals(Time.deltaTime);
+            var prevProgress = pressProgress;
+            pressProgress = AnimateVisuals(Time.deltaTime);
 
             if (activationCooldownTime > 0f)
             {
                 activationCooldownTime -= Time.deltaTime;
             }
 
-            if (progress < 1f || activationCooldownTime > 0f)
+            if (pressProgress < 1f || activationCooldownTime > 0f)
             {
                 return;
+            }
+
+            if (pressProgress >= 1f && prevProgress < 1f)
+            {
+                activationParticles.Play();
             }
 
             trap.Shoot();
