@@ -109,7 +109,7 @@ namespace NeonBlack.Entities.Player
                 RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
             }
 
-            if (isAttacking)
+            if (isAttacking || isAiming)
             {
                 RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
             }

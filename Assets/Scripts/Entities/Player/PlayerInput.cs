@@ -50,6 +50,7 @@ namespace NeonBlack.Entities.Player
 
             playerAnimation.SetInputMagnitude(input.SqrMagnitude());
 
+            UpdateCameraTarget();
             RaycastObstacleCamera();
 
             if (isDashing)
@@ -67,6 +68,7 @@ namespace NeonBlack.Entities.Player
 
         private void LateUpdate()
         {
+            UpdateCameraTarget();
             UpdateCamera();
         }
 
@@ -80,8 +82,9 @@ namespace NeonBlack.Entities.Player
             movementActions.Dash.performed += OnDash;
             attackActions.Attack.started += OnAttackStarted;
             attackActions.Attack.canceled += OnAttackCanceled;
-            attackActions.Shoot.performed += OnShoot;
-            cameraActions.CameraZoom.performed += OnCameraZoomChange;
+            attackActions.Attack.performed += OnShoot;
+            attackActions.Aim.started += OnAimStarted;
+            attackActions.Aim.canceled += OnAimCancelled;
 
             OnEnableAttack();
             OnEnableCamera();
@@ -97,8 +100,9 @@ namespace NeonBlack.Entities.Player
             movementActions.Dash.performed -= OnDash;
             attackActions.Attack.started -= OnAttackStarted;
             attackActions.Attack.canceled -= OnAttackCanceled;
-            attackActions.Shoot.performed -= OnShoot;
-            cameraActions.CameraZoom.performed -= OnCameraZoomChange;
+            attackActions.Attack.performed -= OnShoot;
+            attackActions.Aim.started -= OnAimStarted;
+            attackActions.Aim.canceled -= OnAimCancelled;
 
             OnDisableAttack();
             OnDisableCamera();

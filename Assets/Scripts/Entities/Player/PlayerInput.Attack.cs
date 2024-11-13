@@ -23,6 +23,7 @@ namespace NeonBlack.Entities.Player
         #endregion
 
         private float attackTimer;
+        private bool isAiming;
 
         private bool isAttacking;
 
@@ -46,8 +47,23 @@ namespace NeonBlack.Entities.Player
             isAttacking = false;
         }
 
+        private void OnAimStarted(InputAction.CallbackContext context)
+        {
+            isAiming = true;
+        }
+
+        private void OnAimCancelled(InputAction.CallbackContext context)
+        {
+            isAiming = false;
+        }
+
         private void OnShoot(InputAction.CallbackContext context)
         {
+            if (!isAiming)
+            {
+                return;
+            }
+
             var weapon = inventory.CurrentWeapon;
 
             if (!weapon || !weapon.ReadyToShoot)
@@ -86,7 +102,7 @@ namespace NeonBlack.Entities.Player
                 return;
             }
 
-            if (!IsGrounded || !isAttacking)
+            if (!IsGrounded || !isAttacking || isAiming)
             {
                 return;
             }
