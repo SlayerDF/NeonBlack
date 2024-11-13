@@ -230,7 +230,7 @@ MonoBehaviour:
   cameraZoomStep: 0.2
   cameraCollisionMask:
     serializedVersion: 2
-    m_Bits: 200
+    m_Bits: 2248
   cameraCollisionRadius: 0.4
   cameraMinObstacleDistance: 0.1
   controller: {fileID: 951829237264511241}
