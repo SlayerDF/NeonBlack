@@ -15,10 +15,16 @@ namespace NeonBlack.Entities.Player
         private float attackCooldown = 0.5f;
 
         [SerializeField]
+        private float shootCooldown = 2f;
+
+        [SerializeField]
         private float attackFrame = 0.5f;
 
         [SerializeField]
         private SubscribableCollider attackCollider;
+
+        [SerializeField]
+        private Transform shootProjectileOrigin;
 
         #endregion
 
@@ -26,6 +32,7 @@ namespace NeonBlack.Entities.Player
         private bool isAiming;
 
         private bool isAttacking;
+        private float shootTimer;
 
         private void OnEnableAttack()
         {
@@ -59,19 +66,31 @@ namespace NeonBlack.Entities.Player
 
         private void OnShoot(InputAction.CallbackContext context)
         {
-            if (!isAiming)
+            if (!isAiming || shootTimer > 0f)
             {
                 return;
             }
 
             var weapon = inventory.CurrentWeapon;
-
-            if (!weapon || !weapon.ReadyToShoot)
+            if (weapon == null || !inventory.CurrentWeaponHasAmmo)
             {
                 return;
             }
 
-            weapon.Shoot(Quaternion.Euler(cameraOrbit.x, cameraOrbit.y, 0) * Vector3.forward);
+            weapon.Shoot(shootProjectileOrigin.position,
+                Quaternion.Euler(cameraOrbit.x, cameraOrbit.y, 0) * Vector3.forward);
+
+            inventory.DecreaseWeaponAmmo(weapon);
+
+            shootTimer = shootCooldown;
+        }
+
+        private void UpdateShoot()
+        {
+            if (shootTimer > 0f)
+            {
+                shootTimer -= Time.deltaTime;
+            }
         }
 
         private static void OnAttackTriggerEnter(Collider other)

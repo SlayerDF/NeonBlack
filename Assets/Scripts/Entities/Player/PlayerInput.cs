@@ -64,6 +64,7 @@ namespace NeonBlack.Entities.Player
 
             MoveCamera();
             UpdateAttack();
+            UpdateShoot();
         }
 
         private void LateUpdate()
