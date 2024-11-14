@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962d98f5d3c64dfe87c644d640f8465d, type: 3}
   m_Name: ThrowingKnifeDefault
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: d19c4c45ce15ec5489c49f419c069e3a, type: 3}
+  iconAlpha: {fileID: 21300000, guid: 94c914f787350b5479be0e8c8307b049, type: 3}
   projectilePrefab: {fileID: 1013649900424879526, guid: c03306c28693fc6488a24bcab4598e20, type: 3}
   damage: 1
   initialVelocity: 15

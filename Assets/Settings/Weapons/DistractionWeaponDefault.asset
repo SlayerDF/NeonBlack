@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2673cbc073974aa09224c7bacd88944c, type: 3}
   m_Name: DistractionWeaponDefault
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 93cfa9b4f31718b40ae9fb7278f81fcc, type: 3}
+  iconAlpha: {fileID: 21300000, guid: 2ce5c4318e02ac7469049c7a913cdb1d, type: 3}
   projectilePrefab: {fileID: 649269601213843272, guid: d16eb33c5a7bcb740b7bc3b395a0babb, type: 3}
   distractionRadius: 10
   distractionTime: 5

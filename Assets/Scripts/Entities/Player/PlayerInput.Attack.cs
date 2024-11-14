@@ -1,4 +1,5 @@
-﻿using NeonBlack.Entities.Enemies;
+﻿using System;
+using NeonBlack.Entities.Enemies;
 using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Utilities;
 using UnityEngine;
@@ -34,6 +35,8 @@ namespace NeonBlack.Entities.Player
         private bool isAttacking;
         private float shootTimer;
 
+        public static event Action<bool> AimStateChanged;
+
         private void OnEnableAttack()
         {
             attackCollider.TriggerEnter += OnAttackTriggerEnter;
@@ -57,11 +60,25 @@ namespace NeonBlack.Entities.Player
         private void OnAimStarted(InputAction.CallbackContext context)
         {
             isAiming = true;
+            AimStateChanged?.Invoke(isAiming);
         }
 
         private void OnAimCancelled(InputAction.CallbackContext context)
         {
             isAiming = false;
+            AimStateChanged?.Invoke(isAiming);
+        }
+
+        private void OnWeaponChange(InputAction.CallbackContext context)
+        {
+            if (context.ReadValue<float>() > 0)
+            {
+                inventory.NextWeapon();
+            }
+            else
+            {
+                inventory.PrevWeapon();
+            }
         }
 
         private void OnShoot(InputAction.CallbackContext context)

@@ -86,6 +86,7 @@ namespace NeonBlack.Entities.Player
             attackActions.Attack.performed += OnShoot;
             attackActions.Aim.started += OnAimStarted;
             attackActions.Aim.canceled += OnAimCancelled;
+            attackActions.ChangeWeapon.performed += OnWeaponChange;
 
             OnEnableAttack();
             OnEnableCamera();

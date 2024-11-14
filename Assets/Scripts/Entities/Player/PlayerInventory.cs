@@ -22,28 +22,31 @@ namespace NeonBlack.Entities.Player
         internal Weapon CurrentWeapon { get; private set; }
         internal bool CurrentWeaponHasAmmo => weaponsAmmo[CurrentWeapon] > 0;
 
-        public void AddWeapon(Weapon weapon, int ammo = 1)
+        public void AddWeapon(Weapon weapon, int ammoChange = 1)
         {
-            if (weaponsAmmo.TryGetValue(weapon, out var currentAmmo))
+            if (weaponsAmmo.ContainsKey(weapon))
             {
-                weaponsAmmo[weapon] = currentAmmo + ammo;
+                UpdateWeaponAmmo(weapon, ammoChange);
                 CheckPickedUpWeapon(weapon);
                 return;
             }
 
             weapons.Add(weapon);
-            weaponsAmmo.Add(weapon, ammo);
+            weaponsAmmo.Add(weapon, ammoChange);
+            WeaponAdded?.Invoke(weapons.Count - 1, weapon, ammoChange);
+
             CheckPickedUpWeapon(weapon);
         }
 
-        public void DecreaseWeaponAmmo(Weapon weapon, int ammo = 1)
+        public void DecreaseWeaponAmmo(Weapon weapon, int ammoChange = 1)
         {
             if (!weaponsAmmo.ContainsKey(weapon))
             {
+                Debug.LogWarning("Decreasing ammo of a non-existent weapon");
                 return;
             }
 
-            weaponsAmmo[weapon] -= ammo;
+            UpdateWeaponAmmo(weapon, -ammoChange);
         }
 
         internal void PrevWeapon()
@@ -70,13 +73,35 @@ namespace NeonBlack.Entities.Player
 
         private void UpdateWeaponIndex(int newIndex)
         {
+            if (weapons.Count < 1)
+            {
+                return;
+            }
+
             weaponIndex = Math.Clamp(newIndex, 0, weapons.Count - 1);
             CurrentWeapon = weapons[weaponIndex];
+            WeaponIndexChanged?.Invoke(weaponIndex);
+        }
+
+        private void UpdateWeaponAmmo(Weapon weapon, int ammoChange)
+        {
+            var newAmmo = weaponsAmmo[weapon] += ammoChange;
+            AmmoChanged?.Invoke(weapons.IndexOf(weapon), newAmmo);
         }
 
         private void UpdateActiveWeapon(Weapon weapon)
         {
             UpdateWeaponIndex(weapons.IndexOf(weapon));
         }
+
+        #region Events
+
+        public static event Action<int> WeaponIndexChanged;
+
+        public static event Action<int, int> AmmoChanged;
+
+        public static event Action<int, Weapon, int> WeaponAdded;
+
+        #endregion
     }
 }

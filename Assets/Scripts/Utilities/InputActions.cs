@@ -156,6 +156,15 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ChangeWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""af707211-8d84-4f29-9ef9-2450fe152d94"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -180,6 +189,39 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Aim"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""7f99b13a-c77e-4ea2-a40a-c07882007db1"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""d70b2568-5c94-4377-9799-8d840f4403b4"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""5b6e292a-8180-454c-8d2f-2d053348482f"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ChangeWeapon"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         },
@@ -251,6 +293,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
         m_PlayerAttack = asset.FindActionMap("PlayerAttack", throwIfNotFound: true);
         m_PlayerAttack_Attack = m_PlayerAttack.FindAction("Attack", throwIfNotFound: true);
         m_PlayerAttack_Aim = m_PlayerAttack.FindAction("Aim", throwIfNotFound: true);
+        m_PlayerAttack_ChangeWeapon = m_PlayerAttack.FindAction("ChangeWeapon", throwIfNotFound: true);
         // PlayerCamera
         m_PlayerCamera = asset.FindActionMap("PlayerCamera", throwIfNotFound: true);
         m_PlayerCamera_CameraMove = m_PlayerCamera.FindAction("CameraMove", throwIfNotFound: true);
@@ -382,12 +425,14 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     private List<IPlayerAttackActions> m_PlayerAttackActionsCallbackInterfaces = new List<IPlayerAttackActions>();
     private readonly InputAction m_PlayerAttack_Attack;
     private readonly InputAction m_PlayerAttack_Aim;
+    private readonly InputAction m_PlayerAttack_ChangeWeapon;
     public struct PlayerAttackActions
     {
         private @InputActions m_Wrapper;
         public PlayerAttackActions(@InputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Attack => m_Wrapper.m_PlayerAttack_Attack;
         public InputAction @Aim => m_Wrapper.m_PlayerAttack_Aim;
+        public InputAction @ChangeWeapon => m_Wrapper.m_PlayerAttack_ChangeWeapon;
         public InputActionMap Get() { return m_Wrapper.m_PlayerAttack; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -403,6 +448,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @ChangeWeapon.started += instance.OnChangeWeapon;
+            @ChangeWeapon.performed += instance.OnChangeWeapon;
+            @ChangeWeapon.canceled += instance.OnChangeWeapon;
         }
 
         private void UnregisterCallbacks(IPlayerAttackActions instance)
@@ -413,6 +461,9 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @ChangeWeapon.started -= instance.OnChangeWeapon;
+            @ChangeWeapon.performed -= instance.OnChangeWeapon;
+            @ChangeWeapon.canceled -= instance.OnChangeWeapon;
         }
 
         public void RemoveCallbacks(IPlayerAttackActions instance)
@@ -532,6 +583,7 @@ public partial class @InputActions: IInputActionCollection2, IDisposable
     {
         void OnAttack(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnChangeWeapon(InputAction.CallbackContext context);
     }
     public interface IPlayerCameraActions
     {
