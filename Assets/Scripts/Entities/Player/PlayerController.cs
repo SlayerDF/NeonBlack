@@ -76,6 +76,7 @@ namespace NeonBlack.Entities.Player
             killed = true;
             playerInput.ToggleMovementActions(false);
             playerInput.ToggleAttackActions(false);
+            playerInput.ToggleInteractionActions(false);
             playerAnimation.OnDeath();
 
             bloodParticles.Play();

@@ -22,7 +22,7 @@ namespace NeonBlack.Entities.Player
         private InputActions.PlayerCameraActions cameraActions;
 
         private Vector2 input;
-
+        private InputActions.PlayerInteractionActions interactionActions;
         private InputActions.PlayerMovementActions movementActions;
 
         #region Event Functions
@@ -32,6 +32,7 @@ namespace NeonBlack.Entities.Player
             movementActions = new InputActions().PlayerMovement;
             attackActions = new InputActions().PlayerAttack;
             cameraActions = new InputActions().PlayerCamera;
+            interactionActions = new InputActions().PlayerInteraction;
         }
 
         private void Start()
@@ -78,6 +79,7 @@ namespace NeonBlack.Entities.Player
             ToggleMovementActions(true);
             ToggleAttackActions(true);
             ToggleCameraActions(true);
+            ToggleInteractionActions(true);
 
             movementActions.Jump.performed += OnJump;
             movementActions.Dash.performed += OnDash;
@@ -87,9 +89,11 @@ namespace NeonBlack.Entities.Player
             attackActions.Aim.started += OnAimStarted;
             attackActions.Aim.canceled += OnAimCancelled;
             attackActions.ChangeWeapon.performed += OnWeaponChange;
+            interactionActions.Interact.performed += OnInteract;
 
             OnEnableAttack();
             OnEnableCamera();
+            OnEnableInteractions();
         }
 
         private void OnDisable()
@@ -97,6 +101,7 @@ namespace NeonBlack.Entities.Player
             ToggleMovementActions(false);
             ToggleAttackActions(false);
             ToggleCameraActions(false);
+            ToggleInteractionActions(false);
 
             movementActions.Jump.performed -= OnJump;
             movementActions.Dash.performed -= OnDash;
@@ -105,9 +110,11 @@ namespace NeonBlack.Entities.Player
             attackActions.Attack.performed -= OnShoot;
             attackActions.Aim.started -= OnAimStarted;
             attackActions.Aim.canceled -= OnAimCancelled;
+            interactionActions.Interact.performed -= OnInteract;
 
             OnDisableAttack();
             OnDisableCamera();
+            OnDisableInteractions();
         }
 
         #endregion
@@ -145,6 +152,18 @@ namespace NeonBlack.Entities.Player
             else
             {
                 cameraActions.Disable();
+            }
+        }
+
+        public void ToggleInteractionActions(bool value)
+        {
+            if (value)
+            {
+                interactionActions.Enable();
+            }
+            else
+            {
+                interactionActions.Disable();
             }
         }
     }

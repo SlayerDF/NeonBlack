@@ -6,6 +6,8 @@ namespace NeonBlack.Systems.LevelState
     {
         private int shards;
 
+        public static int Shards => Instance.shards;
+
         public static event Action<int> ShardsQuantityChanged;
 
         public static void NotifyShardCollected()
