@@ -1,10 +1,11 @@
+using System;
 using NeonBlack.Interfaces;
 using NeonBlack.Systems.LevelState;
 using UnityEngine;
 
 namespace NeonBlack.Interactables
 {
-    public class ShardSlot : MonoBehaviour, IPlayerInteractable
+    public class ShardSlot : MonoBehaviour, IPlayerInteractable, IActivatable
     {
         #region Serialized Fields
 
@@ -13,9 +14,16 @@ namespace NeonBlack.Interactables
 
         #endregion
 
+        #region IActivatable Members
+
+        public bool IsActivated { get; private set; }
+        public event Action Activated;
+
+        #endregion
+
         #region IPlayerInteractable Members
 
-        public bool CanBeInteracted { get; private set; } = true;
+        public bool CanBeInteracted => !IsActivated && LevelState.Shards > 0;
 
         public void Interact()
         {
@@ -24,9 +32,11 @@ namespace NeonBlack.Interactables
                 return;
             }
 
-            CanBeInteracted = false;
+            IsActivated = true;
             LevelState.NotifyShardUsed();
             shardGameObject.SetActive(true);
+
+            Activated?.Invoke();
         }
 
         #endregion
