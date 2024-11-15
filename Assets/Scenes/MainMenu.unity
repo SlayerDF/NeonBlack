@@ -1654,7 +1654,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2932840539882590508, guid: 3f4d55c1c3b15154799f430d600f5ae0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -270
+      value: -370
       objectReference: {fileID: 0}
     - target: {fileID: 2932840539882590508, guid: 3f4d55c1c3b15154799f430d600f5ae0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3872,7 +3872,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5826105286258001801, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 114.98
+      value: 268.27
       objectReference: {fileID: 0}
     - target: {fileID: 7176364197997416835, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_text
@@ -3883,7 +3883,14 @@ PrefabInstance:
         Q - Dash
 
         LMB
-        - Attack'
+        - Attack
+
+        RMB  - Aim
+
+        RMB + LMB - Shoot
+
+        Mouse Scroll
+        - Change weapon'
       objectReference: {fileID: 0}
     - target: {fileID: 7176364197997416835, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_fontAsset
@@ -3911,7 +3918,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7359155797117289783, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 114.98
+      value: 268.27
       objectReference: {fileID: 0}
     - target: {fileID: 7359155797117289783, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -3947,7 +3954,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8226314158659115157, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 8226314158659115157, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3983,7 +3990,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8226314158659115157, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -100
+      value: -150
       objectReference: {fileID: 0}
     - target: {fileID: 8226314158659115157, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
