@@ -17,7 +17,7 @@ namespace NeonBlack.Interactables
 
         public bool CanBeInteracted { get; private set; } = true;
 
-        public void Activate()
+        public void Interact()
         {
             if (LevelState.Shards < 1)
             {

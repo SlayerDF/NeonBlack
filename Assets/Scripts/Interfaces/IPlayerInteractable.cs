@@ -3,6 +3,6 @@
     public interface IPlayerInteractable
     {
         bool CanBeInteracted { get; }
-        void Activate();
+        void Interact();
     }
 }

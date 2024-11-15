@@ -68,7 +68,7 @@ namespace NeonBlack.Entities.Player
             }
 
             var interactable = interactables[count - 1];
-            interactable.Activate();
+            interactable.Interact();
 
             if (!interactable.CanBeInteracted && interactables.Remove(interactable))
             {
