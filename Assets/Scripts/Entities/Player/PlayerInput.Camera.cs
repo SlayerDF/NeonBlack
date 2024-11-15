@@ -1,6 +1,5 @@
 ﻿using NeonBlack.Utilities;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 namespace NeonBlack.Entities.Player
 {
@@ -15,16 +14,19 @@ namespace NeonBlack.Entities.Player
         private Camera playerCamera;
 
         [SerializeField]
-        private Transform cameraTarget;
+        private Transform cameraDefaultTarget;
+
+        [SerializeField]
+        private Transform cameraAimTarget;
 
         [SerializeField]
         private Vector2 minMaxCameraPitch = new(-40f, 85f);
 
         [SerializeField]
-        private Vector2 minMaxCameraZoom = new(2f, 5f);
+        private float cameraDefaultZoom = 3f;
 
         [SerializeField]
-        private float cameraZoomStep = 0.2f;
+        private float cameraAimZoom = 1f;
 
         [SerializeField]
         private LayerMask cameraCollisionMask;
@@ -37,6 +39,8 @@ namespace NeonBlack.Entities.Player
 
         #endregion
 
+        private Vector3 cameraCurrentTarget;
+
         private float cameraCurrentZoom;
 
         private bool cameraHasObstacle;
@@ -47,8 +51,6 @@ namespace NeonBlack.Entities.Player
 
         private void StartCamera()
         {
-            cameraCurrentZoom = (minMaxCameraZoom.x + minMaxCameraZoom.y) / 2f;
-
             cameraOrbit.x = (minMaxCameraPitch.x + minMaxCameraPitch.y) / 2f;
             cameraOrbit.y = transform.rotation.eulerAngles.y;
         }
@@ -81,7 +83,7 @@ namespace NeonBlack.Entities.Player
 
             var castDirection = Quaternion.Euler(cameraOrbit) * -Vector3.forward;
 
-            cameraHasObstacle = Physics.SphereCast(cameraTarget.position, raycastSphereRadius, castDirection,
+            cameraHasObstacle = Physics.SphereCast(cameraCurrentTarget, raycastSphereRadius, castDirection,
                 out cameraObstacleHit, cameraCurrentZoom + cameraMinObstacleDistance, cameraCollisionMask,
                 QueryTriggerInteraction.Ignore);
         }
@@ -98,7 +100,7 @@ namespace NeonBlack.Entities.Player
         // Update camera rotation and position
         private void UpdateCamera()
         {
-            var target = cameraTarget.position;
+            var target = cameraCurrentTarget;
             var lookRotation = Quaternion.Euler(cameraOrbit);
             var lookDirection = lookRotation * Vector3.forward;
             var cameraDistance = cameraCurrentZoom;
@@ -125,12 +127,18 @@ namespace NeonBlack.Entities.Player
             playerCamera.transform.SetPositionAndRotation(target - lookDirection * currentCameraDistance, lookRotation);
         }
 
-        private void OnCameraZoomChange(InputAction.CallbackContext obj)
+        private void UpdateCameraTarget()
         {
-            var value = cameraActions.CameraZoom.ReadValue<Vector2>();
-            var change = value.y < 0 ? cameraZoomStep : -cameraZoomStep;
-
-            cameraCurrentZoom = Mathf.Clamp(cameraCurrentZoom + change, minMaxCameraZoom.x, minMaxCameraZoom.y);
+            if (isAiming && IsGrounded)
+            {
+                cameraCurrentTarget = cameraAimTarget.position;
+                cameraCurrentZoom = cameraAimZoom;
+            }
+            else
+            {
+                cameraCurrentTarget = cameraDefaultTarget.position;
+                cameraCurrentZoom = cameraDefaultZoom;
+            }
         }
     }
 }

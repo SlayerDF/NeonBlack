@@ -1,46 +1,28 @@
-using NeonBlack.Projectiles;
+﻿using NeonBlack.Projectiles;
 using UnityEngine;
 
 namespace NeonBlack.Weapons
 {
-    public abstract class Weapon : MonoBehaviour
+    public abstract class Weapon : ScriptableObject
     {
         #region Serialized Fields
 
+        [Header("Assets")]
         [SerializeField]
-        private float shootInterval = 5f;
+        private Sprite icon;
+
+        [SerializeField]
+        private Sprite iconAlpha;
 
         [SerializeField]
         private Projectile projectilePrefab;
 
-        [SerializeField]
-        private Sprite icon;
-
         #endregion
-
-        private float shootCooldownTimer;
-
-        protected float ShootInterval => shootInterval;
-        protected Projectile ProjectilePrefab => projectilePrefab;
 
         public Sprite Icon => icon;
-        public bool ReadyToShoot => shootCooldownTimer <= 0f;
+        public Sprite IconAlpha => iconAlpha;
+        public Projectile ProjectilePrefab => projectilePrefab;
 
-        #region Event Functions
-
-        protected void Update()
-        {
-            if (shootCooldownTimer >= 0)
-            {
-                shootCooldownTimer -= Time.deltaTime;
-            }
-        }
-
-        #endregion
-
-        public virtual void Shoot(Vector3 direction)
-        {
-            shootCooldownTimer = shootInterval;
-        }
+        public abstract void Shoot(Vector3 origin, Vector3 direction);
     }
 }

@@ -127,9 +127,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot",
+                    "name": "Aim",
                     "type": "Button",
-                    "id": "540b3fb0-89f0-4ca4-899b-790eb18d48e3",
+                    "id": "a4236866-8bde-47de-a6ab-7c17d5d850ca",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ChangeWeapon",
+                    "type": "Button",
+                    "id": "af707211-8d84-4f29-9ef9-2450fe152d94",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -150,14 +159,47 @@
                 },
                 {
                     "name": "",
-                    "id": "82f22fbd-e2c9-4725-8040-574bef54b1a1",
-                    "path": "<Mouse>/middleButton",
+                    "id": "1441c8f7-6404-4422-b618-ef6b78b42904",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "1D Axis",
+                    "id": "7f99b13a-c77e-4ea2-a40a-c07882007db1",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d70b2568-5c94-4377-9799-8d840f4403b4",
+                    "path": "<Mouse>/scroll/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "5b6e292a-8180-454c-8d2f-2d053348482f",
+                    "path": "<Mouse>/scroll/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ChangeWeapon",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
@@ -165,15 +207,6 @@
             "name": "PlayerCamera",
             "id": "0cdc1b94-f24f-473b-8262-bb2c79ca02b8",
             "actions": [
-                {
-                    "name": "CameraZoom",
-                    "type": "Value",
-                    "id": "822c9281-674c-4d51-8a27-67dad72ea09d",
-                    "expectedControlType": "Delta",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
                 {
                     "name": "CameraMove",
                     "type": "Value",
@@ -185,17 +218,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "df81db40-99db-46b5-aa99-457a6a0fe8dd",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CameraZoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "7fdc7d22-8482-47ab-979a-207267ba3bca",

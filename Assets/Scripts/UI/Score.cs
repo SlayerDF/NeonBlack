@@ -18,15 +18,22 @@ namespace NeonBlack
 
         private void OnEnable()
         {
+            LevelState.LevelStarted += OnLevelStarted;
             LevelState.ScoreChanged += OnScoreChanged;
         }
 
         private void OnDisable()
         {
+            LevelState.LevelStarted -= OnLevelStarted;
             LevelState.ScoreChanged -= OnScoreChanged;
         }
 
         #endregion
+
+        private void OnLevelStarted()
+        {
+            OnScoreChanged(0);
+        }
 
         private void OnScoreChanged(float value)
         {

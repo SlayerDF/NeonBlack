@@ -1,3 +1,5 @@
+using System;
+
 namespace NeonBlack.Systems.LevelState
 {
     public partial class LevelState : SceneSingleton<LevelState>
@@ -9,6 +11,8 @@ namespace NeonBlack.Systems.LevelState
             base.Awake();
 
             AwakeAlert();
+
+            LevelStarted?.Invoke();
         }
 
         private void FixedUpdate()
@@ -17,5 +21,7 @@ namespace NeonBlack.Systems.LevelState
         }
 
         #endregion
+
+        public static event Action LevelStarted;
     }
 }
