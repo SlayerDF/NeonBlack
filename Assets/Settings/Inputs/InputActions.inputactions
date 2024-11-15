@@ -232,6 +232,34 @@
             ]
         },
         {
+            "name": "PlayerInteraction",
+            "id": "a063a910-bb3b-470c-934f-1b87835d9542",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "933373cb-5afb-452c-97be-3fd2b5e1ece8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a840c4a8-75d5-456e-8dab-1ac8b9974e4b",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "UI",
             "id": "badbb1a3-970d-4f4e-a8de-5a82265f0391",
             "actions": [

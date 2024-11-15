@@ -16,6 +16,7 @@ namespace NeonBlack.Interactables
         protected override void OnCollect(PlayerController _)
         {
             LevelState.IncrementScore(scoreForCollection);
+            LevelState.NotifyShardCollected();
         }
     }
 }

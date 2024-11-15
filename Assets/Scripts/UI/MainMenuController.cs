@@ -30,6 +30,10 @@ namespace NeonBlack.UI
             {
                 Unpause();
             }
+            else
+            {
+                Pause();
+            }
         }
 
         private void OnEnable()

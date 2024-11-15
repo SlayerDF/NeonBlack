@@ -29,6 +29,7 @@ namespace NeonBlack.Entities.Player
 
         #endregion
 
+
         private float attackTimer;
         private bool isAiming;
 
