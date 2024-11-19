@@ -421,6 +421,14 @@ MonoBehaviour:
       guid: 51b0e78ad7815c44099ce8ccb2ae291c
     - asset: {fileID: 102900000, guid: 434a9aaa83fbe544e924ed3faa4c613b, type: 3}
       guid: 434a9aaa83fbe544e924ed3faa4c613b
+  - mainScene:
+      asset: {fileID: 102900000, guid: fced9d9df24b7614882837895aa02c9d, type: 3}
+      guid: fced9d9df24b7614882837895aa02c9d
+    additionalScenes:
+    - asset: {fileID: 102900000, guid: 51b0e78ad7815c44099ce8ccb2ae291c, type: 3}
+      guid: 51b0e78ad7815c44099ce8ccb2ae291c
+    - asset: {fileID: 102900000, guid: 434a9aaa83fbe544e924ed3faa4c613b, type: 3}
+      guid: 434a9aaa83fbe544e924ed3faa4c613b
   defaultScene:
     asset: {fileID: 102900000, guid: 51b0e78ad7815c44099ce8ccb2ae291c, type: 3}
     guid: 51b0e78ad7815c44099ce8ccb2ae291c
