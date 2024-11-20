@@ -11,7 +11,7 @@ namespace NeonBlack.Projectiles
 
         [SerializeField]
         private float damage = 1f;
-        
+
         [SerializeField]
         private TrailRenderer trailRenderer;
 
@@ -27,7 +27,7 @@ namespace NeonBlack.Projectiles
         protected override void OnEnable()
         {
             base.OnEnable();
-            
+
             trailRenderer.Clear();
         }
 
