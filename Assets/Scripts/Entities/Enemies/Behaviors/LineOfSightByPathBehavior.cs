@@ -59,7 +59,7 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         private void Start()
         {
-            currentWaypoint = path.NextWaypoint();
+            currentWaypoint = path.InitialWaypoint(targetPoint.position);
             targetPoint.position = currentWaypoint.Position;
         }
 

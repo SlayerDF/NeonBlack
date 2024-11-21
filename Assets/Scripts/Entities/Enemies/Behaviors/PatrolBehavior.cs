@@ -22,7 +22,7 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         private void Awake()
         {
-            waypoint = path.NextWaypoint();
+            waypoint = path.InitialWaypoint(transform.position);
         }
 
         private void Start()
@@ -61,8 +61,7 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         private bool ReachedDestination()
         {
-            return !float.IsInfinity(navAgent.remainingDistance) &&
-                   navAgent.remainingDistance < navAgent.stoppingDistance;
+            return navAgent.enabled && !navAgent.pathPending && navAgent.remainingDistance < navAgent.stoppingDistance;
         }
     }
 }
