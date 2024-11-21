@@ -1,6 +1,6 @@
+using System.Linq;
 using UnityEditor;
 using UnityEngine;
-using Debug = System.Diagnostics.Debug;
 
 namespace NeonBlack.Utilities
 {
@@ -35,54 +35,86 @@ namespace NeonBlack.Utilities
             {
                 children[i] = transform.GetChild(i);
             }
+
+#if UNITY_EDITOR
+            Debug.Assert(children != null, nameof(children) + " != null");
+            Debug.Assert(children.Length > 1, nameof(children) + " is not empty or a single waypoint path");
+#endif
         }
 
-        public Waypoint NextWaypoint(Waypoint? currentWaypoint = null)
+        public Waypoint NextWaypoint(Waypoint currentWaypoint)
         {
             if (children == null)
             {
                 InitializeChildren();
-
-#if UNITY_EDITOR
-                Debug.Assert(children != null, nameof(children) + " != null");
-#endif
             }
 
-            var waypoint = currentWaypoint ?? new Waypoint(Vector3.zero, false, -1);
-
-            bool moveBackwards;
             int nextIndex;
 
             if (circular)
             {
-                moveBackwards = false;
-                nextIndex = waypoint.Index + 1;
+                nextIndex = (currentWaypoint.Index + 1) % children!.Length;
 
-                if (nextIndex >= children.Length)
-                {
-                    nextIndex = 0;
-                }
+                return new Waypoint(children![nextIndex].position, false, nextIndex);
+            }
+
+            // Non-circular logic below
+            bool moveBackwards;
+            if (currentWaypoint.Index == 0)
+            {
+                moveBackwards = false;
+                nextIndex = 1;
+            }
+            else if (currentWaypoint.Index == children!.Length - 1)
+            {
+                moveBackwards = true;
+                nextIndex = children.Length - 2;
             }
             else
             {
-                moveBackwards = waypoint.MoveBackwards;
-                nextIndex = waypoint.MoveBackwards ? waypoint.Index - 1 : waypoint.Index + 1;
-
-                if (nextIndex < 0)
-                {
-                    moveBackwards = false;
-                    nextIndex = 1;
-                }
-                else if (nextIndex >= children.Length)
-                {
-                    moveBackwards = true;
-                    nextIndex = children.Length - 2;
-                }
+                moveBackwards = currentWaypoint.MoveBackwards;
+                nextIndex = moveBackwards ? currentWaypoint.Index - 1 : currentWaypoint.Index + 1;
             }
 
-            nextIndex = Mathf.Clamp(nextIndex, 0, transform.childCount - 1);
+            return new Waypoint(children![nextIndex].position, moveBackwards, nextIndex);
+        }
 
-            return new Waypoint(children[nextIndex].position, moveBackwards, nextIndex);
+        public Waypoint InitialWaypoint(Vector3 position)
+        {
+            if (children == null)
+            {
+                InitializeChildren();
+            }
+
+            var sortedChildren = children!
+                .Select((child, index) => (index, child.position))
+                .OrderBy(child => (child.position - position).sqrMagnitude)
+                .ToList();
+
+            var closestChild = sortedChildren.First();
+
+            if (circular)
+            {
+                return new Waypoint(closestChild.position, false, closestChild.index);
+            }
+
+            // Non-circular logic below
+            bool moveBackwards;
+            var secondClosestChild = sortedChildren.Skip(1).First();
+            if (closestChild.index == 0)
+            {
+                moveBackwards = false;
+            }
+            else if (closestChild.index == children.Length - 1)
+            {
+                moveBackwards = true;
+            }
+            else
+            {
+                moveBackwards = closestChild.index > secondClosestChild.index;
+            }
+
+            return new Waypoint(closestChild.position, moveBackwards, closestChild.index);
         }
 
         #region Nested type: ${0}

@@ -9,11 +9,15 @@ namespace NeonBlack.Traps
     {
         #region Serialized Fields
 
-        [SerializeField]
-        private bool shootReady;
-
+        [Header("Properties")]
         [SerializeField]
         private float shootQuantity;
+
+        [SerializeField]
+        private bool overrideInitialVelocity;
+
+        [SerializeField]
+        private float initialVelocity;
 
         [Header("References")]
         [SerializeField]
@@ -24,9 +28,11 @@ namespace NeonBlack.Traps
 
         #endregion
 
+        private bool shootCooldown;
+
         public void Shoot()
         {
-            if (shootReady)
+            if (!shootCooldown)
             {
                 StartCoroutine(ShootCoroutine());
             }
@@ -34,13 +40,14 @@ namespace NeonBlack.Traps
 
         private IEnumerator ShootCoroutine()
         {
-            shootReady = false;
+            shootCooldown = true;
 
             for (var i = 0; i < shootQuantity; i++)
             {
-                ObjectPoolManager.Spawn(trapProjectilePrefab, out Projectile projectile, true);
+                ObjectPoolManager.Spawn(trapProjectilePrefab, out TrapProjectile projectile, true);
                 projectile.transform.position = projectileSpawnPoint.position;
                 projectile.transform.rotation = projectileSpawnPoint.rotation;
+                projectile.InitialVelocity = initialVelocity;
                 projectile.gameObject.SetActive(true);
 
                 yield return new WaitForSeconds(0.5f);
@@ -48,7 +55,7 @@ namespace NeonBlack.Traps
 
             yield return new WaitForSeconds(1f);
 
-            shootReady = true;
+            shootCooldown = false;
         }
     }
 }
