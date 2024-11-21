@@ -4492,21 +4492,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7176364197997416835, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_text
-      value: 'WASD - Movement
+      value: 'WASD: Movement
 
-        Space - Jump
+        Space: Jump
 
-        Q - Dash
+        Shift: Dash
 
-        LMB
-        - Attack
+        LMB:
+        Melee Attack
 
-        RMB  - Aim
+        RMB: Aim
 
-        RMB + LMB - Shoot
+        RMB + LMB: Range Attack
 
-        Mouse Scroll
-        - Change weapon'
+        Mouse
+        Scroll: Change weapon'
       objectReference: {fileID: 0}
     - target: {fileID: 7176364197997416835, guid: 3f41de225f627b34ea34ec98bc26ca88, type: 3}
       propertyPath: m_fontAsset
