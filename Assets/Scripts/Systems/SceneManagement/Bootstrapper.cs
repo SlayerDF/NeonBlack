@@ -13,10 +13,14 @@ namespace NeonBlack.Systems.SceneManagement
         [SerializeField]
         private SceneReference defaultScene;
 
+        [SerializeField]
+        private AudioClip defaultSceneMusicClip;
+
         #endregion
 
         public SceneGroup[] SceneGroups => sceneGroups;
 
         public SceneReference DefaultScene => defaultScene;
+        public AudioClip DefaultSceneMusicClip => defaultSceneMusicClip;
     }
 }

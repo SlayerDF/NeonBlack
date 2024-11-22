@@ -32,7 +32,7 @@ namespace NeonBlack.UI
             }
             else
             {
-                Pause();
+                AudioListener.pause = false;
             }
         }
 
