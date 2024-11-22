@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6091517183807396057}
   - component: {fileID: 3141108302601117894}
   m_Layer: 0
-  m_Name: Interactions
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -56,7 +56,7 @@ AudioSource:
   m_GameObject: {fileID: 8754210896663506390}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 8393040783024389713, guid: f13638f05d40f694fa3a8a5f9934a82d, type: 2}
+  OutputAudioMixerGroup: {fileID: 7542070412486572067, guid: f13638f05d40f694fa3a8a5f9934a82d, type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
   m_Volume: 0.8
@@ -65,7 +65,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 75
+  Priority: 100
   DopplerLevel: 0
   MinDistance: 5
   MaxDistance: 50
