@@ -6,7 +6,7 @@ namespace NeonBlack.Systems.AudioManagement
     {
         #region Serialized Fields
 
-        [Header("Clips")]
+        [Header("SFX clips")]
         [SerializeField]
         private AudioClip dangerClip;
 
@@ -32,6 +32,10 @@ namespace NeonBlack.Systems.AudioManagement
         private AudioClip playerDeathMusicClip;
 
         [SerializeField]
+        private AudioClip shardCollectedClip;
+
+        [Header("Music clips")]
+        [SerializeField]
         private AudioClip demoLevelMusicClip;
 
         #endregion
@@ -44,6 +48,7 @@ namespace NeonBlack.Systems.AudioManagement
         public static AudioClip PlayerHitClip => Instance.playerHitClip;
         public static AudioClip PlayerHitResultClip => Instance.playerHitResultClip;
         public static AudioClip PlayerDeathMusicClip => Instance.playerDeathMusicClip;
+        public static AudioClip ShardCollectedClip => Instance.shardCollectedClip;
         public static AudioClip DemoLevelMusicClip => Instance.demoLevelMusicClip;
     }
 }
