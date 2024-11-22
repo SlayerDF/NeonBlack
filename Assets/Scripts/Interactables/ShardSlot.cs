@@ -1,5 +1,6 @@
 using System;
 using NeonBlack.Interfaces;
+using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Systems.LevelState;
 using UnityEngine;
 
@@ -35,6 +36,8 @@ namespace NeonBlack.Interactables
             IsActivated = true;
             LevelState.NotifyShardUsed();
             shardGameObject.SetActive(true);
+
+            AudioManager.Play(AudioManager.InteractionsPrefab, AudioManager.InstallShardClip, transform.position);
 
             Activated?.Invoke();
         }
