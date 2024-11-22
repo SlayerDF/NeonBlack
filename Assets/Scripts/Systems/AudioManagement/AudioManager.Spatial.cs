@@ -1,5 +1,6 @@
 ﻿using NeonBlack.Utilities;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace NeonBlack.Systems.AudioManagement
 {
@@ -20,12 +21,17 @@ namespace NeonBlack.Systems.AudioManagement
         [SerializeField]
         private SpatialAudio footstepsPrefab;
 
+        [FormerlySerializedAs("interactablesPrefab")]
+        [SerializeField]
+        private SpatialAudio interactionsPrefab;
+
         #endregion
 
         public static SpatialAudio EnemiesNotificationsPrefab => Instance.enemiesNotificationsPrefab;
         public static SpatialAudio ShotsPrefab => Instance.shotsPrefab;
         public static SpatialAudio HitsPrefab => Instance.hitsPrefab;
         public static SpatialAudio FootstepsPrefab => Instance.footstepsPrefab;
+        public static SpatialAudio InteractionsPrefab => Instance.interactionsPrefab;
 
         private static SpatialAudio PlaySpatial(SpatialAudio audioPrefab, AudioClip clip, Vector3 position)
         {

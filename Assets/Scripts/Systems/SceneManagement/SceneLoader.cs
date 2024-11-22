@@ -19,6 +19,7 @@ namespace NeonBlack.Systems.SceneManagement
         private static CancellationToken _ct;
 
         private static readonly Dictionary<string, List<string>> AdditionalScenes = new();
+        private static readonly Dictionary<string, AudioClip> ScenesMusic = new();
 
         public static async UniTask LoadScene(SceneReference mainScene, bool reloadMainScene = true)
         {
@@ -69,6 +70,11 @@ namespace NeonBlack.Systems.SceneManagement
             if (mainScene.LoadedScene.IsValid())
             {
                 SceneManager.SetActiveScene(mainScene.LoadedScene);
+                if (ScenesMusic.TryGetValue(mainScene.Name, out var audio))
+                {
+                    AudioManager.Play(AudioManager.Music, audio, true);
+                }
+
                 DisableInactiveScenesObjects<AudioListener>(mainScene.LoadedScene);
                 DisableInactiveScenesObjects<Camera>(mainScene.LoadedScene);
             }
@@ -114,7 +120,10 @@ namespace NeonBlack.Systems.SceneManagement
             {
                 var group = bootstrapper.SceneGroups[i];
                 AdditionalScenes.Add(group.MainScene.Name, group.AdditionalScenes.Select(x => x.Name).ToList());
+                ScenesMusic.Add(group.MainScene.Name, group.MusicClip);
             }
+
+            ScenesMusic.Add(bootstrapper.DefaultScene.Name, bootstrapper.DefaultSceneMusicClip);
 
             var activeScene = SceneManager.GetActiveScene();
 

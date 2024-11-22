@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Weapons;
 using UnityEngine;
 
@@ -34,6 +35,8 @@ namespace NeonBlack.Entities.Player
             weapons.Add(weapon);
             weaponsAmmo.Add(weapon, ammoChange);
             WeaponAdded?.Invoke(weapons.Count - 1, weapon, ammoChange);
+
+            AudioManager.Play(AudioManager.InteractionsPrefab, AudioManager.ItemPickupClip, transform.position);
 
             CheckPickedUpWeapon(weapon);
         }

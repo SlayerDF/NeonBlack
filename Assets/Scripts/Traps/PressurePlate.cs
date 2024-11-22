@@ -1,3 +1,4 @@
+using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 
 namespace NeonBlack.Traps
@@ -68,6 +69,7 @@ namespace NeonBlack.Traps
 
             if (pressProgress >= 1f && prevProgress < 1f)
             {
+                AudioManager.Play(AudioManager.InteractionsPrefab, AudioManager.PressurePlateClip, transform.position);
                 activationParticles.Play();
             }
 

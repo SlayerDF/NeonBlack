@@ -54,7 +54,10 @@ namespace NeonBlack.Utilities
         /// <param name="obj">GameObject to despawn</param>
         public static void Despawn(PoolObject obj)
         {
-            Instance.DespawnInternal(obj);
+            if (Instance)
+            {
+                Instance.DespawnInternal(obj);
+            }
         }
 
         private bool SpawnInternal<T>(PoolObject prefab, out T obj, bool spawnDeactivated = false) where T : PoolObject
@@ -82,6 +85,13 @@ namespace NeonBlack.Utilities
             }
 
             obj = (T)Instantiate(prefab);
+
+# if UNITY_EDITOR
+            if (obj.gameObject.scene != gameObject.scene)
+            {
+                Debug.LogWarning("ObjectPoolManager spawns objects in the wrong scene");
+            }
+#endif
 
             if (spawnDeactivated)
             {

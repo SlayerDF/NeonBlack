@@ -17,10 +17,11 @@ namespace NeonBlack.Entities.Player
         private static readonly int Jumping = Animator.StringToHash("Jumping");
         private static readonly int Dashing = Animator.StringToHash("Dashing");
         private static readonly int Attacking = Animator.StringToHash("Attacking");
-        public static readonly int Dead = Animator.StringToHash("Dead");
+        private static readonly int Dead = Animator.StringToHash("Dead");
         private static readonly int Jump = Animator.StringToHash("Jump");
         private static readonly int Dash = Animator.StringToHash("Dash");
         private static readonly int Attack = Animator.StringToHash("Attack");
+        public static readonly int DeathAnimation = Animator.StringToHash("Death");
 
         #region Serialized Fields
 

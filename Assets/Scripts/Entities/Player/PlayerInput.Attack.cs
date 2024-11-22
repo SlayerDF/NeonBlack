@@ -1,5 +1,6 @@
 ﻿using System;
 using NeonBlack.Entities.Enemies;
+using NeonBlack.Interfaces;
 using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Utilities;
 using UnityEngine;
@@ -123,7 +124,7 @@ namespace NeonBlack.Entities.Player
                 AudioManager.Play(AudioManager.HitsPrefab, AudioManager.PlayerHitResultClip, other.transform.position);
             }
 
-            enemyHealth.TakeDamage(1f);
+            enemyHealth.TakeDamage(DamageSource.Normal, 1f);
         }
 
         private void UpdateAttack()

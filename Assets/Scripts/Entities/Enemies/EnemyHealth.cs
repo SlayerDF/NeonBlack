@@ -24,7 +24,7 @@ namespace NeonBlack.Entities.Enemies
 
         #region IEntityHealth Members
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(DamageSource _, float damage)
         {
             if (Invincible)
             {
