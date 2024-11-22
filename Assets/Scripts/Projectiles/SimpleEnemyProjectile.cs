@@ -1,5 +1,6 @@
 ﻿using NeonBlack.Entities.Player;
 using NeonBlack.Enums;
+using NeonBlack.Interfaces;
 using NeonBlack.Utilities;
 using UnityEngine;
 
@@ -28,7 +29,7 @@ namespace NeonBlack.Projectiles
             switch (layer)
             {
                 case Layer.Player when other.TryGetComponent(out PlayerController player):
-                    player.Kill();
+                    player.TakeDamage(DamageSource.Normal, 1f);
                     break;
             }
 

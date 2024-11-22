@@ -25,7 +25,7 @@ namespace NeonBlack.Projectiles
                 case Layer.Enemies:
                     if (other.TryGetComponent(out IEntityHealth entityHealth))
                     {
-                        entityHealth.TakeDamage(Damage);
+                        entityHealth.TakeDamage(DamageSource.Normal, Damage);
                     }
 
                     break;

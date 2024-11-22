@@ -11,7 +11,7 @@ namespace NeonBlack.Interactables
         {
             if (other.TryGetComponent(out IEntityHealth entityHealth))
             {
-                entityHealth.TakeDamage(float.MaxValue);
+                entityHealth.TakeDamage(DamageSource.DeathZone, float.MaxValue);
             }
         }
 

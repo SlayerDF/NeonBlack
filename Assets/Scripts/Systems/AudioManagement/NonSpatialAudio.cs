@@ -38,10 +38,12 @@ namespace NeonBlack.Systems.AudioManagement
 
         #endregion
 
-        public async UniTask WaitFinish()
+        public async UniTask WaitFinish(CancellationToken cancellationToken = default)
         {
-            // Wait for transition to finish
-            await UniTask.WaitUntil(() => State == PlayState.Finished);
+            cancellationToken = cancellationToken == default ? destroyCancellationToken : cancellationToken;
+
+            // Wait transition to finish
+            await UniTask.WaitUntil(() => State == PlayState.Finished, cancellationToken: cancellationToken);
 
             if (!Source.isPlaying || Source.loop)
             {
@@ -50,7 +52,8 @@ namespace NeonBlack.Systems.AudioManagement
 
             var clip = Source.clip;
 
-            await UniTask.WaitWhile(() => Source.isPlaying && Source.clip == clip);
+            await UniTask.WaitWhile(() => Source.isPlaying && Source.clip == clip,
+                cancellationToken: cancellationToken);
         }
 
         internal void CancelTask()
