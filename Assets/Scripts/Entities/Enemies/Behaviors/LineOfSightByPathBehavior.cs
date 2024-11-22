@@ -48,6 +48,8 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         public Transform TargetPoint => targetPoint;
 
+        public Transform CustomTarget { get; set; }
+
         #region Event Functions
 
         private void Awake()
@@ -57,22 +59,29 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         private void Start()
         {
-            currentWaypoint = path.NextWaypoint();
+            currentWaypoint = path.InitialWaypoint(targetPoint.position);
             targetPoint.position = currentWaypoint.Position;
         }
 
         private void FixedUpdate()
         {
-            // Go the next path point smoothly.
-            targetPoint.position = Vector3.MoveTowards(targetPoint.position, currentWaypoint.Position,
-                walkingSpeed * Time.fixedDeltaTime);
-
             var d =
                 Mathf.Pow(playerTransform.position.x - targetPoint.position.x, 2) +
                 Mathf.Pow(playerTransform.position.y - targetPoint.position.y, 2) +
                 Mathf.Pow(playerTransform.position.z - targetPoint.position.z, 2);
 
             IsPlayerDetected = d < radiusSqr;
+
+            if (CustomTarget)
+            {
+                targetPoint.position = Vector3.MoveTowards(targetPoint.position, CustomTarget.position,
+                    walkingSpeed * Time.fixedDeltaTime);
+                return;
+            }
+
+            // Go the next path point smoothly.
+            targetPoint.position = Vector3.MoveTowards(targetPoint.position, currentWaypoint.Position,
+                walkingSpeed * Time.fixedDeltaTime);
 
             // Wait on the path point for some time.
             if (waiting)

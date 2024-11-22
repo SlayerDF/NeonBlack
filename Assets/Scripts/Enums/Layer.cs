@@ -10,6 +10,9 @@ namespace NeonBlack.Enums
         UI = 5,
         Terrain = 6,
         Enemies = 7,
-        Projectiles = 8
+        Projectiles = 8,
+        Traps = 9,
+        Interactables = 10,
+        Buildings = 11
     }
 }

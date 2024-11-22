@@ -30,6 +30,15 @@ namespace NeonBlack.UI
             {
                 Unpause();
             }
+            else
+            {
+                Time.timeScale = 1f;
+
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
+                AudioListener.pause = false;
+            }
         }
 
         private void OnEnable()

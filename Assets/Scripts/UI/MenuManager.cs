@@ -1,4 +1,5 @@
 using System;
+using NeonBlack.Systems.LevelState;
 using UnityEngine;
 
 namespace NeonBlack.UI
@@ -12,7 +13,8 @@ namespace NeonBlack.UI
             Main,
             Controls,
             Options,
-            Credits
+            Credits,
+            Levels
         }
 
         #endregion
@@ -24,12 +26,31 @@ namespace NeonBlack.UI
 
         #endregion
 
+        #region Event Functions
+
+        private void Awake()
+        {
+            LevelState.LevelStarted += OnLevelStarted;
+        }
+
+        private void OnDestroy()
+        {
+            LevelState.LevelStarted -= OnLevelStarted;
+        }
+
+        #endregion
+
         public void SwitchToMenu(MenuType type)
         {
             for (var i = 0; i < menus.Length; i++)
             {
                 menus[i].transform.gameObject.SetActive(menus[i].type == type);
             }
+        }
+
+        private void OnLevelStarted()
+        {
+            SwitchToMenu(MenuType.Main);
         }
 
         #region Nested type: ${0}

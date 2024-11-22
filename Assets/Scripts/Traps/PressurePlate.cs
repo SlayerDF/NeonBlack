@@ -1,105 +1,130 @@
-using System.Collections;
+using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 
 namespace NeonBlack.Traps
 {
     public class PressurePlate : MonoBehaviour
     {
+        private const float UpdateCollidersInterval = 0.5f;
+
         #region Serialized Fields
 
+        [Header("Collisions")]
         [SerializeField]
-        private SimpleTrap trap;
+        private Vector3 collisionCenter;
+
+        [SerializeField]
+        private Vector3 collisionSize;
 
         [SerializeField]
         private LayerMask activatedBy;
 
+        [Header("Components")]
+        [SerializeField]
+        private SimpleTrap trap;
+
         [SerializeField]
         private Transform visuals;
 
+        [Header("Configuration")]
         [SerializeField]
         private Vector3 visualsPressedPosition;
 
         [SerializeField]
-        private float activateTime = 0.5f;
+        private float pressTime = 0.5f;
+
+        [SerializeField]
+        private ParticleSystem activationParticles;
 
         #endregion
 
-        private bool activated;
+        private readonly Collider[] colliders = new Collider[10];
+        private float activationCooldownTime;
 
-        private int collisionsCount;
-        private Vector3 originalPosition;
+        private int collisions;
+        private float pressCurrentTime;
+        private float pressProgress;
+        private float updateCollidersTime;
+
+        private Vector3 visualsOriginalPosition;
 
         #region Event Functions
 
-        private void Awake()
+        private void Update()
         {
-            originalPosition = visuals.localPosition;
-        }
+            UpdateColliders(Time.deltaTime);
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if ((activatedBy.value & (1 << other.gameObject.layer)) == 0)
+            var prevProgress = pressProgress;
+            pressProgress = AnimateVisuals(Time.deltaTime);
+
+            if (activationCooldownTime > 0f)
+            {
+                activationCooldownTime -= Time.deltaTime;
+            }
+
+            if (pressProgress < 1f || activationCooldownTime > 0f)
             {
                 return;
             }
 
-            collisionsCount++;
-
-            if (collisionsCount == 1 && !activated)
+            if (pressProgress >= 1f && prevProgress < 1f)
             {
-                StartCoroutine(Activate());
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if ((activatedBy.value & (1 << other.gameObject.layer)) == 0)
-            {
-                return;
-            }
-
-            collisionsCount--;
-
-            if (collisionsCount == 0)
-            {
-                StartCoroutine(Deactivate());
-            }
-        }
-
-        #endregion
-
-        private IEnumerator Activate()
-        {
-            activated = true;
-
-            var elapsedTime = 0f;
-            while (elapsedTime < activateTime)
-            {
-                elapsedTime += Time.deltaTime;
-
-                visuals.localPosition =
-                    Vector3.Lerp(visuals.localPosition, visualsPressedPosition, elapsedTime / activateTime);
-
-                yield return null;
+                AudioManager.Play(AudioManager.InteractionsPrefab, AudioManager.PressurePlateClip, transform.position);
+                activationParticles.Play();
             }
 
             trap.Shoot();
+            activationCooldownTime = pressTime * 2f;
         }
 
-        private IEnumerator Deactivate()
+#if UNITY_EDITOR
+        private void OnDrawGizmosSelected()
         {
-            var elapsedTime = 0f;
-            while (elapsedTime < activateTime)
+            Gizmos.DrawWireCube(transform.position + Vector3.Scale(transform.localScale, collisionCenter),
+                Vector3.Scale(transform.localScale, collisionSize));
+        }
+#endif
+
+        #endregion
+
+        private void UpdateColliders(float deltaTime)
+        {
+            if ((updateCollidersTime -= deltaTime) > 0f)
             {
-                elapsedTime += Time.deltaTime;
-
-                visuals.localPosition =
-                    Vector3.Lerp(visuals.localPosition, originalPosition, elapsedTime / activateTime);
-
-                yield return null;
+                return;
             }
 
-            activated = false;
+            updateCollidersTime = UpdateCollidersInterval;
+            collisions = Physics.OverlapBoxNonAlloc(
+                transform.position + Vector3.Scale(transform.localScale, collisionCenter),
+                Vector3.Scale(transform.localScale, collisionSize) * 0.5f,
+                colliders, transform.rotation, activatedBy);
+
+            // Process includeLayers and excludeLayers
+            var newCollisions = collisions;
+            for (var i = 0; i < collisions; i++)
+            {
+                var excluded = (colliders[i].excludeLayers & (1 << gameObject.layer)) != 0;
+                var included = (colliders[i].includeLayers & (1 << gameObject.layer)) != 0;
+
+                if (excluded && !included)
+                {
+                    newCollisions--;
+                }
+            }
+
+            collisions = newCollisions;
+        }
+
+        private float AnimateVisuals(float deltaTime)
+        {
+            pressCurrentTime += collisions > 0 ? deltaTime : -deltaTime;
+            pressCurrentTime = Mathf.Clamp(pressCurrentTime, 0f, pressTime);
+
+            var progress = pressCurrentTime / pressTime;
+            visuals.localPosition = Vector3.Lerp(visualsOriginalPosition, visualsPressedPosition, progress);
+
+            return progress;
         }
     }
 }

@@ -8,8 +8,13 @@ namespace NeonBlack.Entities.Enemies
     {
         #region Serialized Fields
 
+        [Header("Properties")]
         [SerializeField]
         private float health = 1f;
+
+        [Header("Visuals")]
+        [SerializeField]
+        private ParticleSystem bloodParticles;
 
         #endregion
 
@@ -19,7 +24,7 @@ namespace NeonBlack.Entities.Enemies
 
         #region IEntityHealth Members
 
-        public void TakeDamage(float damage)
+        public void TakeDamage(DamageSource _, float damage)
         {
             if (Invincible)
             {
@@ -34,6 +39,11 @@ namespace NeonBlack.Entities.Enemies
             }
 
             Dead = true;
+
+            if (bloodParticles)
+            {
+                bloodParticles.Play();
+            }
 
             Death?.Invoke();
         }

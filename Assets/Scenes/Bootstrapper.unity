@@ -421,9 +421,20 @@ MonoBehaviour:
       guid: 51b0e78ad7815c44099ce8ccb2ae291c
     - asset: {fileID: 102900000, guid: 434a9aaa83fbe544e924ed3faa4c613b, type: 3}
       guid: 434a9aaa83fbe544e924ed3faa4c613b
+    musicClip: {fileID: 8300000, guid: 48f53ecdefb64114080e75e3e7f68f42, type: 3}
+  - mainScene:
+      asset: {fileID: 102900000, guid: fced9d9df24b7614882837895aa02c9d, type: 3}
+      guid: fced9d9df24b7614882837895aa02c9d
+    additionalScenes:
+    - asset: {fileID: 102900000, guid: 51b0e78ad7815c44099ce8ccb2ae291c, type: 3}
+      guid: 51b0e78ad7815c44099ce8ccb2ae291c
+    - asset: {fileID: 102900000, guid: 434a9aaa83fbe544e924ed3faa4c613b, type: 3}
+      guid: 434a9aaa83fbe544e924ed3faa4c613b
+    musicClip: {fileID: 8300000, guid: 48f53ecdefb64114080e75e3e7f68f42, type: 3}
   defaultScene:
     asset: {fileID: 102900000, guid: 51b0e78ad7815c44099ce8ccb2ae291c, type: 3}
     guid: 51b0e78ad7815c44099ce8ccb2ae291c
+  defaultSceneMusicClip: {fileID: 8300000, guid: e990702357350b84eb90224c8759e77f, type: 3}
 --- !u!1 &2146813008
 GameObject:
   m_ObjectHideFlags: 0

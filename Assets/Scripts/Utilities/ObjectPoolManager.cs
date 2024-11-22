@@ -41,10 +41,11 @@ namespace NeonBlack.Utilities
         /// </summary>
         /// <param name="prefab">Prefab object to spawn</param>
         /// <param name="obj">Spawned object</param>
+        /// <param name="spawnDeactivated">Don't auto-activate the object</param>
         /// <returns>Whether a new GameObject was instantiated</returns>
-        public static bool Spawn<T>(PoolObject prefab, out T obj) where T : PoolObject
+        public static bool Spawn<T>(PoolObject prefab, out T obj, bool spawnDeactivated = false) where T : PoolObject
         {
-            return Instance.SpawnInternal(prefab, out obj);
+            return Instance.SpawnInternal(prefab, out obj, spawnDeactivated);
         }
 
         /// <summary>
@@ -53,10 +54,13 @@ namespace NeonBlack.Utilities
         /// <param name="obj">GameObject to despawn</param>
         public static void Despawn(PoolObject obj)
         {
-            Instance.DespawnInternal(obj);
+            if (Instance)
+            {
+                Instance.DespawnInternal(obj);
+            }
         }
 
-        private bool SpawnInternal<T>(PoolObject prefab, out T obj) where T : PoolObject
+        private bool SpawnInternal<T>(PoolObject prefab, out T obj, bool spawnDeactivated = false) where T : PoolObject
         {
             var prefabId = prefab.GetInstanceID();
 
@@ -71,11 +75,29 @@ namespace NeonBlack.Utilities
                 capacity -= 1;
 
                 obj = (T)pool.Pop();
-                obj.gameObject.SetActive(true);
+
+                if (!spawnDeactivated)
+                {
+                    obj.gameObject.SetActive(true);
+                }
+
                 return false;
             }
 
             obj = (T)Instantiate(prefab);
+
+# if UNITY_EDITOR
+            if (obj.gameObject.scene != gameObject.scene)
+            {
+                Debug.LogWarning("ObjectPoolManager spawns objects in the wrong scene");
+            }
+#endif
+
+            if (spawnDeactivated)
+            {
+                obj.gameObject.SetActive(false);
+            }
+
             gameObjectPrefabs.Add(obj.GetInstanceID(), prefabId);
             return true;
         }

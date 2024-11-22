@@ -20,9 +20,10 @@ namespace NeonBlack.UI
         /// <inheritdoc />
         protected override void OnClick()
         {
-            SceneLoader.LoadScene(scene).Forget();
-
+            // Execution order is critical
             mainMenuController.Unpause();
+
+            SceneLoader.LoadScene(scene).Forget();
         }
     }
 }

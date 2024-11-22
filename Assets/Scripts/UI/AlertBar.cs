@@ -1,4 +1,4 @@
-using NeonBlack.Systems;
+using NeonBlack.Systems.LevelState;
 using UnityEngine;
 using UnityEngine.UI;
 

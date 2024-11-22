@@ -15,9 +15,14 @@ namespace NeonBlack.Systems.SceneManagement
         [SerializeField]
         private SceneReference[] additionalScenes;
 
+        [SerializeField]
+        private AudioClip musicClip;
+
         #endregion
 
         public SceneReference MainScene => mainScene;
+
+        public AudioClip MusicClip => musicClip;
 
         public SceneReference[] AdditionalScenes => additionalScenes;
     }

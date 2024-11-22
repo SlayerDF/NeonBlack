@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NeonBlack.Systems.AudioManagement;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace NeonBlack.Entities.Player
@@ -31,6 +32,9 @@ namespace NeonBlack.Entities.Player
 
         [SerializeField]
         private Vector2 dashInitialSpeed = new(10f, 3f);
+
+        [SerializeField]
+        private ParticleSystem dashParticles;
 
         #endregion
 
@@ -70,6 +74,8 @@ namespace NeonBlack.Entities.Player
             isDashing = true;
             dashTimer = 0f;
             playerAnimation.OnDash();
+            dashParticles.Play();
+            AudioManager.Play(AudioManager.InteractionsPrefab, AudioManager.PlayerDashClip, transform.position);
         }
 
         private void DashPlayer()
@@ -77,6 +83,7 @@ namespace NeonBlack.Entities.Player
             if (controller.isGrounded && dashTimer > 0.5f)
             {
                 isDashing = false;
+                dashParticles.Stop();
                 return;
             }
 
@@ -104,7 +111,7 @@ namespace NeonBlack.Entities.Player
                 RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
             }
 
-            if (isAttacking)
+            if (isAttacking || isAiming)
             {
                 RotatePlayer(Quaternion.Euler(0, cameraOrbit.y, 0));
             }
@@ -150,9 +157,9 @@ namespace NeonBlack.Entities.Player
 
         private Vector3 CameraDirectionToMoveDirection(Vector2 inputValues)
         {
-            var cameraPitch = Quaternion.Euler(0, cameraOrbit.y, 0);
+            var cameraYaw = Quaternion.Euler(0, cameraOrbit.y, 0);
 
-            return cameraPitch * Vector3.forward * inputValues.y + cameraPitch * Vector3.right * inputValues.x;
+            return cameraYaw * Vector3.forward * inputValues.y + cameraYaw * Vector3.right * inputValues.x;
         }
 
         private void UpdateMoveDirection(Vector3 targetDirection)
