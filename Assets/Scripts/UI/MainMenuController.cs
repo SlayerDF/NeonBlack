@@ -32,6 +32,11 @@ namespace NeonBlack.UI
             }
             else
             {
+                Time.timeScale = 1f;
+
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
+
                 AudioListener.pause = false;
             }
         }
