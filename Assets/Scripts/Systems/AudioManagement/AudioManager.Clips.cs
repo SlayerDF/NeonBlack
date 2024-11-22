@@ -43,6 +43,9 @@ namespace NeonBlack.Systems.AudioManagement
         [SerializeField]
         private AudioClip installShardClip;
 
+        [SerializeField]
+        private AudioClip pressurePlateClip;
+
         [Header("Music clips")]
         [SerializeField]
         private AudioClip demoLevelMusicClip;
@@ -61,6 +64,7 @@ namespace NeonBlack.Systems.AudioManagement
         public static AudioClip ItemPickupClip => Instance.itemPickupClip;
         public static AudioClip PlayerDashClip => Instance.playerDashClip;
         public static AudioClip InstallShardClip => Instance.installShardClip;
+        public static AudioClip PressurePlateClip => Instance.pressurePlateClip;
         public static AudioClip DemoLevelMusicClip => Instance.demoLevelMusicClip;
     }
 }

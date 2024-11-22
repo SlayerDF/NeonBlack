@@ -56,6 +56,7 @@ MonoBehaviour:
   itemPickupClip: {fileID: 8300000, guid: 61990ebaa46fbed409ed75e1b1289f64, type: 3}
   playerDashClip: {fileID: 8300000, guid: 2fe1f0ae468bbd645b28241e053b8b6a, type: 3}
   installShardClip: {fileID: 8300000, guid: ea83bcf6257f498408216c020091dd96, type: 3}
+  pressurePlateClip: {fileID: 8300000, guid: b720d558abf483640a2459909100be4b, type: 3}
   demoLevelMusicClip: {fileID: 8300000, guid: 48f53ecdefb64114080e75e3e7f68f42, type: 3}
   fadeSpeed: 2
   bossNotificationsPrefab: {fileID: 8974805419504618717, guid: 2bd5040894737fe42b91450818cb5051, type: 3}
