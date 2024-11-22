@@ -174,7 +174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff431b08ad994d568f74900a3f80486d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fadeSpeed: 2
   dangerClip: {fileID: 8300000, guid: 74b7db0ea24190f48b4d1e51e3eaf603, type: 3}
   enemyAlertedClip: {fileID: 8300000, guid: fe0e99f4b57d71841b7b3d7f195e2d05, type: 3}
   playerFootstepsClip: {fileID: 8300000, guid: c537ec5924513b341953808897e2890b, type: 3}
@@ -183,6 +182,8 @@ MonoBehaviour:
   playerHitClip: {fileID: 8300000, guid: 53d1eac799bc56f4c9faaa7307b41ceb, type: 3}
   playerHitResultClip: {fileID: 8300000, guid: 881438cc986d614429180ab94845c674, type: 3}
   playerDeathMusicClip: {fileID: 8300000, guid: 2563d2a4b295dfc4db82f26bbb327e1e, type: 3}
+  demoLevelMusicClip: {fileID: 8300000, guid: 48f53ecdefb64114080e75e3e7f68f42, type: 3}
+  fadeSpeed: 2
   bossNotificationsPrefab: {fileID: 8974805419504618717, guid: 2bd5040894737fe42b91450818cb5051, type: 3}
   musicPrefab: {fileID: 8974805419504618717, guid: 970d8fcdc981438428952f9abc9553ba, type: 3}
   enemiesNotificationsPrefab: {fileID: 9168111218509779219, guid: ac5a27bf7578aaf44b9ae42945797a6e, type: 3}

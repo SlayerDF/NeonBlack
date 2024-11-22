@@ -31,6 +31,9 @@ namespace NeonBlack.Systems.AudioManagement
         [SerializeField]
         private AudioClip playerDeathMusicClip;
 
+        [SerializeField]
+        private AudioClip demoLevelMusicClip;
+
         #endregion
 
         public static AudioClip DangerClip => Instance.dangerClip;
@@ -41,5 +44,6 @@ namespace NeonBlack.Systems.AudioManagement
         public static AudioClip PlayerHitClip => Instance.playerHitClip;
         public static AudioClip PlayerHitResultClip => Instance.playerHitResultClip;
         public static AudioClip PlayerDeathMusicClip => Instance.playerDeathMusicClip;
+        public static AudioClip DemoLevelMusicClip => Instance.demoLevelMusicClip;
     }
 }

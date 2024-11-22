@@ -1,4 +1,5 @@
 using System;
+using NeonBlack.Systems.AudioManagement;
 
 namespace NeonBlack.Systems.LevelState
 {
@@ -13,6 +14,12 @@ namespace NeonBlack.Systems.LevelState
             AwakeAlert();
 
             LevelStarted?.Invoke();
+        }
+
+        private void Start()
+        {
+            // TODO: implement playing own music for each level
+            AudioManager.Play(AudioManager.Music, AudioManager.DemoLevelMusicClip, true);
         }
 
         private void FixedUpdate()
