@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NeonBlack.Systems.AudioManagement;
+using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace NeonBlack.Entities.Player
@@ -74,6 +75,7 @@ namespace NeonBlack.Entities.Player
             dashTimer = 0f;
             playerAnimation.OnDash();
             dashParticles.Play();
+            AudioManager.Play(AudioManager.InteractionsPrefab, AudioManager.PlayerDashClip, transform.position);
         }
 
         private void DashPlayer()
