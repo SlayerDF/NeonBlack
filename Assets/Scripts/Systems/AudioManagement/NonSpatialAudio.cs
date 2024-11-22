@@ -40,6 +40,9 @@ namespace NeonBlack.Systems.AudioManagement
 
         public async UniTask WaitFinish()
         {
+            // Wait for transition to finish
+            await UniTask.WaitUntil(() => State == PlayState.Finished);
+
             if (!Source.isPlaying || Source.loop)
             {
                 return;

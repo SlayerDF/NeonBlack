@@ -85,7 +85,7 @@ namespace NeonBlack.Entities.Player
 
             UniTask.WhenAll(
                 AudioManager.Music.WaitFinish(),
-                playerAnimation.WaitAnimationEnd(PlayerAnimation.Dead, 2)
+                playerAnimation.WaitAnimationEnd(PlayerAnimation.DeathAnimation, 2)
             ).ContinueWith(SceneLoader.RestartLevel);
         }
     }
