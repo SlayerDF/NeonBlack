@@ -27,6 +27,12 @@ namespace NeonBlack.Entities.Enemies.Behaviors
             set => target = value;
         }
 
+        public float RotationSpeed
+        {
+            get => rotationSpeed;
+            set => rotationSpeed = value;
+        }
+
         #region Event Functions
 
         private void Start()

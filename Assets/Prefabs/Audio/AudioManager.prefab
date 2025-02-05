@@ -57,8 +57,15 @@ MonoBehaviour:
   playerDashClip: {fileID: 8300000, guid: 2fe1f0ae468bbd645b28241e053b8b6a, type: 3}
   installShardClip: {fileID: 8300000, guid: ea83bcf6257f498408216c020091dd96, type: 3}
   pressurePlateClip: {fileID: 8300000, guid: b720d558abf483640a2459909100be4b, type: 3}
-  mainMenuMusicClip: {fileID: 8300000, guid: e990702357350b84eb90224c8759e77f, type: 3}
-  demoLevelMusicClip: {fileID: 8300000, guid: 48f53ecdefb64114080e75e3e7f68f42, type: 3}
+  playerSurfaceFootstepClips:
+  - terrainLayer: {fileID: 8574412962073106934, guid: f66322f6dc1b2ae43a06e6dd4624d70b, type: 2}
+    clip: {fileID: 8300000, guid: 668a586b86e49f244a08ebaffa08efd7, type: 3}
+  - terrainLayer: {fileID: 8574412962073106934, guid: 2532b6e5dae8aa243a790f851c8090f4, type: 2}
+    clip: {fileID: 8300000, guid: b76ee3fc10023534bbcfbd601f640929, type: 3}
+  - terrainLayer: {fileID: 8574412962073106934, guid: f1803db3735a60f4bb7fbdb04fe87bb2, type: 2}
+    clip: {fileID: 8300000, guid: 9692ad55db13c6043b5894f0f2e94973, type: 3}
+  - terrainLayer: {fileID: 8574412962073106934, guid: bd45a82df401e4846b478fb435c32cfa, type: 2}
+    clip: {fileID: 8300000, guid: 07f4421d42fdc504e98df9067be4f101, type: 3}
   fadeSpeed: 2
   bossNotificationsPrefab: {fileID: 8974805419504618717, guid: 2bd5040894737fe42b91450818cb5051, type: 3}
   musicPrefab: {fileID: 8974805419504618717, guid: 970d8fcdc981438428952f9abc9553ba, type: 3}

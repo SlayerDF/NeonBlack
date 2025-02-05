@@ -3800,6 +3800,10 @@ PrefabInstance:
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 1350482585}
+    - target: {fileID: 3568164993960877008, guid: 13660907aaad0c341bd386cfeb5d347c, type: 3}
+      propertyPath: terrainController
+      value: 
+      objectReference: {fileID: 1923850851}
     - target: {fileID: 6324426937057604164, guid: 13660907aaad0c341bd386cfeb5d347c, type: 3}
       propertyPath: m_Name
       value: Player
@@ -12708,6 +12712,7 @@ GameObject:
   - component: {fileID: 1923850847}
   - component: {fileID: 1923850850}
   - component: {fileID: 1923850849}
+  - component: {fileID: 1923850851}
   - component: {fileID: 1923850848}
   m_Layer: 6
   m_Name: Terrain
@@ -12822,6 +12827,18 @@ Terrain:
   m_EnableHeightmapRayTracing: 0
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
+--- !u!114 &1923850851
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1923850846}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7400ef9bab2d40408944b20805d99fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1933623232
 GameObject:
   m_ObjectHideFlags: 0

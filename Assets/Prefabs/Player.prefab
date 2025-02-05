@@ -168,8 +168,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerInput: {fileID: 2994181435992066486}
-  visibilityChecker: {fileID: 8928832914431629917}
   playerAnimation: {fileID: 5465987589290789533}
+  terrainController: {fileID: 0}
+  visibilityChecker: {fileID: 8928832914431629917}
+  footstepNoiseSettings:
+  - terrainLayer: {fileID: 8574412962073106934, guid: f66322f6dc1b2ae43a06e6dd4624d70b, type: 2}
+    noiseLevel: 0.1
+  - terrainLayer: {fileID: 8574412962073106934, guid: 2532b6e5dae8aa243a790f851c8090f4, type: 2}
+    noiseLevel: 0.5
+  - terrainLayer: {fileID: 8574412962073106934, guid: f1803db3735a60f4bb7fbdb04fe87bb2, type: 2}
+    noiseLevel: 0.75
+  - terrainLayer: {fileID: 8574412962073106934, guid: bd45a82df401e4846b478fb435c32cfa, type: 2}
+    noiseLevel: 0.3
+  resetNoiseTime: 0.1
+  footstepDetectionRadius: 10
+  footstepDetectionTime: 5
+  footstepsDistractorPrefab: {fileID: 210385660257247493, guid: 4dac2d515fdcae3448ce7f7f4dd329bb, type: 3}
   bloodParticles: {fileID: 581467809275097339}
 --- !u!114 &2994181435992066486
 MonoBehaviour:

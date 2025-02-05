@@ -47,6 +47,9 @@ namespace NeonBlack.Entities.Enemies
         [SerializeField]
         private float notifyBossDelay = 3f;
 
+        [SerializeField]
+        private float distractedRotationSpeed = 5f;
+
         [Header("Visuals")]
         [SerializeField]
         private MeshRenderer lineOfSightVisuals;
@@ -70,6 +73,8 @@ namespace NeonBlack.Entities.Enemies
         private float distractionTime;
 
         private Vector3 lastSeenPlayerPosition;
+
+        private float lookAtOriginalRotationSpeed;
 
         private Transform lookAtOriginalTarget;
 
@@ -149,7 +154,7 @@ namespace NeonBlack.Entities.Enemies
 
             distractionGameObject = distractor;
             distractionTime = maxTime;
-            SwitchState(State.BeDistracted, true);
+            SwitchState(State.BeDistracted, true, state is State.BeDistracted);
         }
 
         #endregion
@@ -229,35 +234,39 @@ namespace NeonBlack.Entities.Enemies
             }
         }
 
-        private void SwitchState(State newState, bool force = false)
+        private void SwitchState(State newState, bool force = false, bool skipExit = false)
         {
             if (state == newState && !force)
             {
                 return;
             }
 
-            // On Exit state
-            switch (state)
+            if (!skipExit)
             {
-                case State.Patrol:
-                    break;
-                case State.PrepareForAttack:
-                    break;
-                case State.Attack:
-                    enemyAnimation.SetIsAttacking(false);
-                    enemyHealth.Invincible = false;
-                    break;
-                case State.NotifyBoss:
-                    enemyAnimation.SetIsNotifyingBoss(false);
-                    break;
-                case State.Death:
-                    break;
-                case State.BeDistracted:
-                    lookAtTargetBehavior.Target = lookAtOriginalTarget;
-                    distractionGameObject = null;
-                    break;
-                default:
-                    throw new InvalidEnumArgumentException(nameof(state), (int)state, typeof(State));
+                // On Exit state
+                switch (state)
+                {
+                    case State.Patrol:
+                        break;
+                    case State.PrepareForAttack:
+                        break;
+                    case State.Attack:
+                        enemyAnimation.SetIsAttacking(false);
+                        enemyHealth.Invincible = false;
+                        break;
+                    case State.NotifyBoss:
+                        enemyAnimation.SetIsNotifyingBoss(false);
+                        break;
+                    case State.Death:
+                        break;
+                    case State.BeDistracted:
+                        lookAtTargetBehavior.Target = lookAtOriginalTarget;
+                        lookAtTargetBehavior.RotationSpeed = lookAtOriginalRotationSpeed;
+                        distractionGameObject = null;
+                        break;
+                    default:
+                        throw new InvalidEnumArgumentException(nameof(state), (int)state, typeof(State));
+                }
             }
 
             // On Enter State
@@ -328,7 +337,9 @@ namespace NeonBlack.Entities.Enemies
                     patrolBehavior.enabled = false;
 
                     lookAtOriginalTarget = lookAtTargetBehavior.Target;
+                    lookAtOriginalRotationSpeed = lookAtTargetBehavior.RotationSpeed;
                     lookAtTargetBehavior.Target = distractionGameObject?.transform;
+                    lookAtTargetBehavior.RotationSpeed = distractedRotationSpeed;
                     actionTimer = 0f;
 
                     break;

@@ -1,4 +1,5 @@
-﻿using JetBrains.Annotations;
+﻿using System;
+using JetBrains.Annotations;
 using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 
@@ -89,6 +90,8 @@ namespace NeonBlack.Entities.Player
 
         #endregion
 
+        public event Action FootstepClipPlayed;
+
         public void SetInputMagnitude(float value)
         {
             animator.SetFloat(InputMagnitude, value);
@@ -139,7 +142,7 @@ namespace NeonBlack.Entities.Player
 
             if (animationEvent.animatorClipInfo.clip == highestWeightClipInfo.clip)
             {
-                AudioManager.Play(AudioManager.FootstepsPrefab, AudioManager.PlayerFootstepsClip, transform.position);
+                FootstepClipPlayed?.Invoke();
             }
         }
 

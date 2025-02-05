@@ -46,6 +46,9 @@ namespace NeonBlack.Systems.AudioManagement
         [SerializeField]
         private AudioClip pressurePlateClip;
 
+        [SerializeField]
+        private FootstepClipMapping[] playerSurfaceFootstepClips;
+
         #endregion
 
         public static AudioClip DangerClip => Instance.dangerClip;
@@ -61,5 +64,6 @@ namespace NeonBlack.Systems.AudioManagement
         public static AudioClip PlayerDashClip => Instance.playerDashClip;
         public static AudioClip InstallShardClip => Instance.installShardClip;
         public static AudioClip PressurePlateClip => Instance.pressurePlateClip;
+        public static FootstepClipMapping[] PlayerSurfaceFootstepClips => Instance.playerSurfaceFootstepClips;
     }
 }
