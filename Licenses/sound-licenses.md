@@ -30,7 +30,31 @@
 - **File:** PlayerFootsteps.ogg
 - **Artist:** Nikita Tulin (@SlayerDF)
 - **License:** CC0 1.0 Universal (CC0 1.0)
-- **Description:** This track is used for footsteps of the player.
+- **Description:** This track is used for default footsteps of the player.
+
+## Player Footsteps (Grass)
+- **File:** PlayerFootstepsGrass.wav
+- **Artist:** spycrah (https://freesound.org/people/spycrah/sounds/535222/)
+- **License:** CC Attribution 4.0 International (CC BY 4.0)
+- **Description:** This track is used for footsteps of the player on the grass.
+
+## Player Footsteps (Stone)
+- **File:** PlayerFootstepsStone.wav
+- **Artist:** sgossner (https://freesound.org/people/sgossner/sounds/197779/)
+- **License:** CC0 1.0 Universal (CC0 1.0)
+- **Description:** This track is used for footsteps of the player on the stone.
+
+## Player Footsteps (Ground)
+- **File:** PlayerFootstepsGround.wav
+- **Artist:** Joao_Janz (https://freesound.org/people/Joao_Janz/sounds/504340/)
+- **License:** CC0 1.0 Universal (CC0 1.0)
+- **Description:** This track is used for footsteps of the player on the ground.
+
+## Player Footsteps (Granite)
+- **File:** PlayerFootstepsGranite.wav
+- **Artist:** WakuWakuWakuWaku (https://freesound.org/people/WakuWakuWakuWaku/sounds/422980/)
+- **License:** CC0 1.0 Universal (CC0 1.0)
+- **Description:** This track is used for footsteps of the player on the granite.
 
 ## Player Hit
 - **File:** PlayerHit.wav
