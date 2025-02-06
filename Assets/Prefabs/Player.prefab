@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 2994181435992066486}
   - component: {fileID: 5465987589290789533}
   - component: {fileID: 1953441142104432487}
+  - component: {fileID: 7236693378386020656}
   - component: {fileID: 1335055211034804503}
   m_Layer: 3
   m_Name: Player
@@ -255,6 +256,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoChangePickedUpWeapon: 1
+--- !u!114 &7236693378386020656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6324426937057604164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 382654337f20404da29ffc74adb4db81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 3568164993960877008}
 --- !u!95 &1335055211034804503
 Animator:
   serializedVersion: 5

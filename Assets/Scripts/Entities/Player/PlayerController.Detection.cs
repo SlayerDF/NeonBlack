@@ -38,8 +38,10 @@ namespace NeonBlack.Entities.Player
 
         public Transform VisibilityChecker => visibilityChecker;
         public bool IsInShadowZone { get; set; }
+
+        public bool IsInSilenceMode { get; set; }
         public bool IsVisible => !IsInShadowZone;
-        public bool IsDetectableBySound => IsVisible;
+        public bool IsDetectableBySound => IsVisible && !IsInSilenceMode;
 
         private void DetectionUpdate()
         {
@@ -55,9 +57,14 @@ namespace NeonBlack.Entities.Player
             var casts = Physics.RaycastNonAlloc(transform.position + new Vector3(0f, 0.5f, 0f), Vector3.down,
                 footstepHits, 0.51f, Layer.Terrain.ToMask());
 
-            if (casts < 1)
+            if (casts < 1 || terrainController == null)
             {
                 AudioManager.Play(AudioManager.FootstepsPrefab, AudioManager.PlayerFootstepsClip, transform.position);
+                return;
+            }
+
+            if (!IsDetectableBySound)
+            {
                 return;
             }
 
@@ -72,11 +79,6 @@ namespace NeonBlack.Entities.Player
             }
 
             AudioManager.Play(AudioManager.FootstepsPrefab, clip, transform.position);
-
-            if (!IsDetectableBySound)
-            {
-                return;
-            }
 
             LevelState.UpdateNoise(noise.Value);
             resetNoiseTimer = 0f;
