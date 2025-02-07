@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace NeonBlack.Interfaces
 {
     public enum DamageSource
@@ -8,6 +10,6 @@ namespace NeonBlack.Interfaces
 
     public interface IEntityHealth
     {
-        public void TakeDamage(DamageSource source, float dmg);
+        public void TakeDamage(DamageSource source, float dmg, Transform attacker = null);
     }
 }
