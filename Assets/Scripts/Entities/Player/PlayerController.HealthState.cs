@@ -23,7 +23,7 @@ namespace NeonBlack.Entities.Player
 
         #region IEntityHealth Members
 
-        public void TakeDamage(DamageSource source, float dmg)
+        public void TakeDamage(DamageSource source, float dmg, Transform attacker = null)
         {
             if (source == DamageSource.DeathZone)
             {

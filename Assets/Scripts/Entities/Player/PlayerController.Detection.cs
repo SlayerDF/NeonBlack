@@ -20,16 +20,19 @@ namespace NeonBlack.Entities.Player
         private FootstepNoiseMapping[] footstepNoiseSettings;
 
         [SerializeField]
-        private float resetNoiseTime = 0.1f;
+        private float noiseResetTime = 0.1f;
 
         [SerializeField]
-        private float footstepDetectionRadius = 5f;
+        private float footstepNoiseRadius = 5f;
 
         [SerializeField]
-        private float footstepDetectionTime = 1f;
+        private float hitNoiseRadius = 20f;
 
         [SerializeField]
-        private EnemyDistractor footstepsDistractorPrefab;
+        private float noiseDistractionTime = 1f;
+
+        [SerializeField]
+        private EnemyDistractor noiseDistractorPrefab;
 
         #endregion
 
@@ -45,7 +48,7 @@ namespace NeonBlack.Entities.Player
 
         private void DetectionUpdate()
         {
-            if ((resetNoiseTimer += Time.deltaTime) > resetNoiseTime)
+            if ((resetNoiseTimer += Time.deltaTime) > noiseResetTime)
             {
                 resetNoiseTimer = 0f;
                 LevelState.UpdateNoise(0f);
@@ -78,15 +81,30 @@ namespace NeonBlack.Entities.Player
                 clip = AudioManager.PlayerFootstepsClip;
             }
 
-            AudioManager.Play(AudioManager.FootstepsPrefab, clip, transform.position);
+            SpawnNoise(AudioManager.FootstepsPrefab, clip, noise.Value, footstepNoiseRadius * noise.Value);
+        }
 
-            LevelState.UpdateNoise(noise.Value);
+        private void OnEnemyHit(Transform enemyTransform)
+        {
+            SpawnNoise(AudioManager.HitsPrefab, AudioManager.PlayerHitResultClip, 1f, hitNoiseRadius);
+        }
+
+        private void SpawnNoise(SpatialAudio spatialAudio, AudioClip clip, float value, float radius)
+        {
+            if (!IsDetectableBySound)
+            {
+                return;
+            }
+
+            AudioManager.Play(spatialAudio, clip, transform.position);
+
+            LevelState.UpdateNoise(value);
             resetNoiseTimer = 0f;
 
-            ObjectPoolManager.Spawn<EnemyDistractor>(footstepsDistractorPrefab, out var distractor, true);
+            ObjectPoolManager.Spawn<EnemyDistractor>(noiseDistractorPrefab, out var distractor, true);
             distractor.transform.position = transform.position;
-            distractor.DistractionRadius = footstepDetectionRadius * noise.Value;
-            distractor.DistractionTime = footstepDetectionTime;
+            distractor.DistractionRadius = radius;
+            distractor.DistractionTime = noiseDistractionTime;
             distractor.gameObject.SetActive(true);
         }
     }

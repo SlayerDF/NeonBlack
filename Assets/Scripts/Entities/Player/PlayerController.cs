@@ -32,11 +32,14 @@ namespace NeonBlack.Entities.Player
         {
             LevelState.AlertChanged += OnAlertChanged;
             playerAnimation.FootstepClipPlayed += OnFootstep;
+            playerInput.EnemyHit += OnEnemyHit;
         }
 
         private void OnDisable()
         {
             LevelState.AlertChanged -= OnAlertChanged;
+            playerAnimation.FootstepClipPlayed -= OnFootstep;
+            playerInput.EnemyHit -= OnEnemyHit;
         }
 
         #endregion

@@ -1,14 +1,13 @@
 ﻿using System;
 using NeonBlack.Entities.Enemies;
 using NeonBlack.Interfaces;
-using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Utilities;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace NeonBlack.Entities.Player
 {
-    public partial class PlayerInput
+    public partial class PlayerInput : MonoBehaviour
     {
         #region Serialized Fields
 
@@ -38,6 +37,7 @@ namespace NeonBlack.Entities.Player
         private float shootTimer;
 
         public static event Action<bool> AimStateChanged;
+        public event Action<Transform> EnemyHit;
 
         private void OnEnableAttack()
         {
@@ -112,7 +112,7 @@ namespace NeonBlack.Entities.Player
             }
         }
 
-        private static void OnAttackTriggerEnter(Collider other)
+        private void OnAttackTriggerEnter(Collider other)
         {
             if (!other.TryGetComponent(out EnemyHealth enemyHealth))
             {
@@ -121,10 +121,10 @@ namespace NeonBlack.Entities.Player
 
             if (!enemyHealth.Dead)
             {
-                AudioManager.Play(AudioManager.HitsPrefab, AudioManager.PlayerHitResultClip, other.transform.position);
+                EnemyHit?.Invoke(enemyHealth.transform);
             }
 
-            enemyHealth.TakeDamage(DamageSource.Normal, 1f);
+            enemyHealth.TakeDamage(DamageSource.Normal, 1f, transform);
         }
 
         private void UpdateAttack()

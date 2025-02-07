@@ -181,10 +181,11 @@ MonoBehaviour:
     noiseLevel: 0.75
   - terrainLayer: {fileID: 8574412962073106934, guid: bd45a82df401e4846b478fb435c32cfa, type: 2}
     noiseLevel: 0.3
-  resetNoiseTime: 0.1
-  footstepDetectionRadius: 10
-  footstepDetectionTime: 5
-  footstepsDistractorPrefab: {fileID: 210385660257247493, guid: 4dac2d515fdcae3448ce7f7f4dd329bb, type: 3}
+  noiseResetTime: 0.5
+  footstepNoiseRadius: 5
+  hitNoiseRadius: 20
+  noiseDistractionTime: 3
+  noiseDistractorPrefab: {fileID: 210385660257247493, guid: 4dac2d515fdcae3448ce7f7f4dd329bb, type: 3}
   bloodParticles: {fileID: 581467809275097339}
 --- !u!114 &2994181435992066486
 MonoBehaviour:

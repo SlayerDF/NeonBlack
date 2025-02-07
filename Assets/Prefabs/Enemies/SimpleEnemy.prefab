@@ -194,6 +194,18 @@ PrefabInstance:
       propertyPath: bloodParticles
       value: 
       objectReference: {fileID: 1733764704955606044}
+    - target: {fileID: 8652816938144366249, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: vulnerabilityArcCenter
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652816938144366249, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652816938144366249, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      propertyPath: vulnerabilityArcAngleSize
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 101545119707041750, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
     m_RemovedGameObjects:
