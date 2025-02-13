@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using Cysharp.Threading.Tasks;
 using NeonBlack.Entities.Enemies.Behaviors;
+using NeonBlack.Entities.Player;
 using NeonBlack.Extensions;
 using NeonBlack.Interfaces;
 using NeonBlack.Systems.AudioManagement;
@@ -166,9 +167,18 @@ namespace NeonBlack.Entities.Enemies
 
         private void HandlePatrolState(float _)
         {
-            playerDetectionBehavior.CanSeePlayer =
-                lineOfSightBehavior.HasTarget && checkPlayerVisibilityBehavior.IsPlayerVisible();
-            playerDetectionBehavior.DistanceToPlayerNormalized = lineOfSightBehavior.DistanceToPlayerNormalized;
+            var playerInLos = lineOfSightBehavior.FirstTarget<PlayerController>();
+            var playerInLosNormalizedDistance = lineOfSightBehavior.NormalizedDistanceToTarget(playerInLos);
+
+            if (playerInLosNormalizedDistance.HasValue && checkPlayerVisibilityBehavior.IsPlayerVisible())
+            {
+                playerDetectionBehavior.CanSeePlayer = true;
+                playerDetectionBehavior.DistanceToPlayerNormalized = playerInLosNormalizedDistance.Value;
+            }
+            else
+            {
+                playerDetectionBehavior.CanSeePlayer = false;
+            }
 
             var color = Color.Lerp(lowAlertColor, highAlertColor, playerDetectionBehavior.DetectionLevel);
             lineOfSightVisuals.material.SetEmissionColor(color);

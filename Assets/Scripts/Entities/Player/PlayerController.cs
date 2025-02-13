@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NeonBlack.Entities.Player
 {
-    public partial class PlayerController : MonoBehaviour, IEntityHealth
+    public partial class PlayerController : MonoBehaviour, IEntityHealth, ILosBehaviorTarget
     {
         #region Serialized Fields
 
