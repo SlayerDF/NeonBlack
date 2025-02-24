@@ -305,6 +305,9 @@ PrefabInstance:
       addedObject: {fileID: 4918882141431696667}
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 8031675135628448190}
+    - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 5636212403040135967}
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
@@ -389,6 +392,33 @@ NavMeshAgent:
   m_BaseOffset: -0.05
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &8031675135628448190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5874574221070285086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30c929819f414b06a5aa557aea2c1e00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bossBrain: {fileID: 0}
+  enemyHealth: {fileID: 9103663542848370163}
+  enemyAnimation: {fileID: 5129818278308910910}
+  lineOfSightBehavior: {fileID: 5213703120788505677}
+  checkVisibilityBehavior: {fileID: 3256046690734638319}
+  patrolBehavior: {fileID: 1712677700463417707}
+  playerDetectionBehavior: {fileID: 3200644549909085846}
+  lookAtTargetBehavior: {fileID: 8509900191014966761}
+  shootPlayerBehavior: {fileID: 6797651973981472062}
+  attackDelay: 1
+  notifyBossDelay: 3
+  distractedRotationSpeed: 180
+  lineOfSightVisuals: {fileID: 2296553332579151280}
+  highAlertColor: {r: 2.9960785, g: 0.6901961, b: 0.1254902, a: 1}
+  lowAlertColor: {r: 0.43143532, g: 2.9960785, b: 0.19174904, a: 1}
 --- !u!114 &5636212403040135967
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,22 +431,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1910d2a69266402ebf4df3cba2be22e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyHealth: {fileID: 9103663542848370163}
-  bossBrain: {fileID: 0}
-  lineOfSightBehavior: {fileID: 5213703120788505677}
-  checkVisibilityBehavior: {fileID: 3256046690734638319}
-  patrolBehavior: {fileID: 1712677700463417707}
-  playerDetectionBehavior: {fileID: 3200644549909085846}
-  lookAtTargetBehavior: {fileID: 8509900191014966761}
-  shootPlayerBehavior: {fileID: 6797651973981472062}
+  blackboard: {fileID: 8031675135628448190}
   thinkFrequency: 0.1
-  attackDelay: 1
-  notifyBossDelay: 3
-  distractedRotationSpeed: 180
-  lineOfSightVisuals: {fileID: 2296553332579151280}
-  highAlertColor: {r: 2.9960785, g: 0.6901961, b: 0.1254902, a: 1}
-  lowAlertColor: {r: 0.14117648, g: 0.98039216, b: 0.0627451, a: 1}
-  enemyAnimation: {fileID: 5129818278308910910}
 --- !u!114 &5213703120788505677
 MonoBehaviour:
   m_ObjectHideFlags: 0
