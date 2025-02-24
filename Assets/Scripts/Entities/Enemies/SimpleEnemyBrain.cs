@@ -24,7 +24,7 @@ namespace NeonBlack.Entities.Enemies
         private LineOfSightBehavior lineOfSightBehavior;
 
         [SerializeField]
-        private CheckPlayerVisibilityBehavior checkPlayerVisibilityBehavior;
+        private CheckVisibilityBehavior checkVisibilityBehavior;
 
         [SerializeField]
         private PatrolBehavior patrolBehavior;
@@ -78,6 +78,8 @@ namespace NeonBlack.Entities.Enemies
         private float lookAtOriginalRotationSpeed;
 
         private Transform lookAtOriginalTarget;
+
+        private PlayerController playerController;
 
         private State state = State.Patrol;
 
@@ -170,7 +172,9 @@ namespace NeonBlack.Entities.Enemies
             var playerInLos = lineOfSightBehavior.FirstTarget<PlayerController>();
             var playerInLosNormalizedDistance = lineOfSightBehavior.NormalizedDistanceToTarget(playerInLos);
 
-            if (playerInLosNormalizedDistance.HasValue && checkPlayerVisibilityBehavior.IsPlayerVisible())
+            playerController ??= playerInLos;
+
+            if (playerInLosNormalizedDistance.HasValue && checkVisibilityBehavior.IsTargetVisible(playerInLos))
             {
                 playerDetectionBehavior.CanSeePlayer = true;
                 playerDetectionBehavior.DistanceToPlayerNormalized = playerInLosNormalizedDistance.Value;
@@ -191,7 +195,7 @@ namespace NeonBlack.Entities.Enemies
 
         private void HandlePrepareForAttackState(float deltaTime)
         {
-            playerDetectionBehavior.CanSeePlayer = checkPlayerVisibilityBehavior.IsPlayerVisible();
+            playerDetectionBehavior.CanSeePlayer = checkVisibilityBehavior.IsTargetVisible(playerController);
 
             if (!playerDetectionBehavior.PlayerIsDetected.CurrentValue)
             {
@@ -209,7 +213,7 @@ namespace NeonBlack.Entities.Enemies
 
         private void HandleAttackState(float _)
         {
-            playerDetectionBehavior.CanSeePlayer = checkPlayerVisibilityBehavior.IsPlayerVisible();
+            playerDetectionBehavior.CanSeePlayer = checkVisibilityBehavior.IsTargetVisible(playerController);
 
             if (!playerDetectionBehavior.PlayerIsDetected.CurrentValue)
             {
@@ -283,7 +287,7 @@ namespace NeonBlack.Entities.Enemies
             switch (newState)
             {
                 case State.Patrol:
-                    checkPlayerVisibilityBehavior.enabled = true;
+                    checkVisibilityBehavior.enabled = true;
                     lineOfSightBehavior.enabled = true;
                     patrolBehavior.enabled = true;
                     playerDetectionBehavior.enabled = true;
@@ -292,7 +296,7 @@ namespace NeonBlack.Entities.Enemies
                     shootPlayerBehavior.enabled = false;
                     break;
                 case State.PrepareForAttack:
-                    checkPlayerVisibilityBehavior.enabled = true;
+                    checkVisibilityBehavior.enabled = true;
                     lookAtTargetBehavior.enabled = true;
                     playerDetectionBehavior.enabled = true;
 
@@ -310,7 +314,7 @@ namespace NeonBlack.Entities.Enemies
 
                     break;
                 case State.Attack:
-                    checkPlayerVisibilityBehavior.enabled = true;
+                    checkVisibilityBehavior.enabled = true;
                     lookAtTargetBehavior.enabled = true;
                     playerDetectionBehavior.enabled = true;
                     shootPlayerBehavior.enabled = true;
@@ -326,7 +330,7 @@ namespace NeonBlack.Entities.Enemies
 
                     break;
                 case State.NotifyBoss:
-                    checkPlayerVisibilityBehavior.enabled = false;
+                    checkVisibilityBehavior.enabled = false;
                     lookAtTargetBehavior.enabled = false;
                     playerDetectionBehavior.enabled = false;
                     shootPlayerBehavior.enabled = false;
@@ -338,7 +342,7 @@ namespace NeonBlack.Entities.Enemies
 
                     break;
                 case State.BeDistracted:
-                    checkPlayerVisibilityBehavior.enabled = true;
+                    checkVisibilityBehavior.enabled = true;
                     lookAtTargetBehavior.enabled = true;
                     playerDetectionBehavior.enabled = true;
                     lineOfSightBehavior.enabled = true;
@@ -354,7 +358,7 @@ namespace NeonBlack.Entities.Enemies
 
                     break;
                 case State.Death:
-                    checkPlayerVisibilityBehavior.enabled = false;
+                    checkVisibilityBehavior.enabled = false;
                     lookAtTargetBehavior.enabled = false;
                     playerDetectionBehavior.enabled = false;
                     shootPlayerBehavior.enabled = false;

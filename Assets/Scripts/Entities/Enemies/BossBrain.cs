@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel;
 using NeonBlack.Entities.Enemies.Behaviors;
-using NeonBlack.Systems;
+using NeonBlack.Entities.Player;
 using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Systems.LevelState;
 using R3;
@@ -23,7 +23,7 @@ namespace NeonBlack.Entities.Enemies
         private BossEye rightEye;
 
         [SerializeField]
-        private Transform playerTransform;
+        private PlayerController playerController;
 
         [SerializeField]
         private Transform tempTarget;
@@ -33,7 +33,7 @@ namespace NeonBlack.Entities.Enemies
         private LineOfSightByPathBehavior lineOfSightByPathBehavior;
 
         [SerializeField]
-        private CheckPlayerVisibilityBehavior checkPlayerVisibilityBehavior;
+        private CheckVisibilityBehavior checkVisibilityBehavior;
 
         [SerializeField]
         private LookAtTargetBehavior lookAtTargetBehavior;
@@ -113,7 +113,7 @@ namespace NeonBlack.Entities.Enemies
 
         private void HandleObserveLevelState(float _)
         {
-            if (lineOfSightByPathBehavior.IsPlayerDetected && checkPlayerVisibilityBehavior.IsPlayerVisible())
+            if (lineOfSightByPathBehavior.IsPlayerDetected && checkVisibilityBehavior.IsTargetVisible(playerController))
             {
                 SwitchState(State.FollowPlayer);
             }
@@ -121,7 +121,7 @@ namespace NeonBlack.Entities.Enemies
 
         private void HandleFollowPlayerState(float deltaTime)
         {
-            if (!checkPlayerVisibilityBehavior.IsPlayerVisible())
+            if (!checkVisibilityBehavior.IsTargetVisible(playerController))
             {
                 SwitchState(State.LostPlayer);
                 return;
@@ -132,7 +132,7 @@ namespace NeonBlack.Entities.Enemies
 
         private void HandleLostPlayerState(float deltaTime)
         {
-            if (CanSeePlayer() && checkPlayerVisibilityBehavior.IsPlayerVisible())
+            if (CanSeePlayer() && checkVisibilityBehavior.IsTargetVisible(playerController))
             {
                 SwitchState(State.FollowPlayer);
                 return;
@@ -148,7 +148,7 @@ namespace NeonBlack.Entities.Enemies
 
         private void HandleNotifiedState(float deltaTime)
         {
-            if (CanSeePlayer() && checkPlayerVisibilityBehavior.IsPlayerVisible())
+            if (CanSeePlayer() && checkVisibilityBehavior.IsTargetVisible(playerController))
             {
                 SwitchState(State.FollowPlayer);
                 return;
@@ -202,7 +202,7 @@ namespace NeonBlack.Entities.Enemies
                     lineOfSightByPathBehavior.enabled = false;
                     lookAtTargetBehavior.enabled = true;
 
-                    UpdateTarget(playerTransform);
+                    UpdateTarget(playerController.transform);
                     Focus();
 
                     break;
@@ -210,7 +210,7 @@ namespace NeonBlack.Entities.Enemies
                     lineOfSightByPathBehavior.enabled = false;
                     lookAtTargetBehavior.enabled = false;
 
-                    tempTarget.position = playerTransform.position;
+                    tempTarget.position = playerController.transform.position;
 
                     UpdateTarget(tempTarget);
                     Focus();
@@ -256,7 +256,8 @@ namespace NeonBlack.Entities.Enemies
 
         private bool CanSeePlayer()
         {
-            return leftEye.CanSeePoint(playerTransform.position) || rightEye.CanSeePoint(playerTransform.position);
+            return leftEye.CanSeePoint(playerController.transform.position) ||
+                   rightEye.CanSeePoint(playerController.transform.position);
         }
 
         private static void ToggleFollowSound(bool value)

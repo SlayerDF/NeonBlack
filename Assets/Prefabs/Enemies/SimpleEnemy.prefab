@@ -404,7 +404,7 @@ MonoBehaviour:
   enemyHealth: {fileID: 9103663542848370163}
   bossBrain: {fileID: 0}
   lineOfSightBehavior: {fileID: 5213703120788505677}
-  checkPlayerVisibilityBehavior: {fileID: 3256046690734638319}
+  checkVisibilityBehavior: {fileID: 3256046690734638319}
   patrolBehavior: {fileID: 1712677700463417707}
   playerDetectionBehavior: {fileID: 3200644549909085846}
   lookAtTargetBehavior: {fileID: 8509900191014966761}
@@ -429,7 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dfec627faa1cba4fad03fc41b4186cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTransform: {fileID: 0}
   visualsMeshFilter: {fileID: 4814316715898934808}
   losCollider: {fileID: 4105736788473304415}
   angle: 75
@@ -452,8 +451,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc30eab0fd743259e4499a78c4a2827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  ignorePlayerInvisibility: 0
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 2112
 --- !u!114 &1712677700463417707
 MonoBehaviour:
   m_ObjectHideFlags: 0

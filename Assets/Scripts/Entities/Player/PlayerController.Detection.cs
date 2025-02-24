@@ -38,13 +38,18 @@ namespace NeonBlack.Entities.Player
 
         private readonly RaycastHit[] footstepHits = new RaycastHit[1];
         private float resetNoiseTimer;
-
-        public Transform VisibilityChecker => visibilityChecker;
         public bool IsInShadowZone { get; set; }
 
         public bool IsInSilenceMode { get; set; }
-        public bool IsVisible => !IsInShadowZone;
         public bool IsDetectableBySound => IsVisible && !IsInSilenceMode;
+
+        #region ICheckVisibilityBehaviorTarget Members
+
+        public Transform VisibilityChecker => visibilityChecker;
+        public bool IsVisible => !IsInShadowZone;
+        public Layer VisibilityLayer => Layer.Player;
+
+        #endregion
 
         private void DetectionUpdate()
         {

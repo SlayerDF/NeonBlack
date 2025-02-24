@@ -4623,6 +4623,10 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 762739509}
+    - target: {fileID: 4091974090236864537, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 762739508}
     - target: {fileID: 8244449131717225198, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
       propertyPath: focusColor.b
       value: 0
@@ -11146,6 +11150,10 @@ PrefabInstance:
       propertyPath: bossBrain
       value: 
       objectReference: {fileID: 275590975}
+    - target: {fileID: 2899624844788222817, guid: 273aad7756bcf834ebb225c0d871febb, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 762739508}
     - target: {fileID: 2899624844788222817, guid: 273aad7756bcf834ebb225c0d871febb, type: 3}
       propertyPath: targetPointLight
       value: 
