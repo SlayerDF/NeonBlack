@@ -1,4 +1,6 @@
 ﻿using System;
+using NeonBlack.Systems.AudioManagement;
+using NeonBlack.Systems.LevelState;
 using NeonBlack.Systems.StateMachine;
 
 namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
@@ -8,6 +10,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
         private const float LookDuration = 2f;
         private const float WaitDuration = 2f;
         private const float WakeUpDistance = 2.5f;
+        private const float WakeUpAlertIncrease = 0.2f;
 
         private Stage? lastStage;
         private Stage stage;
@@ -126,7 +129,13 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                     switch (Bb.EnemyAnimation.AnimationEnded(EnemyAnimation.CrouchAnimation, 0))
                     {
                         case true:
-                            Bb.wakeUpAllyTarget.Resurrect();
+                            if (Bb.wakeUpAllyTarget.Resurrect())
+                            {
+                                LevelState.UpdateAlert(WakeUpAlertIncrease, 0.99f);
+                                AudioManager.Play(AudioManager.EnemiesNotificationsPrefab,
+                                    AudioManager.SimpleEnemyWakeUpClip, Bb.wakeUpAllyTarget.transform.position);
+                            }
+
                             nextStage = Stage.WakeUpStand;
                             break;
                         case null:

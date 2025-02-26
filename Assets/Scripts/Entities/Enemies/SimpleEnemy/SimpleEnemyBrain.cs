@@ -100,11 +100,11 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         #endregion
 
-        public void Resurrect()
+        public bool Resurrect()
         {
             if (!Bb.EnemyHealth.CouldBeResurrected)
             {
-                return;
+                return false;
             }
 
             Bb.EnemyAnimation.SetIsDead(false);
@@ -113,6 +113,8 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
                 Bb.EnemyHealth.Resurrect();
                 stateMachine.SwitchState<Patrol>();
             }).Forget();
+
+            return true;
         }
 
         private void OnShoot()
