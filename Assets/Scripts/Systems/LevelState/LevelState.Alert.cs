@@ -40,9 +40,9 @@ namespace NeonBlack.Systems.LevelState
         public static event Action<float> CooldownPointChanged;
         public static event Action<float> AlertChanged;
 
-        public static void UpdateAlert(float diff)
+        public static void UpdateAlert(float diff, float? max = null)
         {
-            Instance.alert = Mathf.Clamp(Instance.alert + diff, 0f, 1f);
+            Instance.alert = Mathf.Clamp(Instance.alert + diff, 0f, max ?? 1f);
 
             AlertChanged?.Invoke(Instance.alert);
         }

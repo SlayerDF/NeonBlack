@@ -23,6 +23,9 @@ namespace NeonBlack.Systems.AudioManagement
         private AudioClip simpleEnemyShootClip;
 
         [SerializeField]
+        private AudioClip simpleEnemyWakeUpClip;
+
+        [SerializeField]
         private AudioClip playerHitClip;
 
         [SerializeField]
@@ -56,6 +59,7 @@ namespace NeonBlack.Systems.AudioManagement
         public static AudioClip PlayerFootstepsClip => Instance.playerFootstepsClip;
         public static AudioClip EnemyFootstepsClip => Instance.enemyFootstepsClip;
         public static AudioClip SimpleEnemyShootClip => Instance.simpleEnemyShootClip;
+        public static AudioClip SimpleEnemyWakeUpClip => Instance.simpleEnemyWakeUpClip;
         public static AudioClip PlayerHitClip => Instance.playerHitClip;
         public static AudioClip PlayerHitResultClip => Instance.playerHitResultClip;
         public static AudioClip PlayerDeathMusicClip => Instance.playerDeathMusicClip;

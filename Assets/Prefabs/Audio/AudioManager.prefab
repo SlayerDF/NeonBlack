@@ -49,6 +49,7 @@ MonoBehaviour:
   playerFootstepsClip: {fileID: 8300000, guid: c537ec5924513b341953808897e2890b, type: 3}
   enemyFootstepsClip: {fileID: 8300000, guid: e52788f249c9cbb418afd8f7af48dfc5, type: 3}
   simpleEnemyShootClip: {fileID: 8300000, guid: 3d88a453c6a1cb947b520722aea1ea48, type: 3}
+  simpleEnemyWakeUpClip: {fileID: 8300000, guid: 0272e76bd2746f34eaa2b5fa40a97cf4, type: 3}
   playerHitClip: {fileID: 8300000, guid: 53d1eac799bc56f4c9faaa7307b41ceb, type: 3}
   playerHitResultClip: {fileID: 8300000, guid: 881438cc986d614429180ab94845c674, type: 3}
   playerDeathMusicClip: {fileID: 8300000, guid: 2563d2a4b295dfc4db82f26bbb327e1e, type: 3}
@@ -66,6 +67,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9692ad55db13c6043b5894f0f2e94973, type: 3}
   - terrainLayer: {fileID: 8574412962073106934, guid: bd45a82df401e4846b478fb435c32cfa, type: 2}
     clip: {fileID: 8300000, guid: 07f4421d42fdc504e98df9067be4f101, type: 3}
+  audioMixer: {fileID: 24100000, guid: f13638f05d40f694fa3a8a5f9934a82d, type: 2}
   fadeSpeed: 2
   bossNotificationsPrefab: {fileID: 8974805419504618717, guid: 2bd5040894737fe42b91450818cb5051, type: 3}
   musicPrefab: {fileID: 8974805419504618717, guid: 970d8fcdc981438428952f9abc9553ba, type: 3}

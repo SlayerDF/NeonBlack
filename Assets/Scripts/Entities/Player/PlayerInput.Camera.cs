@@ -57,24 +57,19 @@ namespace NeonBlack.Entities.Player
 
         private void OnEnableCamera()
         {
-            Settings.SettingChanged += OnMouseSensitivityChange;
+            Settings.MouseSensitivityChanged += OnMouseSensitivityChanged;
 
             cameraSensitivity = Settings.MouseSensitivity * DefaultSensitivity;
         }
 
         private void OnDisableCamera()
         {
-            Settings.SettingChanged -= OnMouseSensitivityChange;
+            Settings.MouseSensitivityChanged -= OnMouseSensitivityChanged;
         }
 
-        private void OnMouseSensitivityChange(string settingKey)
+        private void OnMouseSensitivityChanged(float value)
         {
-            if (settingKey != Settings.MouseSensitivityKey)
-            {
-                return;
-            }
-
-            cameraSensitivity = Settings.MouseSensitivity * DefaultSensitivity;
+            cameraSensitivity = value * DefaultSensitivity;
         }
 
         private void RaycastObstacleCamera()

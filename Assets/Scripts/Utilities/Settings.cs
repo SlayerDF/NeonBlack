@@ -1,17 +1,21 @@
+using System;
 using UnityEngine;
 
 namespace NeonBlack.Utilities
 {
     public static class Settings
     {
-        public delegate void SettingChangedEventHandler(string settingKey);
-
-        public const string FramerateKey = "Framerate";
-        public const string MouseSensitivityKey = "MouseSensitivity";
+        private const string FramerateKey = "Framerate";
+        private const string MouseSensitivityKey = "MouseSensitivity";
+        private const string MasterVolumeKey = "MasterVolume";
+        private const string MusicVolumeKey = "MusicVolume";
+        private const string SfxVolumeKey = "SfxVolume";
 
         private static int _framerate;
-
         private static float _mouseSensitivity;
+        private static float _masterVolume;
+        private static float _musicVolume;
+        private static float _sfxVolume;
 
         public static int Framerate
         {
@@ -22,7 +26,7 @@ namespace NeonBlack.Utilities
 
                 Application.targetFrameRate = _framerate;
                 PlayerPrefs.SetInt(FramerateKey, _framerate);
-                SettingChanged?.Invoke(FramerateKey);
+                FramerateChanged?.Invoke(_framerate);
             }
         }
 
@@ -34,11 +38,51 @@ namespace NeonBlack.Utilities
                 _mouseSensitivity = value;
 
                 PlayerPrefs.SetFloat(MouseSensitivityKey, _mouseSensitivity);
-                SettingChanged?.Invoke(MouseSensitivityKey);
+                MouseSensitivityChanged?.Invoke(_mouseSensitivity);
             }
         }
 
-        public static event SettingChangedEventHandler SettingChanged;
+        public static float MasterVolume
+        {
+            get => _masterVolume;
+            set
+            {
+                _masterVolume = value;
+
+                PlayerPrefs.SetFloat(MasterVolumeKey, _masterVolume);
+                MasterVolumeChanged?.Invoke(_masterVolume);
+            }
+        }
+
+        public static float MusicVolume
+        {
+            get => _musicVolume;
+            set
+            {
+                _musicVolume = value;
+
+                PlayerPrefs.SetFloat(MusicVolumeKey, _musicVolume);
+                MusicVolumeChanged?.Invoke(_musicVolume);
+            }
+        }
+
+        public static float SfxVolume
+        {
+            get => _sfxVolume;
+            set
+            {
+                _sfxVolume = value;
+
+                PlayerPrefs.SetFloat(SfxVolumeKey, _sfxVolume);
+                SfxVolumeChanged?.Invoke(_sfxVolume);
+            }
+        }
+
+        public static event Action<int> FramerateChanged;
+        public static event Action<float> MouseSensitivityChanged;
+        public static event Action<float> MasterVolumeChanged;
+        public static event Action<float> MusicVolumeChanged;
+        public static event Action<float> SfxVolumeChanged;
 
         public static void Save()
         {
@@ -50,6 +94,9 @@ namespace NeonBlack.Utilities
         {
             Framerate = PlayerPrefs.GetInt(FramerateKey, 60);
             MouseSensitivity = PlayerPrefs.GetFloat(MouseSensitivityKey, 1f);
+            MasterVolume = PlayerPrefs.GetFloat(MasterVolumeKey, 1f);
+            MusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1f);
+            SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 1f);
         }
     }
 }

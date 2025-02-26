@@ -29,6 +29,9 @@ namespace NeonBlack.Entities.Player
         private float hitNoiseRadius = 20f;
 
         [SerializeField]
+        private float dashNoiseRadius = 8f;
+
+        [SerializeField]
         private float noiseDistractionTime = 1f;
 
         [SerializeField]
@@ -38,13 +41,18 @@ namespace NeonBlack.Entities.Player
 
         private readonly RaycastHit[] footstepHits = new RaycastHit[1];
         private float resetNoiseTimer;
-
-        public Transform VisibilityChecker => visibilityChecker;
         public bool IsInShadowZone { get; set; }
 
         public bool IsInSilenceMode { get; set; }
-        public bool IsVisible => !IsInShadowZone;
         public bool IsDetectableBySound => IsVisible && !IsInSilenceMode;
+
+        #region ICheckVisibilityBehaviorTarget Members
+
+        public Transform VisibilityChecker => visibilityChecker;
+        public bool IsVisible => !IsInShadowZone;
+        public Layer VisibilityLayer => Layer.Player;
+
+        #endregion
 
         private void DetectionUpdate()
         {
@@ -59,8 +67,9 @@ namespace NeonBlack.Entities.Player
         {
             var casts = Physics.RaycastNonAlloc(transform.position + new Vector3(0f, 0.5f, 0f), Vector3.down,
                 footstepHits, 0.51f, Layer.Terrain.ToMask());
+            var layer = casts > 0 && terrainController ? terrainController.LayerAt(transform.position) : null;
 
-            if (casts < 1 || terrainController == null)
+            if (layer == null)
             {
                 AudioManager.Play(AudioManager.FootstepsPrefab, AudioManager.PlayerFootstepsClip, transform.position);
                 return;
@@ -71,7 +80,6 @@ namespace NeonBlack.Entities.Player
                 return;
             }
 
-            var layer = terrainController.LayerAt(transform.position);
             var noise = footstepNoiseSettings.FirstOrDefault(x => x.TerrainLayer == layer)?.NoiseLevel;
             var clip = AudioManager.PlayerSurfaceFootstepClips.FirstOrDefault(x => x.TerrainLayer == layer)?.Clip;
 
@@ -82,6 +90,11 @@ namespace NeonBlack.Entities.Player
             }
 
             SpawnNoise(AudioManager.FootstepsPrefab, clip, noise.Value, footstepNoiseRadius * noise.Value);
+        }
+
+        private void OnDash()
+        {
+            SpawnNoise(AudioManager.InteractionsPrefab, AudioManager.PlayerDashClip, 0.75f, dashNoiseRadius);
         }
 
         private void OnEnemyHit(Transform enemyTransform)

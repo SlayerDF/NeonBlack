@@ -5,7 +5,8 @@ using UnityEngine;
 
 namespace NeonBlack.Entities.Player
 {
-    public partial class PlayerController : MonoBehaviour, IEntityHealth
+    public partial class PlayerController : MonoBehaviour, IEntityHealth, ILosBehaviorTarget,
+        ICheckVisibilityBehaviorTarget
     {
         #region Serialized Fields
 
@@ -33,6 +34,7 @@ namespace NeonBlack.Entities.Player
             LevelState.AlertChanged += OnAlertChanged;
             playerAnimation.FootstepClipPlayed += OnFootstep;
             playerInput.EnemyHit += OnEnemyHit;
+            playerInput.Dash += OnDash;
         }
 
         private void OnDisable()
@@ -41,6 +43,12 @@ namespace NeonBlack.Entities.Player
             playerAnimation.FootstepClipPlayed -= OnFootstep;
             playerInput.EnemyHit -= OnEnemyHit;
         }
+
+        #endregion
+
+        #region ILosBehaviorTarget Members
+
+        public bool Destroyed => !this;
 
         #endregion
     }

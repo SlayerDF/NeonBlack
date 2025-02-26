@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using NeonBlack.Entities.Enemies.Behaviors;
+using NeonBlack.Entities.Player;
 using NeonBlack.Extensions;
 using NeonBlack.Interfaces;
 using NeonBlack.Systems.AudioManagement;
@@ -19,12 +20,15 @@ namespace NeonBlack.Entities.Enemies
         [SerializeField]
         private BossBrain bossBrain;
 
+        [SerializeField]
+        private PlayerController playerController;
+
         [Header("Behaviors")]
         [SerializeField]
         private LineOfSightByPathBehavior lineOfSightByPathBehavior;
 
         [SerializeField]
-        private CheckPlayerVisibilityBehavior checkPlayerVisibilityBehavior;
+        private CheckVisibilityBehavior checkVisibilityBehavior;
 
         [SerializeField]
         private PlayerDetectionBehavior playerDetectionBehavior;
@@ -111,7 +115,7 @@ namespace NeonBlack.Entities.Enemies
         private void HandleObserveState(float _)
         {
             playerDetectionBehavior.CanSeePlayer =
-                lineOfSightByPathBehavior.IsPlayerDetected && checkPlayerVisibilityBehavior.IsPlayerVisible();
+                lineOfSightByPathBehavior.IsPlayerDetected && checkVisibilityBehavior.IsTargetVisible(playerController);
 
             var color = Color.Lerp(lowAlertColor, highAlertColor, playerDetectionBehavior.DetectionLevel);
             lineOfSightVisuals.material.SetEmissionColor(color);

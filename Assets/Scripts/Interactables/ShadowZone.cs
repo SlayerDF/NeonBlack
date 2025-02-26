@@ -1,4 +1,5 @@
-﻿using NeonBlack.Entities.Player;
+﻿using NeonBlack.Entities.Enemies.SimpleEnemy;
+using NeonBlack.Entities.Player;
 using NeonBlack.Extensions;
 using UnityEngine;
 
@@ -32,6 +33,10 @@ namespace NeonBlack.Interactables
             {
                 playerController.IsInShadowZone = true;
             }
+            else if (other.TryGetComponent(out SimpleEnemyBrain enemyBrain))
+            {
+                enemyBrain.IsInShadowZone = true;
+            }
         }
 
         private void OnTriggerExit(Collider other)
@@ -39,6 +44,10 @@ namespace NeonBlack.Interactables
             if (other.TryGetComponent(out PlayerController playerController))
             {
                 playerController.IsInShadowZone = false;
+            }
+            else if (other.TryGetComponent(out SimpleEnemyBrain enemyBrain))
+            {
+                enemyBrain.IsInShadowZone = false;
             }
         }
 

@@ -13,6 +13,8 @@ namespace NeonBlack.Utilities
 
         #endregion
 
+        public Collider Collider => coll;
+
         #region Event Functions
 
         private void OnEnable()

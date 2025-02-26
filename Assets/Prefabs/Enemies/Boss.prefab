@@ -582,10 +582,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftEye: {fileID: 917136336433977482}
   rightEye: {fileID: 8244449131717225198}
-  playerTransform: {fileID: 0}
+  playerController: {fileID: 0}
   tempTarget: {fileID: 0}
   lineOfSightByPathBehavior: {fileID: 2089606133937693538}
-  checkPlayerVisibilityBehavior: {fileID: 9063337351614268931}
+  checkVisibilityBehavior: {fileID: 9063337351614268931}
   lookAtTargetBehavior: {fileID: 2131698076619479444}
   focusSpeed: 5
   alertAccumulation: 0.1
@@ -620,8 +620,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc30eab0fd743259e4499a78c4a2827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  ignorePlayerInvisibility: 1
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 2112
 --- !u!114 &2131698076619479444
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -41,22 +41,6 @@ namespace NeonBlack.Entities.Enemies.Behaviors
             navAgent.SetDestination(waypoint.Position);
         }
 
-        private void OnEnable()
-        {
-            if (navAgent.isOnNavMesh)
-            {
-                navAgent.isStopped = false;
-            }
-        }
-
-        private void OnDisable()
-        {
-            if (navAgent.isOnNavMesh)
-            {
-                navAgent.isStopped = true;
-            }
-        }
-
         #endregion
 
         private bool ReachedDestination()

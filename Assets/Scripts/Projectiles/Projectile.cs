@@ -18,7 +18,7 @@ namespace NeonBlack.Projectiles
 
         protected virtual void FixedUpdate()
         {
-            if ((time += Time.fixedDeltaTime) >= lifetime)
+            if ((time += Time.fixedDeltaTime) >= lifetime && isActiveAndEnabled)
             {
                 ObjectPoolManager.Despawn(this);
             }

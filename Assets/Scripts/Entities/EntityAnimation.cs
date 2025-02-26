@@ -18,16 +18,37 @@ namespace NeonBlack.Entities
         {
             cancellationToken = cancellationToken == default ? destroyCancellationToken : cancellationToken;
 
-            if (!animator.HasState(layer, hash))
+            await UniTask.WaitUntil(() => AnimationStarted(hash, layer) is null or true,
+                cancellationToken: cancellationToken);
+
+            await UniTask.WaitUntil(() => AnimationEnded(hash, layer) is null or true,
+                cancellationToken: cancellationToken);
+        }
+
+        public bool? AnimationStarted(int hash, int layer)
+        {
+            if (!animator || !animator.HasState(layer, hash))
             {
-                return;
+                return null;
             }
 
-            await UniTask.WaitUntil(
-                () => !animator || animator.GetCurrentAnimatorStateInfo(layer).shortNameHash == hash,
-                cancellationToken: cancellationToken);
-            await UniTask.WaitUntil(() => !animator || animator.GetCurrentAnimatorStateInfo(layer).normalizedTime >= 1f,
-                cancellationToken: cancellationToken);
+            return animator.GetCurrentAnimatorStateInfo(layer).shortNameHash == hash;
+        }
+
+        public bool? AnimationEnded(int hash, int layer)
+        {
+            if (!animator || !animator.HasState(layer, hash))
+            {
+                return null;
+            }
+
+            var stateInfo = animator.GetCurrentAnimatorStateInfo(layer);
+            if (stateInfo.shortNameHash != hash)
+            {
+                return null;
+            }
+
+            return stateInfo.normalizedTime >= 1f;
         }
     }
 }
