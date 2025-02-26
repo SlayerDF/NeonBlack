@@ -16,29 +16,35 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         #endregion
 
-        private Path.Waypoint waypoint;
+        private Path.Waypoint? waypoint;
 
         #region Event Functions
 
         private void Awake()
         {
-            waypoint = path.InitialWaypoint(transform.position);
+            if (path)
+            {
+                waypoint = path.InitialWaypoint(transform.position);
+            }
         }
 
         private void Start()
         {
-            navAgent.SetDestination(waypoint.Position);
+            if (waypoint.HasValue)
+            {
+                navAgent.SetDestination(waypoint.Value.Position);
+            }
         }
 
         private void FixedUpdate()
         {
-            if (!ReachedDestination())
+            if (!waypoint.HasValue || !ReachedDestination())
             {
                 return;
             }
 
-            waypoint = path.NextWaypoint(waypoint);
-            navAgent.SetDestination(waypoint.Position);
+            waypoint = path.NextWaypoint(waypoint.Value);
+            navAgent.SetDestination(waypoint.Value.Position);
         }
 
         #endregion
