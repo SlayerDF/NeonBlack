@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NeonBlack.Enums;
 using NeonBlack.Extensions;
+using NeonBlack.Interactables;
 using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Systems.LevelState;
 using NeonBlack.Utilities;
@@ -39,7 +40,7 @@ namespace NeonBlack.Entities.Player
 
         #endregion
 
-        private readonly RaycastHit[] footstepHits = new RaycastHit[1];
+        private readonly RaycastHit[] footstepHits = new RaycastHit[5];
         private float resetNoiseTimer;
         public bool IsInShadowZone { get; set; }
 
@@ -67,7 +68,18 @@ namespace NeonBlack.Entities.Player
         {
             var casts = Physics.RaycastNonAlloc(transform.position + new Vector3(0f, 0.5f, 0f), Vector3.down,
                 footstepHits, 0.51f, Layer.Terrain.ToMask());
-            var layer = casts > 0 && terrainController ? terrainController.LayerAt(transform.position) : null;
+            TerrainController terrainController = null;
+
+
+            for (var i = 0; i < casts; i++)
+            {
+                if (footstepHits[i].transform.TryGetComponent(out terrainController))
+                {
+                    break;
+                }
+            }
+
+            var layer = terrainController != null ? terrainController.LayerAt(transform.position) : null;
 
             if (layer == null)
             {
