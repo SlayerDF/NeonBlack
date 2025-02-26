@@ -1,4 +1,3 @@
-using NeonBlack.Interactables;
 using NeonBlack.Interfaces;
 using NeonBlack.Systems.LevelState;
 using UnityEngine;
@@ -16,9 +15,6 @@ namespace NeonBlack.Entities.Player
 
         [SerializeField]
         private PlayerAnimation playerAnimation;
-
-        [SerializeField]
-        private TerrainController terrainController;
 
         #endregion
 
