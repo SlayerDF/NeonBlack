@@ -47,7 +47,12 @@ namespace NeonBlack.Traps
                 ObjectPoolManager.Spawn(trapProjectilePrefab, out TrapProjectile projectile, true);
                 projectile.transform.position = projectileSpawnPoint.position;
                 projectile.transform.rotation = projectileSpawnPoint.rotation;
-                projectile.InitialVelocity = initialVelocity;
+
+                if (overrideInitialVelocity)
+                {
+                    projectile.InitialVelocity = initialVelocity;
+                }
+
                 projectile.gameObject.SetActive(true);
 
                 yield return new WaitForSeconds(0.5f);
