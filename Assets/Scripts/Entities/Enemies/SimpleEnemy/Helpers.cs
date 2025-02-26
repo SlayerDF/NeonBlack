@@ -3,7 +3,7 @@ using NeonBlack.Extensions;
 using NeonBlack.Systems.StateMachine;
 using UnityEngine;
 
-namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
+namespace NeonBlack.Entities.Enemies.SimpleEnemy
 {
     public class Helpers : StateMachineHelpers<Blackboard>
     {
