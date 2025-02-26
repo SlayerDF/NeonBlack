@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 namespace NeonBlack.Interactables
 {
@@ -15,6 +16,7 @@ namespace NeonBlack.Interactables
 
         #endregion
 
+        [CanBeNull]
         public TerrainLayer LayerAt(Vector3 position)
         {
             var terrainPosition = position - terrain.transform.position;
@@ -22,6 +24,11 @@ namespace NeonBlack.Interactables
 
             var mapPosition = new Vector3(terrainPosition.x / terrainData.size.x, 0,
                 terrainPosition.z / terrainData.size.z);
+
+            if (mapPosition.x < 0 || mapPosition.x > 1 || mapPosition.z < 0 || mapPosition.z > 1)
+            {
+                return null;
+            }
 
             var xCoord = mapPosition.x * terrainData.alphamapWidth;
             var zCoord = mapPosition.z * terrainData.alphamapHeight;

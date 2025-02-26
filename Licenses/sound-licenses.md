@@ -74,3 +74,9 @@
 - **License:** CC0 1.0 Universal (CC0 1.0)
 - **Description:** This track is used when the simple enemy shoots a projectile.
 
+## Simple Enemy Wake Up
+- **File:** SimpleEnemyWakeUp.ogg
+- **Artist:** _MokeyMokey (https://freesound.org/people/_MokeyMokey/sounds/788781/)
+- **License:** CC0 1.0 Universal (CC0 1.0)
+- **Description:** This track is used when the simple enemy wakes up his ally.
+

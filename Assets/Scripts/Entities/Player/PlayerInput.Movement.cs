@@ -1,4 +1,5 @@
-﻿using NeonBlack.Systems.AudioManagement;
+﻿using System;
+using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -45,6 +46,8 @@ namespace NeonBlack.Entities.Player
 
         private bool IsGrounded => controller.isGrounded && !isDashing;
 
+        public event Action Dash;
+
         private void OnJump(InputAction.CallbackContext context)
         {
             if (!IsGrounded)
@@ -75,7 +78,7 @@ namespace NeonBlack.Entities.Player
             dashTimer = 0f;
             playerAnimation.OnDash();
             dashParticles.Play();
-            AudioManager.Play(AudioManager.InteractionsPrefab, AudioManager.PlayerDashClip, transform.position);
+            Dash?.Invoke();
         }
 
         private void DashPlayer()

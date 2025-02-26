@@ -49,6 +49,7 @@ MonoBehaviour:
   playerFootstepsClip: {fileID: 8300000, guid: c537ec5924513b341953808897e2890b, type: 3}
   enemyFootstepsClip: {fileID: 8300000, guid: e52788f249c9cbb418afd8f7af48dfc5, type: 3}
   simpleEnemyShootClip: {fileID: 8300000, guid: 3d88a453c6a1cb947b520722aea1ea48, type: 3}
+  simpleEnemyWakeUpClip: {fileID: 8300000, guid: 0272e76bd2746f34eaa2b5fa40a97cf4, type: 3}
   playerHitClip: {fileID: 8300000, guid: 53d1eac799bc56f4c9faaa7307b41ceb, type: 3}
   playerHitResultClip: {fileID: 8300000, guid: 881438cc986d614429180ab94845c674, type: 3}
   playerDeathMusicClip: {fileID: 8300000, guid: 2563d2a4b295dfc4db82f26bbb327e1e, type: 3}
