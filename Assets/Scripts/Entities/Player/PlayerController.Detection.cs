@@ -29,6 +29,9 @@ namespace NeonBlack.Entities.Player
         private float hitNoiseRadius = 20f;
 
         [SerializeField]
+        private float dashNoiseRadius = 8f;
+
+        [SerializeField]
         private float noiseDistractionTime = 1f;
 
         [SerializeField]
@@ -87,6 +90,11 @@ namespace NeonBlack.Entities.Player
             }
 
             SpawnNoise(AudioManager.FootstepsPrefab, clip, noise.Value, footstepNoiseRadius * noise.Value);
+        }
+
+        private void OnDash()
+        {
+            SpawnNoise(AudioManager.InteractionsPrefab, AudioManager.PlayerDashClip, 0.75f, dashNoiseRadius);
         }
 
         private void OnEnemyHit(Transform enemyTransform)

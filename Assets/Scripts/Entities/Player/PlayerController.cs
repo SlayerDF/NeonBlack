@@ -34,6 +34,7 @@ namespace NeonBlack.Entities.Player
             LevelState.AlertChanged += OnAlertChanged;
             playerAnimation.FootstepClipPlayed += OnFootstep;
             playerInput.EnemyHit += OnEnemyHit;
+            playerInput.Dash += OnDash;
         }
 
         private void OnDisable()
