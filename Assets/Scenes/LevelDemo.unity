@@ -2768,7 +2768,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3224,7 +3224,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.z
@@ -4274,7 +4274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8627,7 +8627,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.z
@@ -10375,7 +10375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4487660784977808510, guid: 706da608fd65fe94a8e5fb4dcffcbe38, type: 3}
       propertyPath: m_LocalPosition.z
