@@ -12,13 +12,14 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
         internal override void OnEnter()
         {
+            Bb.LineOfSightBehavior.enabled = false;
+            Bb.PatrolBehavior.enabled = false;
+            Bb.GoToBehavior.enabled = false;
+
             Bb.CheckVisibilityBehavior.enabled = true;
             Bb.LookAtTargetBehavior.enabled = true;
             Bb.PlayerDetectionBehavior.enabled = true;
             Bb.ShootPlayerBehavior.enabled = true;
-
-            Bb.LineOfSightBehavior.enabled = false;
-            Bb.PatrolBehavior.enabled = false;
 
             Bb.EnemyAnimation.SetIsAttacking(true);
             Bb.EnemyHealth.Invincible = true;
@@ -37,7 +38,10 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                 return;
             }
 
-            Bb.LastSeenPlayerPosition = Bb.LookAtTargetBehavior.Target!.position;
+            if (Bb.LookAtTargetBehavior.Target != null)
+            {
+                Bb.LastSeenPlayerPosition = Bb.LookAtTargetBehavior.Target.position;
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
             Bb.ShootPlayerBehavior.enabled = false;
             Bb.LineOfSightBehavior.enabled = false;
             Bb.PatrolBehavior.enabled = false;
+            Bb.GoToBehavior.enabled = false;
 
             timer = 0f;
             Bb.EnemyAnimation.SetIsNotifyingBoss(true);

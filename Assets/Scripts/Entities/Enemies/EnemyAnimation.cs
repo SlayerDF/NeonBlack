@@ -9,7 +9,12 @@ namespace NeonBlack.Entities.Enemies
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");
         private static readonly int IsNotifyingBoss = Animator.StringToHash("IsNotifyingBoss");
-        public static readonly int Death = Animator.StringToHash("Death");
+        private static readonly int IsDead = Animator.StringToHash("IsDead");
+        private static readonly int IsCrouching = Animator.StringToHash("IsCrouching");
+        public static readonly int DeathAnimation = Animator.StringToHash("Death");
+        public static readonly int WakeUpAnimation = Animator.StringToHash("WakeUp");
+        public static readonly int CrouchAnimation = Animator.StringToHash("Crouch");
+        public static readonly int StandAnimation = Animator.StringToHash("Stand");
 
         private Vector3 lastPosition;
 
@@ -44,9 +49,14 @@ namespace NeonBlack.Entities.Enemies
             animator.SetBool(IsNotifyingBoss, value);
         }
 
-        public void OnDeath()
+        public void SetIsDead(bool value)
         {
-            animator.SetTrigger(Death);
+            animator.SetBool(IsDead, value);
+        }
+
+        public void SetIsCrouching(bool value)
+        {
+            animator.SetBool(IsCrouching, value);
         }
 
         [UsedImplicitly]

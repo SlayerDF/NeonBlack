@@ -13,13 +13,14 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
         internal override void OnEnter()
         {
+            Bb.LineOfSightBehavior.enabled = false;
+            Bb.PatrolBehavior.enabled = false;
+            Bb.GoToBehavior.enabled = false;
+            Bb.ShootPlayerBehavior.enabled = false;
+
             Bb.CheckVisibilityBehavior.enabled = true;
             Bb.LookAtTargetBehavior.enabled = true;
             Bb.PlayerDetectionBehavior.enabled = true;
-
-            Bb.LineOfSightBehavior.enabled = false;
-            Bb.PatrolBehavior.enabled = false;
-            Bb.ShootPlayerBehavior.enabled = false;
 
             timer = 0f;
 

@@ -1,50 +1,46 @@
-﻿using NeonBlack.Entities.Player;
-using NeonBlack.Extensions;
-using NeonBlack.Systems.StateMachine;
-using UnityEngine;
+﻿using NeonBlack.Systems.StateMachine;
 
 namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 {
-    public class Patrol : State<Blackboard>
+    public class Patrol : State<Blackboard, Helpers>
     {
         internal override void OnExit()
         {
+            if (Bb.NavAgent.isOnNavMesh)
+            {
+                Bb.NavAgent.isStopped = true;
+            }
         }
 
         internal override void OnEnter()
         {
+            if (Bb.NavAgent.isOnNavMesh)
+            {
+                Bb.NavAgent.isStopped = false;
+            }
+
+            Bb.LookAtTargetBehavior.enabled = false;
+            Bb.ShootPlayerBehavior.enabled = false;
+            Bb.GoToBehavior.enabled = false;
+
             Bb.CheckVisibilityBehavior.enabled = true;
             Bb.LineOfSightBehavior.enabled = true;
             Bb.PatrolBehavior.enabled = true;
             Bb.PlayerDetectionBehavior.enabled = true;
-
-            Bb.LookAtTargetBehavior.enabled = false;
-            Bb.ShootPlayerBehavior.enabled = false;
         }
 
         internal override void OnUpdate(float deltaTime)
         {
-            var playerInLos = Bb.LineOfSightBehavior.FirstTarget<PlayerController>();
-            var playerInLosNormalizedDistance = Bb.LineOfSightBehavior.NormalizedDistanceToTarget(playerInLos);
-
-            Bb.PlayerController ??= playerInLos;
-
-            if (playerInLosNormalizedDistance.HasValue && Bb.CheckVisibilityBehavior.IsTargetVisible(playerInLos))
-            {
-                Bb.PlayerDetectionBehavior.CanSeePlayer = true;
-                Bb.PlayerDetectionBehavior.DistanceToPlayerNormalized = playerInLosNormalizedDistance.Value;
-            }
-            else
-            {
-                Bb.PlayerDetectionBehavior.CanSeePlayer = false;
-            }
-
-            var color = Color.Lerp(Bb.LowAlertColor, Bb.HighAlertColor, Bb.PlayerDetectionBehavior.DetectionLevel);
-            Bb.LineOfSightVisuals.material.SetEmissionColor(color);
-
-            if (Bb.PlayerDetectionBehavior.PlayerIsDetected.CurrentValue)
+            if (H.DetectPlayer())
             {
                 SwitchState<PrepareForAttack>();
+                return;
+            }
+
+            if (H.DetectAllyBody(out var body))
+            {
+                Bb.wakeUpAllyTarget = body;
+                SwitchState<WakeUpAlly>();
             }
         }
     }

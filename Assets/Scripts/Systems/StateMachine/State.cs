@@ -18,7 +18,7 @@
             stateMachine.SwitchState<T>(forced, skipExit);
         }
 
-        internal void Register(StateMachine<TBlackboard> sm)
+        internal virtual void Register(StateMachine<TBlackboard> sm)
         {
             stateMachine = sm;
         }
@@ -26,5 +26,18 @@
         internal abstract void OnExit();
         internal abstract void OnEnter();
         internal abstract void OnUpdate(float deltaTime);
+    }
+
+    public abstract class State<TBlackboard, THelpers> : State<TBlackboard>
+        where THelpers : StateMachineHelpers<TBlackboard>, new()
+    {
+        protected THelpers Helpers { get; } = new();
+        protected THelpers H => Helpers;
+
+        internal override void Register(StateMachine<TBlackboard> sm)
+        {
+            base.Register(sm);
+            Helpers.Register(sm);
+        }
     }
 }

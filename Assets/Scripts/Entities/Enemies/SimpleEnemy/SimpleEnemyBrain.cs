@@ -1,4 +1,6 @@
-﻿using NeonBlack.Entities.Enemies.SimpleEnemy.States;
+﻿using Cysharp.Threading.Tasks;
+using NeonBlack.Entities.Enemies.SimpleEnemy.States;
+using NeonBlack.Enums;
 using NeonBlack.Interfaces;
 using NeonBlack.Systems.AudioManagement;
 using NeonBlack.Systems.StateMachine;
@@ -6,13 +8,16 @@ using UnityEngine;
 
 namespace NeonBlack.Entities.Enemies.SimpleEnemy
 {
-    public class SimpleEnemyBrain : MonoBehaviour, IDistractible
+    public class SimpleEnemyBrain : MonoBehaviour, IDistractible, ILosBehaviorTarget, ICheckVisibilityBehaviorTarget
     {
         #region Serialized Fields
 
         [Header("Components")]
         [SerializeField]
         private Blackboard blackboard;
+
+        [SerializeField]
+        private Transform visibilityChecker;
 
         [Header("Properties")]
         [SerializeField]
@@ -26,6 +31,9 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         private Blackboard Blackboard => blackboard;
         private Blackboard Bb => blackboard;
+        public bool IsInShadowZone { get; set; }
+
+        public bool CouldBeResurrected => Bb.EnemyHealth.CouldBeResurrected;
 
         #region Event Functions
 
@@ -37,11 +45,6 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         private void FixedUpdate()
         {
-            if (Bb.EnemyHealth.Dead)
-            {
-                return;
-            }
-
             if ((thinkTimer += Time.fixedDeltaTime) < thinkFrequency)
             {
                 return;
@@ -67,6 +70,14 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         #endregion
 
+        #region ICheckVisibilityBehaviorTarget Members
+
+        public Transform VisibilityChecker => visibilityChecker;
+        public bool IsVisible => !IsInShadowZone;
+        public Layer VisibilityLayer => Layer.Enemies;
+
+        #endregion
+
         #region IDistractible Members
 
         public void Distract(GameObject distractor, float maxTime)
@@ -82,6 +93,27 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
         }
 
         #endregion
+
+        #region ILosBehaviorTarget Members
+
+        public bool Destroyed => !this;
+
+        #endregion
+
+        public void Resurrect()
+        {
+            if (!Bb.EnemyHealth.CouldBeResurrected)
+            {
+                return;
+            }
+
+            Bb.EnemyAnimation.SetIsDead(false);
+            Bb.EnemyAnimation.WaitAnimationEnd(EnemyAnimation.WakeUpAnimation, 0).ContinueWith(() =>
+            {
+                Bb.EnemyHealth.Resurrect();
+                stateMachine.SwitchState<Patrol>();
+            }).Forget();
+        }
 
         private void OnShoot()
         {

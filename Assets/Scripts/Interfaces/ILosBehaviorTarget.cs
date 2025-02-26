@@ -6,5 +6,7 @@ namespace NeonBlack.Interfaces
     {
         // ReSharper disable once InconsistentNaming
         Transform transform { get; }
+
+        bool Destroyed { get; }
     }
 }

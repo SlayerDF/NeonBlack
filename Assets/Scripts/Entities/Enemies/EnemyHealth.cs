@@ -13,6 +13,9 @@ namespace NeonBlack.Entities.Enemies
         [SerializeField]
         private float health = 1f;
 
+        [SerializeField]
+        private bool couldBeResurrected = true;
+
         [Header("Vulnerability Arc")]
         [SerializeField]
         private bool vulnerabilityArcEnabled;
@@ -33,11 +36,21 @@ namespace NeonBlack.Entities.Enemies
 
         #endregion
 
+        private float healthDefault;
+        private bool killed;
+
         public bool Dead { get; private set; }
+
+        public bool CouldBeResurrected => couldBeResurrected && killed;
 
         public bool Invincible { get; set; }
 
         #region Event Functions
+
+        private void Awake()
+        {
+            healthDefault = health;
+        }
 
 #if UNITY_EDITOR
         private void OnDrawGizmos()
@@ -96,12 +109,27 @@ namespace NeonBlack.Entities.Enemies
 
         #endregion
 
-        public void Kill()
+        public void Kill(bool forceDestroy = false)
         {
-            if (gameObject != null)
+            if (gameObject != null && (!couldBeResurrected || forceDestroy))
             {
                 Destroy(gameObject);
             }
+
+            killed = true;
+        }
+
+        public bool Resurrect()
+        {
+            if (!couldBeResurrected)
+            {
+                return false;
+            }
+
+            health = healthDefault;
+            Dead = false;
+            killed = false;
+            return true;
         }
 
         private bool CheckAttackAngle(Transform attacker)

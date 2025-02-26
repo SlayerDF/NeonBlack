@@ -1,9 +1,10 @@
 ﻿using NeonBlack.Extensions;
+using NeonBlack.Systems.StateMachine;
 using UnityEngine;
 
 namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 {
-    public class BeDistracted : Patrol
+    public class BeDistracted : State<Blackboard, Helpers>
     {
         private float lookAtOriginalRotationSpeed;
         private Transform lookAtOriginalTarget;
@@ -18,13 +19,14 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
         internal override void OnEnter()
         {
+            Bb.ShootPlayerBehavior.enabled = false;
+            Bb.PatrolBehavior.enabled = false;
+            Bb.GoToBehavior.enabled = false;
+
             Bb.CheckVisibilityBehavior.enabled = true;
             Bb.LookAtTargetBehavior.enabled = true;
             Bb.PlayerDetectionBehavior.enabled = true;
             Bb.LineOfSightBehavior.enabled = true;
-
-            Bb.ShootPlayerBehavior.enabled = false;
-            Bb.PatrolBehavior.enabled = false;
 
             lookAtOriginalTarget = Bb.LookAtTargetBehavior.Target;
             lookAtOriginalRotationSpeed = Bb.LookAtTargetBehavior.RotationSpeed;
@@ -36,11 +38,16 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
         internal override void OnUpdate(float deltaTime)
         {
-            base.OnUpdate(deltaTime);
-
-            if (CurrentState != this)
+            if (H.DetectPlayer())
             {
+                SwitchState<PrepareForAttack>();
                 return;
+            }
+
+            if (H.DetectAllyBody(out var body))
+            {
+                Bb.wakeUpAllyTarget = body;
+                SwitchState<WakeUpAlly>();
             }
 
             if (Bb.DistractionGameObject.IsValidAndEnabled() && (timer += deltaTime) < Bb.DistractionTime)

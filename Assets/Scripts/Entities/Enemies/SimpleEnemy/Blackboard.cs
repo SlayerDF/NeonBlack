@@ -2,6 +2,7 @@
 using NeonBlack.Entities.Enemies.Behaviors;
 using NeonBlack.Entities.Player;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace NeonBlack.Entities.Enemies.SimpleEnemy
 {
@@ -18,7 +19,13 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
         private EnemyHealth enemyHealth;
 
         [SerializeField]
+        private Collider enemyCollider;
+
+        [SerializeField]
         private EnemyAnimation enemyAnimation;
+
+        [SerializeField]
+        private NavMeshAgent navAgent;
 
         [Header("Behaviors")]
         [SerializeField]
@@ -29,6 +36,9 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         [SerializeField]
         private PatrolBehavior patrolBehavior;
+
+        [SerializeField]
+        private GoToBehavior goToBehavior;
 
         [SerializeField]
         private PlayerDetectionBehavior playerDetectionBehavior;
@@ -64,11 +74,14 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
         #endregion
 
         internal BossBrain BossBrain => bossBrain;
+        internal Collider EnemyCollider => enemyCollider;
         internal EnemyHealth EnemyHealth => enemyHealth;
         internal EnemyAnimation EnemyAnimation => enemyAnimation;
+        internal NavMeshAgent NavAgent => navAgent;
         internal LineOfSightBehavior LineOfSightBehavior => lineOfSightBehavior;
         internal CheckVisibilityBehavior CheckVisibilityBehavior => checkVisibilityBehavior;
         internal PatrolBehavior PatrolBehavior => patrolBehavior;
+        internal GoToBehavior GoToBehavior => goToBehavior;
         internal PlayerDetectionBehavior PlayerDetectionBehavior => playerDetectionBehavior;
         internal LookAtTargetBehavior LookAtTargetBehavior => lookAtTargetBehavior;
         internal ShootPlayerBehavior ShootPlayerBehavior => shootPlayerBehavior;
@@ -83,5 +96,6 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
         internal Vector3 LastSeenPlayerPosition { get; set; }
         internal GameObject DistractionGameObject { get; set; }
         internal float DistractionTime { get; set; }
+        internal SimpleEnemyBrain wakeUpAllyTarget { get; set; }
     }
 }

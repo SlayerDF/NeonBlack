@@ -44,5 +44,11 @@ namespace NeonBlack.Entities.Player
         }
 
         #endregion
+
+        #region ILosBehaviorTarget Members
+
+        public bool Destroyed => !this;
+
+        #endregion
     }
 }

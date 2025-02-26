@@ -133,6 +133,11 @@ namespace NeonBlack.Entities.Enemies.Behaviors
                 return;
             }
 
+            if (target.transform.gameObject == gameObject)
+            {
+                return;
+            }
+
             targets.Add(target);
         }
 
@@ -182,6 +187,12 @@ namespace NeonBlack.Entities.Enemies.Behaviors
         {
             foreach (var target in targets)
             {
+                if (target.Destroyed)
+                {
+                    DeactivateTarget(target);
+                    continue;
+                }
+
                 var active = IsTargetActive(target);
                 var targetVector = target.transform.position - transform.position;
                 var distanceToTargetSqr = Vector3.SqrMagnitude(targetVector);
