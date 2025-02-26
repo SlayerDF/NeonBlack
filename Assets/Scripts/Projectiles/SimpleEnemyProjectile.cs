@@ -33,7 +33,10 @@ namespace NeonBlack.Projectiles
                     break;
             }
 
-            ObjectPoolManager.Despawn(this);
+            if (isActiveAndEnabled)
+            {
+                ObjectPoolManager.Despawn(this);
+            }
         }
 
         #endregion

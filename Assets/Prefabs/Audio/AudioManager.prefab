@@ -67,6 +67,7 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9692ad55db13c6043b5894f0f2e94973, type: 3}
   - terrainLayer: {fileID: 8574412962073106934, guid: bd45a82df401e4846b478fb435c32cfa, type: 2}
     clip: {fileID: 8300000, guid: 07f4421d42fdc504e98df9067be4f101, type: 3}
+  audioMixer: {fileID: 24100000, guid: f13638f05d40f694fa3a8a5f9934a82d, type: 2}
   fadeSpeed: 2
   bossNotificationsPrefab: {fileID: 8974805419504618717, guid: 2bd5040894737fe42b91450818cb5051, type: 3}
   musicPrefab: {fileID: 8974805419504618717, guid: 970d8fcdc981438428952f9abc9553ba, type: 3}
