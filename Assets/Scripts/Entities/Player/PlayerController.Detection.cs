@@ -64,8 +64,9 @@ namespace NeonBlack.Entities.Player
         {
             var casts = Physics.RaycastNonAlloc(transform.position + new Vector3(0f, 0.5f, 0f), Vector3.down,
                 footstepHits, 0.51f, Layer.Terrain.ToMask());
+            var layer = casts > 0 && terrainController ? terrainController.LayerAt(transform.position) : null;
 
-            if (casts < 1 || terrainController == null)
+            if (layer == null)
             {
                 AudioManager.Play(AudioManager.FootstepsPrefab, AudioManager.PlayerFootstepsClip, transform.position);
                 return;
@@ -76,7 +77,6 @@ namespace NeonBlack.Entities.Player
                 return;
             }
 
-            var layer = terrainController.LayerAt(transform.position);
             var noise = footstepNoiseSettings.FirstOrDefault(x => x.TerrainLayer == layer)?.NoiseLevel;
             var clip = AudioManager.PlayerSurfaceFootstepClips.FirstOrDefault(x => x.TerrainLayer == layer)?.Clip;
 
