@@ -8918,8 +8918,8 @@ GameObject:
   - component: {fileID: 433558335}
   - component: {fileID: 433558334}
   - component: {fileID: 433558333}
-  - component: {fileID: 433558336}
   - component: {fileID: 433558337}
+  - component: {fileID: 433558336}
   m_Layer: 6
   m_Name: Terrain2
   m_TagString: Untagged
@@ -17507,6 +17507,8 @@ GameObject:
   - component: {fileID: 926930671}
   - component: {fileID: 926930673}
   - component: {fileID: 926930672}
+  - component: {fileID: 926930675}
+  - component: {fileID: 926930674}
   m_Layer: 6
   m_Name: Terrain
   m_TagString: Untagged
@@ -17545,7 +17547,7 @@ TerrainCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_ProvidesContacts: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_TerrainData: {fileID: 15600000, guid: 625f918bff4d1c040b688b3dd7bcb3f6, type: 2}
   m_EnableTreeColliders: 1
@@ -17566,7 +17568,7 @@ Terrain:
   m_DetailObjectDistance: 80
   m_DetailObjectDensity: 1
   m_HeightmapPixelError: 5
-  m_SplatMapDistance: 20000
+  m_SplatMapDistance: 99999
   m_HeightmapMaximumLOD: 0
   m_ShadowCastingMode: 2
   m_DrawHeightmap: 1
@@ -17575,7 +17577,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: d25877c7190cb3544b8dabee9907e211, type: 2}
+  m_MaterialTemplate: {fileID: 0}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -17588,6 +17590,50 @@ Terrain:
   m_EnableHeightmapRayTracing: 0
   m_EnableTreesAndDetailsRayTracing: 0
   m_TreeMotionVectorModeOverride: 3
+--- !u!114 &926930674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926930670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6525fd4a9fb974b7f878dee70144de99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  templateMaterial: {fileID: 2100000, guid: d25877c7190cb3544b8dabee9907e211, type: 2}
+  blendMat: {fileID: 0}
+  blendMatInstance: {fileID: 0}
+  keywordSO: {fileID: 11400000, guid: a40e327328a7e7548a4f6b7a68111389, type: 2}
+  perPixelNormal: {fileID: 0}
+  streamTexture: {fileID: 0}
+  propData: {fileID: 11400000, guid: e45f86858662cde4190e8492d25f7742, type: 2}
+  terrain: {fileID: 926930673}
+  baseMapShader: {fileID: 4800000, guid: aba6c2c4ad6e8b342b2582b861b14568, type: 3}
+  customControl0: {fileID: 0}
+  customControl1: {fileID: 0}
+  customControl2: {fileID: 0}
+  customControl3: {fileID: 0}
+  customControl4: {fileID: 0}
+  customControl5: {fileID: 0}
+  customControl6: {fileID: 0}
+  customControl7: {fileID: 0}
+  patchBoundsMultiplier: {x: 1, y: 1, z: 1}
+  reenabled: 0
+  importSplatMaps: []
+--- !u!114 &926930675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 926930670}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7400ef9bab2d40408944b20805d99fdc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &927958069
 GameObject:
   m_ObjectHideFlags: 0
