@@ -1,5 +1,4 @@
 using System.Threading;
-using Cysharp.Threading.Tasks;
 using NeonBlack.Utilities;
 using TMPro;
 using UnityEngine;
@@ -18,6 +17,24 @@ namespace NeonBlack.UI
         private TMP_Text framerateText;
 
         [SerializeField]
+        private Slider masterVolumeSlider;
+
+        [SerializeField]
+        private TMP_Text masterVolumeText;
+
+        [SerializeField]
+        private Slider musicVolumeSlider;
+
+        [SerializeField]
+        private TMP_Text musicVolumeText;
+
+        [SerializeField]
+        private Slider sfxVolumeSlider;
+
+        [SerializeField]
+        private TMP_Text sfxVolumeText;
+
+        [SerializeField]
         private Slider mouseSensitivitySlider;
 
         [SerializeField]
@@ -33,18 +50,27 @@ namespace NeonBlack.UI
         {
             framerateSlider.value = Settings.Framerate;
             mouseSensitivitySlider.value = Settings.MouseSensitivity;
+            masterVolumeSlider.value = Settings.MasterVolume;
+            musicVolumeSlider.value = Settings.MusicVolume;
+            sfxVolumeSlider.value = Settings.SfxVolume;
         }
 
         private void OnEnable()
         {
             framerateSlider.onValueChanged.AddListener(UpdateFramerate);
             mouseSensitivitySlider.onValueChanged.AddListener(UpdateMouseSensitivity);
+            masterVolumeSlider.onValueChanged.AddListener(UpdateMasterVolume);
+            musicVolumeSlider.onValueChanged.AddListener(UpdateMusicVolume);
+            sfxVolumeSlider.onValueChanged.AddListener(UpdateSfxVolume);
         }
 
         private void OnDisable()
         {
             framerateSlider.onValueChanged.RemoveListener(UpdateFramerate);
             mouseSensitivitySlider.onValueChanged.RemoveListener(UpdateMouseSensitivity);
+            masterVolumeSlider.onValueChanged.RemoveListener(UpdateMasterVolume);
+            musicVolumeSlider.onValueChanged.RemoveListener(UpdateMusicVolume);
+            sfxVolumeSlider.onValueChanged.RemoveListener(UpdateSfxVolume);
 
             Settings.Save();
         }
@@ -57,29 +83,30 @@ namespace NeonBlack.UI
 
             Settings.Framerate = intValue;
             framerateText.text = intValue.ToString();
-
-            SaveSettings().Forget();
         }
 
         private void UpdateMouseSensitivity(float value)
         {
             Settings.MouseSensitivity = value;
             mouseSensitivityText.text = value.ToString("F2");
-
-            SaveSettings().Forget();
         }
 
-        private async UniTask SaveSettings()
+        private void UpdateMasterVolume(float value)
         {
-            // Debounce saving
-            saveTaskCts?.Cancel();
-            saveTaskCts = new CancellationTokenSource();
+            Settings.MasterVolume = value;
+            masterVolumeText.text = value.ToString("F2");
+        }
 
-            await UniTask.WaitForSeconds(1f, cancellationToken: saveTaskCts.Token);
+        private void UpdateMusicVolume(float value)
+        {
+            Settings.MusicVolume = value;
+            musicVolumeText.text = value.ToString("F2");
+        }
 
-            PlayerPrefs.SetInt("FPS", Application.targetFrameRate);
-            PlayerPrefs.Save();
-            Debug.Log("Settings saved");
+        private void UpdateSfxVolume(float value)
+        {
+            Settings.SfxVolume = value;
+            sfxVolumeText.text = value.ToString("F2");
         }
     }
 }
