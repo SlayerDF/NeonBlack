@@ -80,3 +80,9 @@
 - **License:** CC0 1.0 Universal (CC0 1.0)
 - **Description:** This track is used when the simple enemy wakes up his ally.
 
+## Explosion
+- **File:** Explosion.ogg
+- **Artist:** Anomaex (https://freesound.org/people/Anomaex/sounds/490255/)
+- **License:** CC0 1.0 Universal (CC0 1.0)
+- **Description:** This track is used when a missile is exploded.
+

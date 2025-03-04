@@ -58,6 +58,7 @@ MonoBehaviour:
   playerDashClip: {fileID: 8300000, guid: 2fe1f0ae468bbd645b28241e053b8b6a, type: 3}
   installShardClip: {fileID: 8300000, guid: ea83bcf6257f498408216c020091dd96, type: 3}
   pressurePlateClip: {fileID: 8300000, guid: b720d558abf483640a2459909100be4b, type: 3}
+  explosionClip: {fileID: 8300000, guid: 0e56f9d542e9a98448d51c5ef7a6ae93, type: 3}
   playerSurfaceFootstepClips:
   - terrainLayer: {fileID: 8574412962073106934, guid: f66322f6dc1b2ae43a06e6dd4624d70b, type: 2}
     clip: {fileID: 8300000, guid: 668a586b86e49f244a08ebaffa08efd7, type: 3}
@@ -76,3 +77,4 @@ MonoBehaviour:
   hitsPrefab: {fileID: 6091517183807396057, guid: 647067e3e960538469315272fa9d74c1, type: 3}
   footstepsPrefab: {fileID: 6091517183807396057, guid: c055ef2554380374ca87ceed191fab47, type: 3}
   interactionsPrefab: {fileID: 6091517183807396057, guid: e648ae01f76d9fe498315d19cc9029b8, type: 3}
+  explosionsPrefab: {fileID: 6091517183807396057, guid: c91dce1b71f029345b4ea1c3c70c7c6c, type: 3}
