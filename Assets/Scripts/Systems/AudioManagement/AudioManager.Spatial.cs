@@ -18,6 +18,9 @@ namespace NeonBlack.Systems.AudioManagement
         private SpatialAudio hitsPrefab;
 
         [SerializeField]
+        private SpatialAudio environmentsPrefab;
+
+        [SerializeField]
         private SpatialAudio footstepsPrefab;
 
         [SerializeField]
@@ -31,6 +34,7 @@ namespace NeonBlack.Systems.AudioManagement
         public static SpatialAudio EnemiesNotificationsPrefab => Instance.enemiesNotificationsPrefab;
         public static SpatialAudio ShotsPrefab => Instance.shotsPrefab;
         public static SpatialAudio HitsPrefab => Instance.hitsPrefab;
+        public static SpatialAudio EnvironmentsPrefab => Instance.environmentsPrefab;
         public static SpatialAudio FootstepsPrefab => Instance.footstepsPrefab;
         public static SpatialAudio InteractionsPrefab => Instance.interactionsPrefab;
         public static SpatialAudio ExplosionsPrefab => Instance.explosionsPrefab;

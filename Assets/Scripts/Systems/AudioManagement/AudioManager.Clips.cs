@@ -53,6 +53,12 @@ namespace NeonBlack.Systems.AudioManagement
         private AudioClip explosionClip;
 
         [SerializeField]
+        private AudioClip turretDestroyClip;
+
+        [SerializeField]
+        private AudioClip missileLaunchClip;
+
+        [SerializeField]
         private FootstepClipMapping[] playerSurfaceFootstepClips;
 
         #endregion
@@ -72,6 +78,8 @@ namespace NeonBlack.Systems.AudioManagement
         public static AudioClip InstallShardClip => Instance.installShardClip;
         public static AudioClip PressurePlateClip => Instance.pressurePlateClip;
         public static AudioClip ExplosionClip => Instance.explosionClip;
+        public static AudioClip TurretDestroyClip => Instance.turretDestroyClip;
+        public static AudioClip MissileLaunchClip => Instance.missileLaunchClip;
         public static FootstepClipMapping[] PlayerSurfaceFootstepClips => Instance.playerSurfaceFootstepClips;
     }
 }

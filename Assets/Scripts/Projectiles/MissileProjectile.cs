@@ -45,6 +45,12 @@ namespace NeonBlack.Projectiles
 
         private Vector3 randomOffset;
 
+        public Transform Target
+        {
+            get => target;
+            set => target = value;
+        }
+
         #region Event Functions
 
         private void Start()
