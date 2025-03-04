@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 248136712616298605}
   - component: {fileID: 3251489793712585399}
   - component: {fileID: 6698928050638113915}
+  - component: {fileID: 7791693613502366113}
+  - component: {fileID: 7201137585202790055}
+  - component: {fileID: 6390060636357931051}
   m_Layer: 0
   m_Name: BossDeathParticles
   m_TagString: Untagged
@@ -4829,6 +4832,45 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &7791693613502366113
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360363523951463861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b459c30b02e41f6a78e74fba47af5ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 3251489793712585399}
+--- !u!114 &7201137585202790055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360363523951463861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80f13f8604a84e819e77c544956f3807, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particleSystemEvents: {fileID: 7791693613502366113}
+--- !u!114 &6390060636357931051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6360363523951463861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915d7653008441ab96942e572790779c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 3251489793712585399}
 --- !u!1001 &7091749796040127197
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4889,7 +4931,11 @@ PrefabInstance:
       propertyPath: playOnAwake
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8938074683492424281, guid: cdde612417ba0df428a081f7590decd9, type: 3}
+    - {fileID: 5539632082822320899, guid: cdde612417ba0df428a081f7590decd9, type: 3}
+    - {fileID: 7480383161726399709, guid: cdde612417ba0df428a081f7590decd9, type: 3}
+    - {fileID: 6183558645453171038, guid: cdde612417ba0df428a081f7590decd9, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

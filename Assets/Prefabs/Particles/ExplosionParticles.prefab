@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2648509445812444175}
   - component: {fileID: 8938074683492424281}
   - component: {fileID: 5539632082822320899}
+  - component: {fileID: 6183558645453171038}
   m_Layer: 0
   m_Name: ExplosionParticles
   m_TagString: Untagged
@@ -4915,6 +4916,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleSystemEvents: {fileID: 8938074683492424281}
+--- !u!114 &6183558645453171038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3242719465283535069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 915d7653008441ab96942e572790779c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ps: {fileID: 8362815416338195028}
 --- !u!1 &5769444228453557557
 GameObject:
   m_ObjectHideFlags: 0
