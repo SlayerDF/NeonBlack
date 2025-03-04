@@ -7,7 +7,7 @@ using NeonBlack.Systems.LevelState;
 using R3;
 using UnityEngine;
 
-namespace NeonBlack.Entities.Enemies
+namespace NeonBlack.Entities.Enemies.Boss
 {
     public class BossBrain : MonoBehaviour
     {

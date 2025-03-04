@@ -1,5 +1,6 @@
 ﻿using System;
 using NeonBlack.Entities.Enemies.Behaviors;
+using NeonBlack.Entities.Enemies.Boss;
 using NeonBlack.Entities.Player;
 using UnityEngine;
 using UnityEngine.AI;
