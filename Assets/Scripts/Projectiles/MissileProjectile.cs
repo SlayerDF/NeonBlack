@@ -92,7 +92,7 @@ namespace NeonBlack.Projectiles
                 return;
             }
 
-            health.TakeDamage(DamageSource.Normal, damage);
+            health.TakeDamage(DamageSource.Missile, damage);
 
             ObjectPoolManager.Spawn<ParticlePoolObject>(explosionParticlesPrefab, out var ps);
             ps.transform.position = transform.position;

@@ -3,9 +3,9 @@ using NeonBlack.Interfaces;
 using UnityEditor;
 using UnityEngine;
 
-namespace NeonBlack.Entities.Enemies
+namespace NeonBlack.Entities.Enemies.SimpleEnemy
 {
-    public class EnemyHealth : MonoBehaviour, IEntityHealth
+    public class SimpleEnemyHealth : MonoBehaviour, IEnemyHealth
     {
         #region Serialized Fields
 
@@ -38,8 +38,6 @@ namespace NeonBlack.Entities.Enemies
 
         private float healthDefault;
         private bool killed;
-
-        public bool Dead { get; private set; }
 
         public bool CouldBeResurrected => couldBeResurrected && killed;
 
@@ -76,7 +74,9 @@ namespace NeonBlack.Entities.Enemies
 
         #endregion
 
-        #region IEntityHealth Members
+        #region IEnemyHealth Members
+
+        public bool Dead { get; private set; }
 
         public void TakeDamage(DamageSource source, float damage, Transform attacker = null)
         {

@@ -16,7 +16,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
         private BossBrain bossBrain;
 
         [SerializeField]
-        private EnemyHealth enemyHealth;
+        private SimpleEnemyHealth simpleEnemyHealth;
 
         [SerializeField]
         private Collider enemyCollider;
@@ -75,7 +75,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         internal BossBrain BossBrain => bossBrain;
         internal Collider EnemyCollider => enemyCollider;
-        internal EnemyHealth EnemyHealth => enemyHealth;
+        internal SimpleEnemyHealth SimpleEnemyHealth => simpleEnemyHealth;
         internal EnemyAnimation EnemyAnimation => enemyAnimation;
         internal NavMeshAgent NavAgent => navAgent;
         internal LineOfSightBehavior LineOfSightBehavior => lineOfSightBehavior;

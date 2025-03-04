@@ -1,12 +1,7 @@
-﻿using UnityEngine;
-
-namespace NeonBlack.Interfaces
+﻿namespace NeonBlack.Interfaces
 {
-    public interface ILosBehaviorTarget
+    public interface ILosBehaviorTarget : IGameObject
     {
-        // ReSharper disable once InconsistentNaming
-        Transform transform { get; }
-
         bool Destroyed { get; }
     }
 }

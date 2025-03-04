@@ -58,7 +58,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                     switch (Bb.EnemyAnimation.AnimationEnded(EnemyAnimation.DeathAnimation, 0))
                     {
                         case true:
-                            Bb.EnemyHealth.Kill();
+                            Bb.SimpleEnemyHealth.Kill();
                             stage = Stage.Complete;
                             break;
                         case null:

@@ -7,7 +7,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
         internal override void OnExit()
         {
             Bb.EnemyAnimation.SetIsAttacking(false);
-            Bb.EnemyHealth.Invincible = false;
+            Bb.SimpleEnemyHealth.Invincible = false;
         }
 
         internal override void OnEnter()
@@ -22,7 +22,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
             Bb.ShootPlayerBehavior.enabled = true;
 
             Bb.EnemyAnimation.SetIsAttacking(true);
-            Bb.EnemyHealth.Invincible = true;
+            Bb.SimpleEnemyHealth.Invincible = true;
 
             // Player is already detected so the detection rate must be maxed 
             Bb.PlayerDetectionBehavior.DistanceToPlayerNormalized = 0f;

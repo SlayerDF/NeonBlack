@@ -5,10 +5,11 @@ namespace NeonBlack.Interfaces
     public enum DamageSource
     {
         Normal,
-        DeathZone
+        DeathZone,
+        Missile
     }
 
-    public interface IEntityHealth
+    public interface IEntityHealth : IGameObject
     {
         public void TakeDamage(DamageSource source, float dmg, Transform attacker = null);
     }

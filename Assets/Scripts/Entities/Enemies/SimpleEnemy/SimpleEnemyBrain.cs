@@ -33,7 +33,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
         private Blackboard Bb => blackboard;
         public bool IsInShadowZone { get; set; }
 
-        public bool CouldBeResurrected => Bb.EnemyHealth.CouldBeResurrected;
+        public bool CouldBeResurrected => Bb.SimpleEnemyHealth.CouldBeResurrected;
 
         #region Event Functions
 
@@ -57,14 +57,14 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         private void OnEnable()
         {
-            Bb.EnemyHealth.Death += OnDeath;
+            Bb.SimpleEnemyHealth.Death += OnDeath;
             Bb.ShootPlayerBehavior.Shoot += OnShoot;
         }
 
 
         private void OnDisable()
         {
-            Bb.EnemyHealth.Death -= OnDeath;
+            Bb.SimpleEnemyHealth.Death -= OnDeath;
             Bb.ShootPlayerBehavior.Shoot -= OnShoot;
         }
 
@@ -102,7 +102,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         public bool Resurrect()
         {
-            if (!Bb.EnemyHealth.CouldBeResurrected)
+            if (!Bb.SimpleEnemyHealth.CouldBeResurrected)
             {
                 return false;
             }
@@ -110,7 +110,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
             Bb.EnemyAnimation.SetIsDead(false);
             Bb.EnemyAnimation.WaitAnimationEnd(EnemyAnimation.WakeUpAnimation, 0).ContinueWith(() =>
             {
-                Bb.EnemyHealth.Resurrect();
+                Bb.SimpleEnemyHealth.Resurrect();
                 stateMachine.SwitchState<Patrol>();
             }).Forget();
 
