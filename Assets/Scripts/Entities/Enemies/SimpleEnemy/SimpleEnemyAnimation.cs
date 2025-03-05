@@ -2,9 +2,9 @@ using JetBrains.Annotations;
 using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 
-namespace NeonBlack.Entities.Enemies
+namespace NeonBlack.Entities.Enemies.SimpleEnemy
 {
-    public class EnemyAnimation : EntityAnimation
+    public class SimpleEnemyAnimation : EntityAnimation
     {
         private static readonly int Velocity = Animator.StringToHash("Velocity");
         private static readonly int IsAttacking = Animator.StringToHash("IsAttacking");

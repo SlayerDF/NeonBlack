@@ -11355,6 +11355,14 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 1822938731}
+    - target: {fileID: 7276225442020796213, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
+      propertyPath: tempTarget
+      value: 
+      objectReference: {fileID: 133690095}
+    - target: {fileID: 7276225442020796213, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1822938731}
     - target: {fileID: 8244449131717225198, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
       propertyPath: focusColor.b
       value: 0

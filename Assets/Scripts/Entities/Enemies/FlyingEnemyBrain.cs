@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using NeonBlack.Entities.Enemies.Behaviors;
+using NeonBlack.Entities.Enemies.Boss;
 using NeonBlack.Entities.Player;
 using NeonBlack.Extensions;
 using NeonBlack.Interfaces;

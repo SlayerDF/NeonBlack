@@ -1,5 +1,4 @@
 ﻿using System;
-using NeonBlack.Entities.Enemies;
 using NeonBlack.Interfaces;
 using NeonBlack.Utilities;
 using UnityEngine;
@@ -114,7 +113,7 @@ namespace NeonBlack.Entities.Player
 
         private void OnAttackTriggerEnter(Collider other)
         {
-            if (!other.TryGetComponent(out EnemyHealth enemyHealth))
+            if (!other.TryGetComponent(out IEnemyHealth enemyHealth))
             {
                 return;
             }

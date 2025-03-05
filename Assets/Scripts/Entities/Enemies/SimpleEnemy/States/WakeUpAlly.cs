@@ -110,10 +110,11 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                         Bb.LineOfSightBehavior.enabled = false;
                         Bb.PlayerDetectionBehavior.enabled = false;
 
-                        Bb.EnemyAnimation.SetIsCrouching(true);
+                        Bb.SimpleEnemyAnimation.SetIsCrouching(true);
                     }
 
-                    var animationStarted = Bb.EnemyAnimation.AnimationStarted(EnemyAnimation.CrouchAnimation, 0);
+                    var animationStarted =
+                        Bb.SimpleEnemyAnimation.AnimationStarted(SimpleEnemyAnimation.CrouchAnimation, 0);
 
                     if (animationStarted is null)
                     {
@@ -126,7 +127,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                         break;
                     }
 
-                    switch (Bb.EnemyAnimation.AnimationEnded(EnemyAnimation.CrouchAnimation, 0))
+                    switch (Bb.SimpleEnemyAnimation.AnimationEnded(SimpleEnemyAnimation.CrouchAnimation, 0))
                     {
                         case true:
                             if (Bb.wakeUpAllyTarget.Resurrect())
@@ -147,10 +148,10 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                 case Stage.WakeUpStand:
                     if (FirstStageCall)
                     {
-                        Bb.EnemyAnimation.SetIsCrouching(false);
+                        Bb.SimpleEnemyAnimation.SetIsCrouching(false);
                     }
 
-                    animationStarted = Bb.EnemyAnimation.AnimationStarted(EnemyAnimation.StandAnimation, 0);
+                    animationStarted = Bb.SimpleEnemyAnimation.AnimationStarted(SimpleEnemyAnimation.StandAnimation, 0);
 
                     if (animationStarted is null)
                     {
@@ -163,7 +164,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                         break;
                     }
 
-                    nextStage = Bb.EnemyAnimation.AnimationEnded(EnemyAnimation.StandAnimation, 0) switch
+                    nextStage = Bb.SimpleEnemyAnimation.AnimationEnded(SimpleEnemyAnimation.StandAnimation, 0) switch
                     {
                         true => Stage.Wait,
                         null => Stage.Complete,
@@ -193,7 +194,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
                     break;
                 case Stage.Complete:
-                    Bb.EnemyAnimation.SetIsCrouching(false);
+                    Bb.SimpleEnemyAnimation.SetIsCrouching(false);
                     SwitchState<Patrol>();
                     break;
                 default:

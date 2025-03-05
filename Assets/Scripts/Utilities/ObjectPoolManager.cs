@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace NeonBlack.Utilities
 {
-    public class PoolObject : MonoBehaviour
+    public abstract class PoolObject : MonoBehaviour
     {
     }
 

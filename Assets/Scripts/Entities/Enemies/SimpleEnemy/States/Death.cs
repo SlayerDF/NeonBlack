@@ -14,7 +14,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
             Bb.EnemyCollider.enabled = true;
             Bb.NavAgent.enabled = true;
 
-            Bb.EnemyAnimation.SetIsDead(false);
+            Bb.SimpleEnemyAnimation.SetIsDead(false);
         }
 
         internal override void OnEnter()
@@ -40,10 +40,10 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
                 case Stage.WaitAnimationStart:
                     if (FirstStageCall)
                     {
-                        Bb.EnemyAnimation.SetIsDead(true);
+                        Bb.SimpleEnemyAnimation.SetIsDead(true);
                     }
 
-                    switch (Bb.EnemyAnimation.AnimationStarted(EnemyAnimation.DeathAnimation, 0))
+                    switch (Bb.SimpleEnemyAnimation.AnimationStarted(SimpleEnemyAnimation.DeathAnimation, 0))
                     {
                         case true:
                             stage = Stage.WaitAnimationEnd;
@@ -55,10 +55,10 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
                     break;
                 case Stage.WaitAnimationEnd:
-                    switch (Bb.EnemyAnimation.AnimationEnded(EnemyAnimation.DeathAnimation, 0))
+                    switch (Bb.SimpleEnemyAnimation.AnimationEnded(SimpleEnemyAnimation.DeathAnimation, 0))
                     {
                         case true:
-                            Bb.EnemyHealth.Kill();
+                            Bb.SimpleEnemyHealth.Kill();
                             stage = Stage.Complete;
                             break;
                         case null:
