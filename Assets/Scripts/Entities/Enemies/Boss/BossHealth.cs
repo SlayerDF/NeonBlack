@@ -1,5 +1,6 @@
 ﻿using System;
 using NeonBlack.Interfaces;
+using NeonBlack.UI;
 using UnityEngine;
 
 namespace NeonBlack.Entities.Enemies.Boss
@@ -14,6 +15,17 @@ namespace NeonBlack.Entities.Enemies.Boss
 
         #endregion
 
+        private float maxHealth;
+
+        #region Event Functions
+
+        private void Awake()
+        {
+            maxHealth = health;
+        }
+
+        #endregion
+
         #region IEnemyHealth Members
 
         public void TakeDamage(DamageSource source, float dmg, Transform attacker = null)
@@ -24,6 +36,8 @@ namespace NeonBlack.Entities.Enemies.Boss
             }
 
             health -= dmg;
+
+            BossHealthBar.UpdateValue(health / maxHealth);
 
             if (health > 0 || Dead)
             {
