@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using R3;
 
 namespace NeonBlack.Systems.StateMachine
 {
     public class StateMachine<TBlackboard>
     {
         internal readonly TBlackboard Blackboard;
+        private readonly ReactiveProperty<State<TBlackboard>> currentState = new();
         private readonly Dictionary<Type, State<TBlackboard>> states = new();
 
         public StateMachine(TBlackboard blackboard)
@@ -13,7 +15,8 @@ namespace NeonBlack.Systems.StateMachine
             Blackboard = blackboard;
         }
 
-        public State<TBlackboard> CurrentState { get; private set; }
+        public ReadOnlyReactiveProperty<State<TBlackboard>> CurrentStateReactive => currentState;
+        public State<TBlackboard> CurrentState => currentState.CurrentValue;
 
         public void SwitchState<T>(bool force = false, bool skipExit = false) where T : State<TBlackboard>, new()
         {
@@ -25,7 +28,7 @@ namespace NeonBlack.Systems.StateMachine
                 states.Add(key, state);
             }
 
-            if (state == CurrentState && !force)
+            if (state == currentState.CurrentValue && !force)
             {
                 return;
             }
@@ -35,8 +38,8 @@ namespace NeonBlack.Systems.StateMachine
                 CurrentState?.OnExit();
             }
 
-            CurrentState = state;
-            CurrentState.OnEnter();
+            currentState.Value = state;
+            CurrentState?.OnEnter();
         }
 
         public void Update(float deltaTime)

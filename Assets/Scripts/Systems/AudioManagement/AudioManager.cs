@@ -115,16 +115,16 @@ namespace NeonBlack.Systems.AudioManagement
         private static async UniTask FadeVolumeAsync(AudioSource src, float targetVolume, float speed,
             CancellationToken ct)
         {
-            if (!src)
-            {
-                return;
-            }
-
-            while (!Mathf.Approximately(src.volume, targetVolume) && !ct.IsCancellationRequested)
+            while (src && !Mathf.Approximately(src.volume, targetVolume) && !ct.IsCancellationRequested)
             {
                 src.volume = Mathf.MoveTowards(src.volume, targetVolume, speed * Time.deltaTime);
 
                 await UniTask.Yield(PlayerLoopTiming.Update);
+            }
+
+            if (!src)
+            {
+                return;
             }
 
             src.volume = targetVolume;

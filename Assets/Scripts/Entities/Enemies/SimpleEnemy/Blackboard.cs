@@ -1,5 +1,6 @@
 ﻿using System;
 using NeonBlack.Entities.Enemies.Behaviors;
+using NeonBlack.Entities.Enemies.Boss;
 using NeonBlack.Entities.Player;
 using UnityEngine;
 using UnityEngine.AI;
@@ -16,13 +17,13 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
         private BossBrain bossBrain;
 
         [SerializeField]
-        private EnemyHealth enemyHealth;
+        private SimpleEnemyHealth simpleEnemyHealth;
 
         [SerializeField]
         private Collider enemyCollider;
 
         [SerializeField]
-        private EnemyAnimation enemyAnimation;
+        private SimpleEnemyAnimation simpleEnemyAnimation;
 
         [SerializeField]
         private NavMeshAgent navAgent;
@@ -75,8 +76,8 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
 
         internal BossBrain BossBrain => bossBrain;
         internal Collider EnemyCollider => enemyCollider;
-        internal EnemyHealth EnemyHealth => enemyHealth;
-        internal EnemyAnimation EnemyAnimation => enemyAnimation;
+        internal SimpleEnemyHealth SimpleEnemyHealth => simpleEnemyHealth;
+        internal SimpleEnemyAnimation SimpleEnemyAnimation => simpleEnemyAnimation;
         internal NavMeshAgent NavAgent => navAgent;
         internal LineOfSightBehavior LineOfSightBehavior => lineOfSightBehavior;
         internal CheckVisibilityBehavior CheckVisibilityBehavior => checkVisibilityBehavior;

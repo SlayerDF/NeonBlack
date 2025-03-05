@@ -3,7 +3,7 @@ using NeonBlack.Entities.Enemies.Behaviors;
 using NeonBlack.Extensions;
 using UnityEngine;
 
-namespace NeonBlack.Entities.Enemies
+namespace NeonBlack.Entities.Enemies.Boss
 {
     public class BossEye : MonoBehaviour
     {
