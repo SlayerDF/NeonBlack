@@ -540,12 +540,16 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 509cd8a77ab13d0488a563fc473ea6cb, type: 2}
     m_RemovedComponents:
     - {fileID: 8652816938144366249, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+    - {fileID: 4715981709909023844, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6624365279647454002, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2454730827852109772}
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7276225442020796213}
     - targetCorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4091974090236864537}
@@ -569,6 +573,28 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6324426937057604164, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
   m_PrefabInstance: {fileID: 5564369681283415491}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7276225442020796213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1944565977125687175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36d47a2aaa4642c7b1bc08be4ae750d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
+  leftEye: {fileID: 917136336433977482}
+  rightEye: {fileID: 8244449131717225198}
+  tempTarget: {fileID: 0}
+  lineOfSightByPathBehavior: {fileID: 2089606133937693538}
+  checkVisibilityBehavior: {fileID: 9063337351614268931}
+  lookAtTargetBehavior: {fileID: 2131698076619479444}
+  focusSpeed: 5
+  alertAccumulation: 0.01
+  waitTime: 5
 --- !u!114 &4091974090236864537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -581,6 +607,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3be3515c1f0784340916596e5f64a41a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blackboard: {fileID: 7276225442020796213}
   leftEye: {fileID: 917136336433977482}
   rightEye: {fileID: 8244449131717225198}
   playerController: {fileID: 0}
