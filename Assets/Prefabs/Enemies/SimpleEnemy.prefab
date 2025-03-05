@@ -500,7 +500,7 @@ MonoBehaviour:
   bossBrain: {fileID: 0}
   simpleEnemyHealth: {fileID: 9103663542848370163}
   enemyCollider: {fileID: 6477114385679015856}
-  enemyAnimation: {fileID: 5129818278308910910}
+  simpleEnemyAnimation: {fileID: 5129818278308910910}
   navAgent: {fileID: 4918882141431696667}
   lineOfSightBehavior: {fileID: 5213703120788505677}
   checkVisibilityBehavior: {fileID: 3256046690734638319}

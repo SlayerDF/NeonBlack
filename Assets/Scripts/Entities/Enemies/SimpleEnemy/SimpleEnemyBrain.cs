@@ -107,8 +107,8 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy
                 return false;
             }
 
-            Bb.EnemyAnimation.SetIsDead(false);
-            Bb.EnemyAnimation.WaitAnimationEnd(EnemyAnimation.WakeUpAnimation, 0).ContinueWith(() =>
+            Bb.SimpleEnemyAnimation.SetIsDead(false);
+            Bb.SimpleEnemyAnimation.WaitAnimationEnd(SimpleEnemyAnimation.WakeUpAnimation, 0).ContinueWith(() =>
             {
                 Bb.SimpleEnemyHealth.Resurrect();
                 stateMachine.SwitchState<Patrol>();

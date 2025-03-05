@@ -8,7 +8,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
         internal override void OnExit()
         {
-            Bb.EnemyAnimation.SetIsNotifyingBoss(false);
+            Bb.SimpleEnemyAnimation.SetIsNotifyingBoss(false);
         }
 
         internal override void OnEnter()
@@ -22,7 +22,7 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
             Bb.GoToBehavior.enabled = false;
 
             timer = 0f;
-            Bb.EnemyAnimation.SetIsNotifyingBoss(true);
+            Bb.SimpleEnemyAnimation.SetIsNotifyingBoss(true);
         }
 
         internal override void OnUpdate(float deltaTime)
