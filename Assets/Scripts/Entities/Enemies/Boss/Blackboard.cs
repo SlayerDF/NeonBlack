@@ -1,5 +1,6 @@
 ﻿using NeonBlack.Entities.Enemies.Behaviors;
 using NeonBlack.Entities.Player;
+using NeonBlack.Particles;
 using UnityEngine;
 
 namespace NeonBlack.Entities.Enemies.Boss
@@ -13,6 +14,9 @@ namespace NeonBlack.Entities.Enemies.Boss
         private PlayerController playerController;
 
         [SerializeField]
+        private BossAnimation bossAnimation;
+
+        [SerializeField]
         private BossEye leftEye;
 
         [SerializeField]
@@ -20,6 +24,9 @@ namespace NeonBlack.Entities.Enemies.Boss
 
         [SerializeField]
         private Transform tempTarget;
+
+        [SerializeField]
+        private ParticlePoolObject onDeathParticles;
 
         [Header("Behaviors")]
         [SerializeField]
@@ -44,9 +51,11 @@ namespace NeonBlack.Entities.Enemies.Boss
         #endregion
 
         internal PlayerController PlayerController => playerController;
+        internal BossAnimation BossAnimation => bossAnimation;
         internal BossEye LeftEye => leftEye;
         internal BossEye RightEye => rightEye;
         internal Transform TempTarget => tempTarget;
+        internal ParticlePoolObject OnDeathParticles => onDeathParticles;
         internal LineOfSightByPathBehavior LineOfSightByPathBehavior => lineOfSightByPathBehavior;
         internal CheckVisibilityBehavior CheckVisibilityBehavior => checkVisibilityBehavior;
         internal LookAtTargetBehavior LookAtTargetBehavior => lookAtTargetBehavior;

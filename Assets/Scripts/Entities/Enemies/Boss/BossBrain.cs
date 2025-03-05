@@ -17,6 +17,9 @@ namespace NeonBlack.Entities.Enemies.Boss
         [SerializeField]
         private Blackboard blackboard;
 
+        [SerializeField]
+        private BossHealth bossHealth;
+
         #endregion
 
         private StateMachine<Blackboard> stateMachine;
@@ -47,6 +50,16 @@ namespace NeonBlack.Entities.Enemies.Boss
             stateMachine.Update(Time.fixedDeltaTime);
         }
 
+        private void OnEnable()
+        {
+            bossHealth.Death += OnDeath;
+        }
+
+        private void OnDisable()
+        {
+            bossHealth.Death -= OnDeath;
+        }
+
 #if UNITY_EDITOR
         private void OnValidate()
         {
@@ -61,6 +74,11 @@ namespace NeonBlack.Entities.Enemies.Boss
 #endif
 
         #endregion
+
+        private void OnDeath()
+        {
+            stateMachine.SwitchState<BeDead>();
+        }
 
         public void Notify(Vector3 position)
         {

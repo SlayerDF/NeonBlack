@@ -11,8 +11,9 @@ namespace NeonBlack.Entities.Enemies.Boss.States
 
         internal override void OnEnter()
         {
-            Bb.CheckVisibilityBehavior.enabled = true;
             Bb.LineOfSightByPathBehavior.enabled = false;
+
+            Bb.CheckVisibilityBehavior.enabled = true;
             Bb.LookAtTargetBehavior.enabled = true;
 
             H.UpdateTarget(Bb.PlayerController.transform);

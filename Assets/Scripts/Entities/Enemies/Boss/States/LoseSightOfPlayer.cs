@@ -15,6 +15,8 @@ namespace NeonBlack.Entities.Enemies.Boss.States
             Bb.LineOfSightByPathBehavior.enabled = false;
             Bb.LookAtTargetBehavior.enabled = false;
 
+            Bb.CheckVisibilityBehavior.enabled = true;
+
             Bb.TempTarget.position = Bb.PlayerController.transform.position;
 
             H.UpdateTarget(Bb.TempTarget);
