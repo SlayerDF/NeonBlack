@@ -1,10 +1,10 @@
-﻿using NeonBlack.Systems;
+﻿using NeonBlack.Entities.Enemies.Boss;
 using UnityEngine;
 using UnityEngine.UI;
 
 namespace NeonBlack.UI
 {
-    public class BossHealthBar : SceneSingleton<BossHealthBar>
+    public class BossHealthBar : MonoBehaviour
     {
         private const float AnimationDuration = 1f;
 
@@ -12,6 +12,9 @@ namespace NeonBlack.UI
 
         [SerializeField]
         private Image fillImage;
+
+        [SerializeField]
+        private GameObject root;
 
         #endregion
 
@@ -21,10 +24,9 @@ namespace NeonBlack.UI
 
         #region Event Functions
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
-            gameObject.SetActive(false);
+            root.SetActive(false);
         }
 
         private void Update()
@@ -43,27 +45,27 @@ namespace NeonBlack.UI
             }
         }
 
-        #endregion
-
-        private void UpdateValueInternal(float value)
+        private void OnEnable()
         {
-            if (!isActiveAndEnabled)
-            {
-                gameObject.SetActive(true);
-            }
-
-            currentValue = value;
-            animationDelta = Mathf.Abs(currentValue - fillImage.fillAmount) / AnimationDuration;
+            BossHealth.HealthChanged += OnBossHealthChanged;
         }
 
-        public static void UpdateValue(float value)
+        private void OnDisable()
         {
-            if (Instance == null)
+            BossHealth.HealthChanged -= OnBossHealthChanged;
+        }
+
+        #endregion
+
+        private void OnBossHealthChanged(float health, float maxHealth)
+        {
+            if (!root.activeInHierarchy)
             {
-                return;
+                root.SetActive(true);
             }
 
-            Instance.UpdateValueInternal(value);
+            currentValue = health / maxHealth;
+            animationDelta = Mathf.Abs(currentValue - fillImage.fillAmount) / AnimationDuration;
         }
     }
 }
