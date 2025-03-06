@@ -33,15 +33,19 @@ namespace NeonBlack.Entities.Enemies.SimpleEnemy.States
 
         internal override void OnUpdate(float deltaTime)
         {
-            Bb.PlayerDetectionBehavior.CanSeePlayer = Bb.CheckVisibilityBehavior.IsTargetVisible(Bb.PlayerController);
+            var playerIsVisible = Bb.CheckVisibilityBehavior.IsTargetVisible(Bb.PlayerController);
+            Bb.PlayerDetectionBehavior.CanSeePlayer = playerIsVisible;
+
+            if (playerIsVisible)
+            {
+                Bb.LastSeenPlayerPosition = Bb.PlayerController.transform.position;
+            }
 
             if (!Bb.PlayerDetectionBehavior.PlayerIsDetected.CurrentValue)
             {
                 SwitchState<NotifyBoss>();
                 return;
             }
-
-            Bb.LastSeenPlayerPosition = Bb.LookAtTargetBehavior.Target!.position;
 
             if ((timer += deltaTime) >= Bb.AttackDelay)
             {
