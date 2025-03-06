@@ -1,4 +1,5 @@
 ﻿using NeonBlack.Entities.Enemies.Boss;
+using NeonBlack.Systems.LevelState;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +21,13 @@ namespace NeonBlack.UI
 
         private float animationDelta;
 
-        private float currentValue = 1f;
+        private float currentValue;
 
         #region Event Functions
 
         private void Awake()
         {
-            root.SetActive(false);
+            OnLevelStarted();
         }
 
         private void Update()
@@ -48,14 +49,22 @@ namespace NeonBlack.UI
         private void OnEnable()
         {
             BossHealth.HealthChanged += OnBossHealthChanged;
+            LevelState.LevelStarted += OnLevelStarted;
         }
 
         private void OnDisable()
         {
             BossHealth.HealthChanged -= OnBossHealthChanged;
+            LevelState.LevelStarted -= OnLevelStarted;
         }
 
         #endregion
+
+        private void OnLevelStarted()
+        {
+            currentValue = 1f;
+            root.SetActive(false);
+        }
 
         private void OnBossHealthChanged(float health, float maxHealth)
         {
