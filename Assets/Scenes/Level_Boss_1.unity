@@ -1541,6 +1541,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CliffSmall3 (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.32975867
@@ -3749,6 +3753,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: 947368c4ad4f59c489a6e3655123cbb5, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7183252890489933191, guid: 947368c4ad4f59c489a6e3655123cbb5, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -4669,6 +4677,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CliffLarge
       objectReference: {fileID: 0}
+    - target: {fileID: 952276515558636864, guid: 94e3758f5898b3c40ba8fa9e8c319a46, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4379458312265271935, guid: 94e3758f5898b3c40ba8fa9e8c319a46, type: 3}
       propertyPath: m_LocalScale.x
       value: 3.231298
@@ -4762,6 +4774,98 @@ Transform:
   m_Children: []
   m_Father: {fileID: 540587633}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &790221536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 790221537}
+  - component: {fileID: 790221539}
+  - component: {fileID: 790221538}
+  m_Layer: 0
+  m_Name: Terrain (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 2147483647
+  m_IsActive: 1
+--- !u!4 &790221537
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790221536}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -89.6, y: -6.7, z: -59}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1672382544}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!154 &790221538
+TerrainCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790221536}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_TerrainData: {fileID: 15600000, guid: a2398523be256f44ea75b1e6542718d1, type: 2}
+  m_EnableTreeColliders: 1
+--- !u!218 &790221539
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790221536}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: a2398523be256f44ea75b1e6542718d1, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_StaticShadowCaster: 0
+  m_IgnoreQualitySettings: 0
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ReceiveGI: 1
+  m_ScaleInLightmap: 0.0256
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 1
+  m_EnableHeightmapRayTracing: 1
+  m_EnableTreesAndDetailsRayTracing: 0
+  m_TreeMotionVectorModeOverride: 3
 --- !u!1 &791855839
 GameObject:
   m_ObjectHideFlags: 0
@@ -5126,6 +5230,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_LocalScale.x
@@ -5662,6 +5770,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Stairs (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 7808608729663942813, guid: e5c7a96af6a55804885e3a0df2ac86c2, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5692,6 +5804,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_LocalScale.x
@@ -5848,6 +5964,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_Name
       value: CliffSmall3 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
@@ -7096,6 +7216,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4835214617812488034, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_Layer
@@ -9059,6 +9183,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CliffSmall3 (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.32975867
@@ -9362,6 +9490,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CliffSmall3
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.32975867
@@ -9576,6 +9708,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_Name
       value: CliffSmall3 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
@@ -10796,6 +10932,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CliffSmall3 (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.32975867
@@ -11245,6 +11385,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CliffSmall3 (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6121882258710046520, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.581302
@@ -11412,6 +11556,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_Name
       value: CliffSmall3 (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
@@ -11799,6 +11947,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: 5e8b5c77cff245445abe8826613a4034, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5295331710412300207, guid: 5e8b5c77cff245445abe8826613a4034, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -12081,6 +12233,7 @@ Transform:
   - {fileID: 1009945744}
   - {fileID: 1405845664}
   - {fileID: 1069290959}
+  - {fileID: 790221537}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1676464555
@@ -12371,6 +12524,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_LocalScale.x
@@ -12823,6 +12980,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CliffSmall3 (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: faf1141471507224c9a2079e7235f5a3, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.32975867
@@ -13006,7 +13167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circular: 1
-  alwaysShowGizmos: 1
+  alwaysShowGizmos: 0
 --- !u!1 &1771429334
 GameObject:
   m_ObjectHideFlags: 0
@@ -15105,6 +15266,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: 5e8b5c77cff245445abe8826613a4034, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5295331710412300207, guid: 5e8b5c77cff245445abe8826613a4034, type: 3}
       propertyPath: m_Layer
       value: 6
@@ -16830,6 +16995,10 @@ PrefabInstance:
     - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_Layer
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4593820368642981165, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7985445181728464657, guid: 9f30e8655d53b7e408d1767970567016, type: 3}
       propertyPath: m_LocalScale.x
