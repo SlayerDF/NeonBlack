@@ -24,6 +24,9 @@ namespace NeonBlack.Traps
         private SimpleTrap trap;
 
         [SerializeField]
+        private SimpleTrap[] additionalTraps;
+
+        [SerializeField]
         private Transform visuals;
 
         [Header("Configuration")]
@@ -74,6 +77,11 @@ namespace NeonBlack.Traps
             }
 
             trap.Shoot();
+            for (var i = 0; i < additionalTraps.Length; i++)
+            {
+                additionalTraps[i].Shoot();
+            }
+
             activationCooldownTime = pressTime * 2f;
         }
 
