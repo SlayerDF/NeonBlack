@@ -5,7 +5,9 @@ using NeonBlack.Entities.Enemies.Boss;
 using NeonBlack.Entities.Player;
 using NeonBlack.Extensions;
 using NeonBlack.Interfaces;
+using NeonBlack.Particles;
 using NeonBlack.Systems.AudioManagement;
+using NeonBlack.Utilities;
 using R3;
 using UnityEngine;
 
@@ -23,6 +25,9 @@ namespace NeonBlack.Entities.Enemies
 
         [SerializeField]
         private PlayerController playerController;
+
+        [SerializeField]
+        private ParticlePoolObject onDeathParticles;
 
         [Header("Behaviors")]
         [SerializeField]
@@ -99,6 +104,16 @@ namespace NeonBlack.Entities.Enemies
             }
         }
 
+        private void OnEnable()
+        {
+            BossHealth.Death += OnBossDeath;
+        }
+
+        private void OnDisable()
+        {
+            BossHealth.Death -= OnBossDeath;
+        }
+
         #endregion
 
         #region IDistractible Members
@@ -112,6 +127,16 @@ namespace NeonBlack.Entities.Enemies
         }
 
         #endregion
+
+        private void OnBossDeath()
+        {
+            SpawnDeathParticles();
+
+            if (this)
+            {
+                Destroy(gameObject);
+            }
+        }
 
         private void HandleObserveState(float _)
         {
@@ -169,6 +194,13 @@ namespace NeonBlack.Entities.Enemies
             }
 
             state = newState;
+        }
+
+        private void SpawnDeathParticles()
+        {
+            ObjectPoolManager.Spawn<ParticlePoolObject>(onDeathParticles, out var ps, true);
+            ps.transform.position = transform.position;
+            ps.gameObject.SetActive(true);
         }
 
         #region Nested type: ${0}

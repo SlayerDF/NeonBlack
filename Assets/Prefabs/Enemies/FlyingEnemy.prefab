@@ -278,6 +278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossBrain: {fileID: 0}
   playerController: {fileID: 0}
+  onDeathParticles: {fileID: 6183558645453171038, guid: cdde612417ba0df428a081f7590decd9, type: 3}
   lineOfSightByPathBehavior: {fileID: 8218788075927382710}
   checkVisibilityBehavior: {fileID: 2707003243118688980}
   playerDetectionBehavior: {fileID: 7493885340609151391}
