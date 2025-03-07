@@ -1,4 +1,6 @@
-﻿using NeonBlack.Entities.Enemies.Boss;
+﻿using JetBrains.Annotations;
+using NeonBlack.Entities.Enemies.Boss;
+using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 
 namespace NeonBlack.Levels
@@ -6,6 +8,10 @@ namespace NeonBlack.Levels
     public class BossLevelController : MonoBehaviour
     {
         #region Serialized Fields
+
+        [Header("Music")]
+        [SerializeField]
+        private AudioClip bossFightMusic;
 
         [Header("Exit Island logic")]
         [SerializeField]
@@ -21,6 +27,11 @@ namespace NeonBlack.Levels
         private AnimationCurve exitIslandMovementCurve;
 
         #endregion
+
+        private bool bossFightMusicPlaying;
+
+        [CanBeNull]
+        private AudioClip defaultClip;
 
         private bool moveIsland;
         private float moveIslandTimer;
@@ -53,15 +64,38 @@ namespace NeonBlack.Levels
 
         private void OnEnable()
         {
-            BossHealth.Death += MoveIsland;
+            BossHealth.HealthChanged += OnBossDamaged;
+            BossHealth.Death += OnBossDeath;
         }
 
         private void OnDisable()
         {
-            BossHealth.Death -= MoveIsland;
+            BossHealth.HealthChanged -= OnBossDamaged;
+            BossHealth.Death -= OnBossDeath;
         }
 
         #endregion
+
+        private void OnBossDamaged(float _, float __)
+        {
+            if (!bossFightMusicPlaying && bossFightMusic != null)
+            {
+                defaultClip = AudioManager.Music.AudioClip;
+                AudioManager.Play(AudioManager.Music, bossFightMusic, true);
+                bossFightMusicPlaying = true;
+            }
+        }
+
+        private void OnBossDeath()
+        {
+            MoveIsland();
+
+            if (bossFightMusicPlaying)
+            {
+                AudioManager.Play(AudioManager.Music, defaultClip, true);
+                bossFightMusicPlaying = false;
+            }
+        }
 
         [ContextMenu("Move island")]
         private void MoveIsland()

@@ -19659,6 +19659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78ea33783b534224bb1e1dacfabcae5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bossFightMusic: {fileID: 8300000, guid: 1928cf4a6a8b3384692530c8605501ec, type: 3}
   exitIslandRoot: {fileID: 1814676123}
   exitIslandStartPosition: {x: -10.03, y: -82.3, z: -7.72}
   exitIslandEndPosition: {x: -10.03, y: 4.28, z: -7.72}
