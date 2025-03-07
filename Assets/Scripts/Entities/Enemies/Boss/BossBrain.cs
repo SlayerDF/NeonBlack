@@ -52,12 +52,12 @@ namespace NeonBlack.Entities.Enemies.Boss
 
         private void OnEnable()
         {
-            bossHealth.Death += OnDeath;
+            BossHealth.Death += OnDeath;
         }
 
         private void OnDisable()
         {
-            bossHealth.Death -= OnDeath;
+            BossHealth.Death -= OnDeath;
         }
 
 #if UNITY_EDITOR

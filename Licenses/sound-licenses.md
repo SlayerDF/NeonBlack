@@ -12,6 +12,12 @@
 - **License:** CC Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)
 - **Description:** This track plays in the main menu.
 
+## Return of the Gucci Ghost
+- **File:** ReturnOfTheGucciGhost.ogg
+- **Artist:** Donnie Ozone (https://ccmixter.org/files/donnieozone/56686)
+- **License:** CC Attribution-NonCommercial 3.0 Unported (CC BY-NC 3.0)
+- **Description:** This track plays during boss fight.
+
 ## Player Death Music
 - **File:** PlayerDeathMusic.wav
 - **Artist:** Nikita Tulin (@SlayerDF)

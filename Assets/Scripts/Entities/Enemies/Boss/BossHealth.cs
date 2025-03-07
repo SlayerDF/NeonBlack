@@ -1,6 +1,5 @@
 ﻿using System;
 using NeonBlack.Interfaces;
-using NeonBlack.UI;
 using UnityEngine;
 
 namespace NeonBlack.Entities.Enemies.Boss
@@ -37,7 +36,7 @@ namespace NeonBlack.Entities.Enemies.Boss
 
             health -= dmg;
 
-            BossHealthBar.UpdateValue(health / maxHealth);
+            HealthChanged?.Invoke(health, maxHealth);
 
             if (health > 0 || Dead)
             {
@@ -53,6 +52,7 @@ namespace NeonBlack.Entities.Enemies.Boss
 
         #endregion
 
-        public event Action Death;
+        public static event Action Death;
+        public static event Action<float, float> HealthChanged;
     }
 }
