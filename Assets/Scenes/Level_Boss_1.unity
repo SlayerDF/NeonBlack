@@ -2651,6 +2651,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 547981690}
     m_Modifications:
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5874574221070285086, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy 10
@@ -3105,6 +3109,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 547981690}
     m_Modifications:
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5874574221070285086, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy 8
@@ -5422,6 +5430,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.008440566
       objectReference: {fileID: 0}
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 787143259555180511, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9671366
@@ -7520,6 +7532,10 @@ PrefabInstance:
       propertyPath: playerController
       value: 
       objectReference: {fileID: 762739508}
+    - target: {fileID: 7276225442020796213, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
+      propertyPath: alertAccumulation
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 8244449131717225198, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
       propertyPath: focusColor.b
       value: 0
@@ -8270,6 +8286,10 @@ PrefabInstance:
     - target: {fileID: 620747753487538850, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.008440566
+      objectReference: {fileID: 0}
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 787143259555180511, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11393,6 +11413,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.008440566
       objectReference: {fileID: 0}
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 787143259555180511, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.w
       value: 0.9671366
@@ -14466,6 +14490,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 547981690}
     m_Modifications:
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5874574221070285086, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy 6
@@ -17329,6 +17357,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 547981690}
     m_Modifications:
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5874574221070285086, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy 7
@@ -17893,6 +17925,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 547981690}
     m_Modifications:
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5874574221070285086, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy 11
@@ -18256,6 +18292,10 @@ PrefabInstance:
     - target: {fileID: 620747753487538850, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.008440566
+      objectReference: {fileID: 0}
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 787143259555180511, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -19328,6 +19368,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 547981690}
     m_Modifications:
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5874574221070285086, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_Name
       value: SimpleEnemy 9
@@ -19822,6 +19866,10 @@ PrefabInstance:
     - target: {fileID: 620747753487538850, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0.008440566
+      objectReference: {fileID: 0}
+    - target: {fileID: 737119201390647040, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: vulnerabilityArcEnabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 787143259555180511, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.w
