@@ -607,7 +607,7 @@ MonoBehaviour:
   checkVisibilityBehavior: {fileID: 9063337351614268931}
   lookAtTargetBehavior: {fileID: 2131698076619479444}
   focusSpeed: 5
-  alertAccumulation: 0.01
+  alertAccumulation: 0.05
   waitTime: 5
 --- !u!114 &4091974090236864537
 MonoBehaviour:

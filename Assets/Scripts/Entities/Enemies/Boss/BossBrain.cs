@@ -45,9 +45,9 @@ namespace NeonBlack.Entities.Enemies.Boss
                 .AddTo(this);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            stateMachine.Update(Time.fixedDeltaTime);
+            stateMachine.Update(Time.deltaTime);
         }
 
         private void OnEnable()
