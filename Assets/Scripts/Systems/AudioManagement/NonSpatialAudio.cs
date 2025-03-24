@@ -29,6 +29,8 @@ namespace NeonBlack.Systems.AudioManagement
         internal bool ReadyToStart => State != PlayState.Starting && (State != PlayState.Finished || !Source.isPlaying);
         internal bool ReadyToStop => State != PlayState.Stopping && (State != PlayState.Finished || Source.isPlaying);
 
+        public AudioClip AudioClip => audioSource.clip;
+
         #region Event Functions
 
         private void OnDestroy()

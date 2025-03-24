@@ -1,5 +1,4 @@
-﻿using Cysharp.Threading.Tasks;
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
 namespace NeonBlack.Entities.Enemies.Behaviors
@@ -27,12 +26,13 @@ namespace NeonBlack.Entities.Enemies.Behaviors
             set => target = value;
         }
 
-        #region Event Functions
-
-        private void Start()
+        public float RotationSpeed
         {
-            SetInitialRotation().Forget();
+            get => rotationSpeed;
+            set => rotationSpeed = value;
         }
+
+        #region Event Functions
 
         private void Update()
         {
@@ -48,16 +48,6 @@ namespace NeonBlack.Entities.Enemies.Behaviors
         }
 
         #endregion
-
-        private async UniTaskVoid SetInitialRotation()
-        {
-            await UniTask.Yield(PlayerLoopTiming.PostLateUpdate);
-
-            if (target)
-            {
-                transform.rotation = Quaternion.LookRotation(LookDirection(target));
-            }
-        }
 
         private Vector3 LookDirection(Transform lookTarget)
         {

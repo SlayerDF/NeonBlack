@@ -195,7 +195,8 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 817388ea799130a4fb3b613bc5d17616, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8652816938144366249, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6624365279647454002, guid: f495fd7dddc568242a2cdcbafb4c46ac, type: 3}
@@ -276,8 +277,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossBrain: {fileID: 0}
+  playerController: {fileID: 0}
+  onDeathParticles: {fileID: 6183558645453171038, guid: cdde612417ba0df428a081f7590decd9, type: 3}
   lineOfSightByPathBehavior: {fileID: 8218788075927382710}
-  checkPlayerVisibilityBehavior: {fileID: 2707003243118688980}
+  checkVisibilityBehavior: {fileID: 2707003243118688980}
   playerDetectionBehavior: {fileID: 7493885340609151391}
   lookAtTargetBehavior: {fileID: 3777260926845254964}
   thinkFrequency: 0.1
@@ -369,8 +372,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfc30eab0fd743259e4499a78c4a2827, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  ignorePlayerInvisibility: 0
+  obstacleLayers:
+    serializedVersion: 2
+    m_Bits: 2112
 --- !u!65 &3544440407725741228
 BoxCollider:
   m_ObjectHideFlags: 0

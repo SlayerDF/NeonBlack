@@ -1303,6 +1303,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.63074076
       objectReference: {fileID: 0}
+    - target: {fileID: 8031675135628448190, guid: f39236a1364cad843848bb33299fed7e, type: 3}
+      propertyPath: bossBrain
+      value: 
+      objectReference: {fileID: 1753127799}
     - target: {fileID: 8079904524243801105, guid: f39236a1364cad843848bb33299fed7e, type: 3}
       propertyPath: m_LocalRotation.w
       value: -0.99770874
@@ -2973,6 +2977,10 @@ PrefabInstance:
       propertyPath: bossBrain
       value: 
       objectReference: {fileID: 1753127799}
+    - target: {fileID: 2899624844788222817, guid: 273aad7756bcf834ebb225c0d871febb, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1822938731}
     - target: {fileID: 2899624844788222817, guid: 273aad7756bcf834ebb225c0d871febb, type: 3}
       propertyPath: targetPointLight
       value: 
@@ -11343,6 +11351,18 @@ PrefabInstance:
       propertyPath: playerTransform
       value: 
       objectReference: {fileID: 840759577}
+    - target: {fileID: 4091974090236864537, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1822938731}
+    - target: {fileID: 7276225442020796213, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
+      propertyPath: tempTarget
+      value: 
+      objectReference: {fileID: 133690095}
+    - target: {fileID: 7276225442020796213, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
+      propertyPath: playerController
+      value: 
+      objectReference: {fileID: 1822938731}
     - target: {fileID: 8244449131717225198, guid: ff6ca4edfe0783a40b9536d62e8e3db9, type: 3}
       propertyPath: focusColor.b
       value: 0

@@ -1,9 +1,13 @@
 ﻿using System;
 using System.ComponentModel;
 using NeonBlack.Entities.Enemies.Behaviors;
+using NeonBlack.Entities.Enemies.Boss;
+using NeonBlack.Entities.Player;
 using NeonBlack.Extensions;
 using NeonBlack.Interfaces;
+using NeonBlack.Particles;
 using NeonBlack.Systems.AudioManagement;
+using NeonBlack.Utilities;
 using R3;
 using UnityEngine;
 
@@ -19,12 +23,18 @@ namespace NeonBlack.Entities.Enemies
         [SerializeField]
         private BossBrain bossBrain;
 
+        [SerializeField]
+        private PlayerController playerController;
+
+        [SerializeField]
+        private ParticlePoolObject onDeathParticles;
+
         [Header("Behaviors")]
         [SerializeField]
         private LineOfSightByPathBehavior lineOfSightByPathBehavior;
 
         [SerializeField]
-        private CheckPlayerVisibilityBehavior checkPlayerVisibilityBehavior;
+        private CheckVisibilityBehavior checkVisibilityBehavior;
 
         [SerializeField]
         private PlayerDetectionBehavior playerDetectionBehavior;
@@ -94,6 +104,16 @@ namespace NeonBlack.Entities.Enemies
             }
         }
 
+        private void OnEnable()
+        {
+            BossHealth.Death += OnBossDeath;
+        }
+
+        private void OnDisable()
+        {
+            BossHealth.Death -= OnBossDeath;
+        }
+
         #endregion
 
         #region IDistractible Members
@@ -108,10 +128,20 @@ namespace NeonBlack.Entities.Enemies
 
         #endregion
 
+        private void OnBossDeath()
+        {
+            SpawnDeathParticles();
+
+            if (this)
+            {
+                Destroy(gameObject);
+            }
+        }
+
         private void HandleObserveState(float _)
         {
             playerDetectionBehavior.CanSeePlayer =
-                lineOfSightByPathBehavior.IsPlayerDetected && checkPlayerVisibilityBehavior.IsPlayerVisible();
+                lineOfSightByPathBehavior.IsPlayerDetected && checkVisibilityBehavior.IsTargetVisible(playerController);
 
             var color = Color.Lerp(lowAlertColor, highAlertColor, playerDetectionBehavior.DetectionLevel);
             lineOfSightVisuals.material.SetEmissionColor(color);
@@ -164,6 +194,13 @@ namespace NeonBlack.Entities.Enemies
             }
 
             state = newState;
+        }
+
+        private void SpawnDeathParticles()
+        {
+            ObjectPoolManager.Spawn<ParticlePoolObject>(onDeathParticles, out var ps, true);
+            ps.transform.position = transform.position;
+            ps.gameObject.SetActive(true);
         }
 
         #region Nested type: ${0}
