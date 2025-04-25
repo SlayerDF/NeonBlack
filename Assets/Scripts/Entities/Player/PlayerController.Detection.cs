@@ -126,7 +126,7 @@ namespace NeonBlack.Entities.Player
             LevelState.UpdateNoise(value);
             resetNoiseTimer = 0f;
 
-            ObjectPoolManager.Spawn<EnemyDistractor>(noiseDistractorPrefab, out var distractor, true);
+            SceneObjectPool.Spawn<EnemyDistractor>(noiseDistractorPrefab, out var distractor, true);
             distractor.transform.position = transform.position;
             distractor.DistractionRadius = radius;
             distractor.DistractionTime = noiseDistractionTime;

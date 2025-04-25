@@ -36,7 +36,7 @@ namespace NeonBlack.Entities.Enemies.Boss.States
 
         private void SpawnDeathParticles()
         {
-            ObjectPoolManager.Spawn<ParticlePoolObject>(Bb.OnDeathParticles, out var ps, true);
+            SceneObjectPool.Spawn<ParticlePoolObject>(Bb.OnDeathParticles, out var ps, true);
             ps.transform.position = Bb.transform.position;
             ps.gameObject.SetActive(true);
         }

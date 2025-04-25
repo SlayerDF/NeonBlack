@@ -94,12 +94,12 @@ namespace NeonBlack.Projectiles
 
             health.TakeDamage(DamageSource.Missile, damage);
 
-            ObjectPoolManager.Spawn<ParticlePoolObject>(explosionParticlesPrefab, out var ps);
+            SceneObjectPool.Spawn<ParticlePoolObject>(explosionParticlesPrefab, out var ps);
             ps.transform.position = transform.position;
 
             if (this)
             {
-                ObjectPoolManager.Despawn(this);
+                SceneObjectPool.Despawn(this);
             }
         }
 

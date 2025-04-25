@@ -47,7 +47,7 @@ namespace NeonBlack.Projectiles
                     break;
             }
 
-            ObjectPoolManager.Despawn(this);
+            SceneObjectPool.Despawn(this);
         }
 
         #endregion

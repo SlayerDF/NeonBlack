@@ -24,7 +24,7 @@ namespace NeonBlack.Systems.AudioManagement
                 return;
             }
 
-            ObjectPoolManager.Despawn(this);
+            SceneObjectPool.Despawn(this);
         }
 
         #endregion
@@ -44,7 +44,7 @@ namespace NeonBlack.Systems.AudioManagement
             }
 
             audioSource.Stop();
-            ObjectPoolManager.Despawn(this);
+            SceneObjectPool.Despawn(this);
         }
     }
 }
