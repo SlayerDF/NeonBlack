@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using NeonBlack.Systems;
+using NeonBlack.Utilities.ObjectPool;
 using UnityEngine;
 
 namespace NeonBlack.Utilities
@@ -9,12 +9,12 @@ namespace NeonBlack.Utilities
     {
     }
 
-    public class ObjectPoolManager : SceneSingleton<ObjectPoolManager>
+    public class SceneObjectPool : SceneSingleton<SceneObjectPool>
     {
         private const int MaxCapacity = 20;
 
         private readonly Dictionary<int, int> gameObjectPrefabs = new();
-        private readonly Dictionary<int, Stack<PoolObject>> prefabPools = new();
+        private readonly Dictionary<int, ObjectPool<PoolObject>> prefabPools = new();
 
         private int capacity;
 
@@ -22,12 +22,17 @@ namespace NeonBlack.Utilities
 
         protected override void OnDestroy()
         {
-            foreach (var obj in prefabPools.Values.SelectMany(pool => pool))
+            foreach (var pool in prefabPools.Values)
             {
-                if (obj)
+                foreach (var obj in pool)
                 {
-                    Destroy(obj.gameObject);
+                    if (obj)
+                    {
+                        Destroy(obj.gameObject);
+                    }
                 }
+
+                pool.Dispose();
             }
 
             base.OnDestroy();
@@ -66,40 +71,33 @@ namespace NeonBlack.Utilities
 
             if (!prefabPools.TryGetValue(prefabId, out var pool))
             {
-                pool = new Stack<PoolObject>();
+                pool = new ObjectPool<PoolObject>(MaxCapacity);
                 prefabPools.Add(prefabId, pool);
             }
 
-            if (pool.Count > 0)
+            var spawned = false;
+            var result = pool.Get(out var gotObject);
+            obj = (T)gotObject;
+
+            if (result == GetResult.Missing)
             {
-                capacity -= 1;
+                obj = (T)Instantiate(prefab);
 
-                obj = (T)pool.Pop();
+                gameObjectPrefabs.Add(obj.GetInstanceID(), prefabId);
 
-                if (!spawnDeactivated)
-                {
-                    obj.gameObject.SetActive(true);
-                }
-
-                return false;
-            }
-
-            obj = (T)Instantiate(prefab);
+                spawned = true;
 
 # if UNITY_EDITOR
-            if (obj.gameObject.scene != gameObject.scene)
-            {
-                Debug.LogWarning("ObjectPoolManager spawns objects in the wrong scene");
-            }
+                if (obj.gameObject.scene != gameObject.scene)
+                {
+                    Debug.LogWarning("ObjectPoolManager spawns objects in the wrong scene");
+                }
 #endif
-
-            if (spawnDeactivated)
-            {
-                obj.gameObject.SetActive(false);
             }
 
-            gameObjectPrefabs.Add(obj.GetInstanceID(), prefabId);
-            return true;
+            obj.gameObject.SetActive(!spawnDeactivated);
+
+            return spawned;
         }
 
         private void DespawnInternal(PoolObject obj)
@@ -108,16 +106,10 @@ namespace NeonBlack.Utilities
             var prefabId = gameObjectPrefabs[gameObjectId];
             var pool = prefabPools[prefabId];
 
-            if (capacity < MaxCapacity)
-            {
-                capacity += 1;
+            obj.gameObject.SetActive(false);
 
-                obj.gameObject.SetActive(false);
-                pool.Push(obj);
-            }
-            else
+            if (pool.Return(obj) == ReturnResult.Discarded)
             {
-                gameObjectPrefabs.Remove(gameObjectId);
                 Destroy(obj.gameObject);
             }
         }

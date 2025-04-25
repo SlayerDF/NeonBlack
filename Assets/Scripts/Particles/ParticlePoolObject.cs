@@ -27,7 +27,7 @@ namespace NeonBlack.Particles
                 return;
             }
 
-            ObjectPoolManager.Despawn(this);
+            SceneObjectPool.Despawn(this);
         }
 
         private void OnEnable()

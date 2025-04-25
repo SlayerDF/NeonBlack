@@ -198,7 +198,7 @@ namespace NeonBlack.Entities.Enemies
 
         private void SpawnDeathParticles()
         {
-            ObjectPoolManager.Spawn<ParticlePoolObject>(onDeathParticles, out var ps, true);
+            SceneObjectPool.Spawn<ParticlePoolObject>(onDeathParticles, out var ps, true);
             ps.transform.position = transform.position;
             ps.gameObject.SetActive(true);
         }

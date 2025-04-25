@@ -41,7 +41,7 @@ namespace NeonBlack.Systems.AudioManagement
 
         private static SpatialAudio PlaySpatial(SpatialAudio audioPrefab, AudioClip clip, Vector3 position)
         {
-            ObjectPoolManager.Spawn<SpatialAudio>(audioPrefab, out var audio);
+            SceneObjectPool.Spawn<SpatialAudio>(audioPrefab, out var audio);
 
             audio.transform.position = position;
             audio.Play(clip);

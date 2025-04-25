@@ -35,7 +35,7 @@ namespace NeonBlack.Projectiles
 
             if (isActiveAndEnabled)
             {
-                ObjectPoolManager.Despawn(this);
+                SceneObjectPool.Despawn(this);
             }
         }
 

@@ -44,7 +44,7 @@ namespace NeonBlack.Interactables
         {
             IsActivated = true;
 
-            ObjectPoolManager.Spawn<MissileProjectile>(missileProjectilePrefab, out var missileProjectile, true);
+            SceneObjectPool.Spawn<MissileProjectile>(missileProjectilePrefab, out var missileProjectile, true);
             missileProjectile.transform.position = projectileSpawnPoint.position;
             missileProjectile.transform.rotation = projectileSpawnPoint.rotation;
             missileProjectile.Target = target;
