@@ -4,7 +4,7 @@ namespace NeonBlack.Systems
 {
     public abstract class SceneSingleton<T> : MonoBehaviour where T : SceneSingleton<T>
     {
-        protected static T Instance { get; private set; }
+        public static T Instance { get; private set; }
 
         public static bool Instantiated => Instance != null;
 
