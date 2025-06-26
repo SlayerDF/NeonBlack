@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace NeonBlack.Systems.LocalizationManager
 {
@@ -7,48 +8,20 @@ namespace NeonBlack.Systems.LocalizationManager
     {
         public Dictionary<string, string> Parse(string rawData)
         {
-            var dict = new Dictionary<string, string>();
-
-            var buffer = "";
-            var valueIndex = -1;
-            for (var i = 0; i < rawData.Length; i++)
-            {
-                switch (rawData[i])
+            return rawData
+                .Replace("\r", "")
+                .Split('\n', StringSplitOptions.RemoveEmptyEntries)
+                .Select(line =>
                 {
-                    case ';' when valueIndex == -1:
-                        valueIndex = buffer.Length;
-                        break;
-                    case '\r':
-                    case '\n':
+                    var separatorIndex = line.IndexOf(';');
+                    if (separatorIndex == -1)
                     {
-                        if (buffer.Length == 0 || valueIndex == -1)
-                        {
-                            throw new FormatException($"Invalid CSV format in line {dict.Count + 1}: {buffer}");
-                        }
-
-                        dict.Add(buffer[..valueIndex], buffer[valueIndex..]);
-                        buffer = "";
-                        valueIndex = -1;
-
-                        if (i < rawData.Length - 1 && rawData[i + 1] == '\n')
-                        {
-                            i++;
-                        }
-
-                        break;
+                        throw new FormatException($"Invalid CSV format in line: {line}");
                     }
-                    default:
-                        buffer += rawData[i];
-                        break;
-                }
-            }
 
-            if (buffer.Length > 0)
-            {
-                dict.TryAdd(buffer[..valueIndex], buffer[valueIndex..]);
-            }
-
-            return dict;
+                    return (line[..separatorIndex], line[(separatorIndex + 1)..]);
+                })
+                .ToDictionary(x => x.Item1, x => x.Item2);
         }
     }
 }
