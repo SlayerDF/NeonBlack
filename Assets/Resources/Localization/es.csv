@@ -16,7 +16,7 @@ txt_opts_music_volume;Volumen de la música
 txt_opts_effects_volume;Volumen de efectos
 txt_opts_input;Controles
 txt_opts_mouse_sensitivity;Sensibilidad del mouse
-txt_credits;Nikita Tulin - Dirección y programación\nAlbert Leonov - Diseño del juego\nElina Savina - Programación\nIgnacio Udrizard - Programación y VFX
+txt_credits;Nikita Tulin — Dirección y programación\nAlbert Leonov — Diseño del juego & niveles\nElina Savina — Programación\nIgnacio Udrizard — Programación y VFX
 txt_hud_alert;Alerta
 txt_hud_boss_health;Vida del jefe
 txt_hud_score;Puntaje:

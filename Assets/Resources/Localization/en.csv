@@ -16,7 +16,7 @@ txt_opts_music_volume;Music volume
 txt_opts_effects_volume;Effects volume
 txt_opts_input;Input
 txt_opts_mouse_sensitivity;Mouse sensitivity
-txt_credits;Nikita Tulin - Management & Programming\nAlbert Leonov - Game Design\nElina Savina - Programming\nIgnacio Udrizard - Programming & VFX
+txt_credits;Nikita Tulin — Management & Programming\nAlbert Leonov — Game Design & Level Design\nElina Savina — Programming\nIgnacio Udrizard — Programming & VFX
 txt_hud_alert;Alert
 txt_hud_boss_health;Boss health
 txt_hud_score;Score:
