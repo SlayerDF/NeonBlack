@@ -1,0 +1,23 @@
+btn_start;Empezar
+btn_controls;Controles
+btn_options;Opciones
+btn_credits;Créditos
+btn_exit;Salir
+btn_back;Volver
+btn_test_level;Nivel de prueba
+btn_demo_level;Nivel demo
+btn_boss_level;Nivel del jefe
+txt_controls;WASD: Moverse\nEspacio: Saltar\nShift: Deslizarse\nClic izq.: Ataque cuerpo a cuerpo\nClic der.: Apuntar\nClic der. + izq.: Ataque a distancia\nRueda del mouse: Cambiar arma
+txt_opts_display;Pantalla
+txt_opts_framerate;FPS
+txt_opts_audio;Audio
+txt_opts_master_volume;Volumen general
+txt_opts_music_volume;Volumen de la música
+txt_opts_effects_volume;Volumen de efectos
+txt_opts_input;Controles
+txt_opts_mouse_sensitivity;Sensibilidad del mouse
+txt_credits;Nikita Tulin — Dirección y programación\nAlbert Leonov — Diseño del juego & niveles\nElina Savina — Programación\nIgnacio Udrizard — Programación y VFX
+txt_hud_alert;Alerta
+txt_hud_boss_health;Vida del jefe
+txt_hud_score;Puntaje:
+txt_hud_interact;[E] Usar

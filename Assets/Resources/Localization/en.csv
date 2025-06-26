@@ -1,0 +1,23 @@
+btn_start;Start
+btn_controls;Controls
+btn_options;Options
+btn_credits;Credits
+btn_exit;Exit
+btn_back;Back
+btn_test_level;Test level
+btn_demo_level;Demo level
+btn_boss_level;Boss level
+txt_controls;WASD: Movement\nSpace: Jump\nShift: Dash\nLMB: Melee Attack\nRMB: Aim\nRMB + LMB: Range Attack\nMouse Scroll: Change weapon
+txt_opts_display;Display
+txt_opts_framerate;Framerate
+txt_opts_audio;Audio
+txt_opts_master_volume;Master volume
+txt_opts_music_volume;Music volume
+txt_opts_effects_volume;Effects volume
+txt_opts_input;Input
+txt_opts_mouse_sensitivity;Mouse sensitivity
+txt_credits;Nikita Tulin — Management & Programming\nAlbert Leonov — Game Design & Level Design\nElina Savina — Programming\nIgnacio Udrizard — Programming & VFX
+txt_hud_alert;Alert
+txt_hud_boss_health;Boss health
+txt_hud_score;Score:
+txt_hud_interact;[E] Interact

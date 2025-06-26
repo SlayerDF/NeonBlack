@@ -1,0 +1,23 @@
+btn_start;Начать
+btn_controls;Управление
+btn_options;Настройки
+btn_credits;Авторы
+btn_exit;Выход
+btn_back;Назад
+btn_test_level;Тестовый уровень
+btn_demo_level;Демо-уровень
+btn_boss_level;Уровень с боссом
+txt_controls;WASD: Движение\nПробел: Прыжок\nShift: Рывок\nЛКМ: Атака вблизи\nПКМ: Прицелиться\nПКМ + ЛКМ: Атака на расстоянии\nКолесо мыши: Сменить оружие
+txt_opts_display;Экран
+txt_opts_framerate;FPS
+txt_opts_audio;Аудио
+txt_opts_master_volume;Общая громкость
+txt_opts_music_volume;Громкость музыки
+txt_opts_effects_volume;Громкость эффектов
+txt_opts_input;Управление
+txt_opts_mouse_sensitivity;Чувствительность мыши
+txt_credits;Nikita Tulin — менеджмент и программирование\nAlbert Leonov — геймдизайн и левелдизайн\nElina Savina — программирование\nIgnacio Udrizard — программирование и VFX
+txt_hud_alert;Тревога
+txt_hud_boss_health;Здоровье босса
+txt_hud_score;Счёт:
+txt_hud_interact;[E] Действие

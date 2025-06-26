@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7923857873979268634}
   - component: {fileID: 8554850709362121316}
   - component: {fileID: 5151758438346621429}
-  - component: {fileID: 6380529734895694315}
+  - component: {fileID: 4507574253786975030}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &6380529734895694315
+--- !u!114 &4507574253786975030
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,10 +131,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1373805033477565956}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e330c0c391f56924ba2ad7ef53f9ce55, type: 3}
+  m_Script: {fileID: 11500000, guid: 37c1fc9c9cc94c628a6c6b3233abce5f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: {fileID: 6458750654038754273}
+  localizationId: 
+  textElement: {fileID: 6458750654038754273}
 --- !u!1 &1658095267819609643
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,8 +203,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 594824b50f1e2ea449f26f163abec97d, type: 2}
-  m_sharedMaterial: {fileID: 7380921754609149904, guid: 594824b50f1e2ea449f26f163abec97d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30ebd17612df76a428fac952b2245311, type: 2}
+  m_sharedMaterial: {fileID: 3654761357949801091, guid: 30ebd17612df76a428fac952b2245311, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -233,7 +234,7 @@ MonoBehaviour:
   m_enableAutoSizing: 0
   m_fontSizeMin: 0
   m_fontSizeMax: 0
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

@@ -10,12 +10,14 @@ namespace NeonBlack.Utilities
         private const string MasterVolumeKey = "MasterVolume";
         private const string MusicVolumeKey = "MusicVolume";
         private const string SfxVolumeKey = "SfxVolume";
+        private const string LanguageKey = "Language";
 
         private static int _framerate;
         private static float _mouseSensitivity;
         private static float _masterVolume;
         private static float _musicVolume;
         private static float _sfxVolume;
+        private static int _language;
 
         public static int Framerate
         {
@@ -78,11 +80,24 @@ namespace NeonBlack.Utilities
             }
         }
 
+        public static int Language
+        {
+            get => _language;
+            set
+            {
+                _language = value;
+
+                PlayerPrefs.SetInt(LanguageKey, _language);
+                LanguageChanged?.Invoke(_language);
+            }
+        }
+
         public static event Action<int> FramerateChanged;
         public static event Action<float> MouseSensitivityChanged;
         public static event Action<float> MasterVolumeChanged;
         public static event Action<float> MusicVolumeChanged;
         public static event Action<float> SfxVolumeChanged;
+        public static event Action<int> LanguageChanged;
 
         public static void Save()
         {
@@ -97,6 +112,7 @@ namespace NeonBlack.Utilities
             MasterVolume = PlayerPrefs.GetFloat(MasterVolumeKey, 1f);
             MusicVolume = PlayerPrefs.GetFloat(MusicVolumeKey, 1f);
             SfxVolume = PlayerPrefs.GetFloat(SfxVolumeKey, 1f);
+            Language = PlayerPrefs.GetInt(LanguageKey, 0);
         }
     }
 }
