@@ -468,6 +468,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 307359931004519600, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
       insertIndex: 2
       addedObject: {fileID: 179130998}
+    - targetCorrespondingSourceObject: {fileID: 307359931004519600, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 179130999}
   m_SourcePrefab: {fileID: 100100000, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
 --- !u!224 &179130995 stripped
 RectTransform:
@@ -503,6 +506,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 179130997}
+--- !u!114 &179130999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 179130996}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37c1fc9c9cc94c628a6c6b3233abce5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  localizationId: txt_hud_interact
+  textElement: {fileID: 179130997}
 --- !u!1 &241863966
 GameObject:
   m_ObjectHideFlags: 0
@@ -851,8 +868,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Boss health
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 594824b50f1e2ea449f26f163abec97d, type: 2}
-  m_sharedMaterial: {fileID: 7380921754609149904, guid: 594824b50f1e2ea449f26f163abec97d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30ebd17612df76a428fac952b2245311, type: 2}
+  m_sharedMaterial: {fileID: 3654761357949801091, guid: 30ebd17612df76a428fac952b2245311, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -876,13 +893,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 46
+  m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -1451,6 +1468,14 @@ PrefabInstance:
     - target: {fileID: 7026762760811779088, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
       propertyPath: m_text
       value: 'Score:'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026762760811779088, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
+      propertyPath: m_fontSize
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026762760811779088, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7026762760811779088, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
       propertyPath: m_VerticalAlignment
@@ -2651,8 +2676,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Alert
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 594824b50f1e2ea449f26f163abec97d, type: 2}
-  m_sharedMaterial: {fileID: 7380921754609149904, guid: 594824b50f1e2ea449f26f163abec97d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30ebd17612df76a428fac952b2245311, type: 2}
+  m_sharedMaterial: {fileID: 3654761357949801091, guid: 30ebd17612df76a428fac952b2245311, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2676,13 +2701,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 46
+  m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 1024
   m_textAlignment: 65535
@@ -2838,7 +2863,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7026762760811779088, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
       propertyPath: m_fontSize
-      value: 36
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 7026762760811779088, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 7026762760811779088, guid: fb93c764eef07e746ae7b9900d277f4d, type: 3}
       propertyPath: m_overflowMode

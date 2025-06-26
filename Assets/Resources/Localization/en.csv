@@ -20,3 +20,4 @@ txt_credits;Nikita Tulin - Management & Programming\nAlbert Leonov - Game Design
 txt_hud_alert;Alert
 txt_hud_boss_health;Boss health
 txt_hud_score;Score:
+txt_hud_interact;[E] Interact

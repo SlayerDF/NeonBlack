@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 7a186c51c8298734cba201a15b48ce9f
+guid: 1cb9e78cb9a54f64a9c65f1bfe5a9f91
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Finger Paint
+  - Forum
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
