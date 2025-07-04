@@ -599,6 +599,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
   bossAnimation: {fileID: 7030168769396762620}
+  eyes:
+  - {fileID: 917136336433977482}
+  - {fileID: 8244449131717225198}
   leftEye: {fileID: 917136336433977482}
   rightEye: {fileID: 8244449131717225198}
   tempTarget: {fileID: 0}

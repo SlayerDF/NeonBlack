@@ -62,7 +62,7 @@ namespace NeonBlack.Entities.Enemies.Behaviors
 
         private void SpawnProjectile()
         {
-            ObjectPoolManager.Spawn(projectilePrefab, out Projectile projectile);
+            SceneObjectPool.Spawn(projectilePrefab, out Projectile projectile);
 
             projectile.transform.position = spawnPoint.position;
             projectile.transform.forward = targetDirection;

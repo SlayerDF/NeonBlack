@@ -20,7 +20,7 @@ namespace NeonBlack.Projectiles
         {
             if ((time += Time.fixedDeltaTime) >= lifetime && isActiveAndEnabled)
             {
-                ObjectPoolManager.Despawn(this);
+                SceneObjectPool.Despawn(this);
             }
         }
 

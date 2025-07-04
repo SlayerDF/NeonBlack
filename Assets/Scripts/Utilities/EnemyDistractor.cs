@@ -31,7 +31,7 @@ namespace NeonBlack
         {
             if ((lifetime -= Time.fixedDeltaTime) < 0)
             {
-                ObjectPoolManager.Despawn(this);
+                SceneObjectPool.Despawn(this);
             }
         }
 

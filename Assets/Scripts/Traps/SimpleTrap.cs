@@ -44,7 +44,7 @@ namespace NeonBlack.Traps
 
             for (var i = 0; i < shootQuantity; i++)
             {
-                ObjectPoolManager.Spawn(trapProjectilePrefab, out TrapProjectile projectile, true);
+                SceneObjectPool.Spawn(trapProjectilePrefab, out TrapProjectile projectile, true);
                 projectile.transform.position = projectileSpawnPoint.position;
                 projectile.transform.rotation = projectileSpawnPoint.rotation;
 

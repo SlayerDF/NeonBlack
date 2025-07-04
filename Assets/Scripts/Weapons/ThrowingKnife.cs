@@ -20,7 +20,7 @@ namespace NeonBlack.Weapons
 
         public override void Shoot(Vector3 origin, Vector3 direction)
         {
-            ObjectPoolManager.Spawn<ThrowingKnifeProjectile>(ProjectilePrefab, out var projectile, true);
+            SceneObjectPool.Spawn<ThrowingKnifeProjectile>(ProjectilePrefab, out var projectile, true);
             projectile.transform.position = origin;
             projectile.transform.forward = direction;
             projectile.Damage = damage;
