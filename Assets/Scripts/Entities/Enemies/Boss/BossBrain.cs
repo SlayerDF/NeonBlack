@@ -30,8 +30,10 @@ namespace NeonBlack.Entities.Enemies.Boss
 
         private void Awake()
         {
-            Bb.LeftEye.FocusSpeed = Bb.FocusSpeed;
-            Bb.RightEye.FocusSpeed = Bb.FocusSpeed;
+            for (var i = 0; i < Bb.Eyes.Length; i++)
+            {
+                Bb.Eyes[i].FocusSpeed = Bb.FocusSpeed;
+            }
         }
 
         private void Start()
@@ -68,8 +70,10 @@ namespace NeonBlack.Entities.Enemies.Boss
                 return;
             }
 
-            Bb.LeftEye.FocusSpeed = Bb.FocusSpeed;
-            Bb.RightEye.FocusSpeed = Bb.FocusSpeed;
+            for (var i = 0; i < Bb.Eyes.Length; i++)
+            {
+                Bb.Eyes[i].FocusSpeed = Bb.FocusSpeed;
+            }
         }
 #endif
 
