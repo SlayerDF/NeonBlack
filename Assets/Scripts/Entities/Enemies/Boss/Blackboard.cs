@@ -17,10 +17,7 @@ namespace NeonBlack.Entities.Enemies.Boss
         private BossAnimation bossAnimation;
 
         [SerializeField]
-        private BossEye leftEye;
-
-        [SerializeField]
-        private BossEye rightEye;
+        private BossEye[] eyes;
 
         [SerializeField]
         private Transform tempTarget;
@@ -52,8 +49,7 @@ namespace NeonBlack.Entities.Enemies.Boss
 
         internal PlayerController PlayerController => playerController;
         internal BossAnimation BossAnimation => bossAnimation;
-        internal BossEye LeftEye => leftEye;
-        internal BossEye RightEye => rightEye;
+        internal BossEye[] Eyes => eyes;
         internal Transform TempTarget => tempTarget;
         internal ParticlePoolObject OnDeathParticles => onDeathParticles;
         internal LineOfSightByPathBehavior LineOfSightByPathBehavior => lineOfSightByPathBehavior;

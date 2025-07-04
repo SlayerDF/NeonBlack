@@ -8,26 +8,40 @@ namespace NeonBlack.Entities.Enemies.Boss
         internal void UpdateTarget(Transform target)
         {
             Bb.LookAtTargetBehavior.Target = target;
-            Bb.LeftEye.Target = target;
-            Bb.RightEye.Target = target;
+
+            for (var i = 0; i < Bb.Eyes.Length; i++)
+            {
+                Bb.Eyes[i].Target = target;
+            }
         }
 
         internal bool CanSeePlayer()
         {
-            return Bb.LeftEye.CanSeePoint(Bb.PlayerController.transform.position) ||
-                   Bb.RightEye.CanSeePoint(Bb.PlayerController.transform.position);
+            for (var i = 0; i < Bb.Eyes.Length; i++)
+            {
+                if (Bb.Eyes[i].CanSeePoint(Bb.PlayerController.transform.position))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         internal void Focus()
         {
-            Bb.LeftEye.IsFocused = true;
-            Bb.RightEye.IsFocused = true;
+            for (var i = 0; i < Bb.Eyes.Length; i++)
+            {
+                Bb.Eyes[i].IsFocused = true;
+            }
         }
 
         internal void Unfocus()
         {
-            Bb.LeftEye.IsFocused = false;
-            Bb.RightEye.IsFocused = false;
+            for (var i = 0; i < Bb.Eyes.Length; i++)
+            {
+                Bb.Eyes[i].IsFocused = false;
+            }
         }
     }
 }
