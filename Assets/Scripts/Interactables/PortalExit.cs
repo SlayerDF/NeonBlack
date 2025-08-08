@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using Eflatun.SceneReference;
 using NeonBlack.Interfaces;
+using NeonBlack.Systems.LevelState;
 using NeonBlack.Systems.SceneManagement;
 using UnityEngine;
 
@@ -67,7 +68,7 @@ namespace NeonBlack.Interactables
 
         public void Interact()
         {
-            SceneLoader.LoadScene(exitScene).Forget();
+            LevelState.EndLevel(true);
         }
 
         #endregion

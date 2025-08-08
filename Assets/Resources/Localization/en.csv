@@ -5,7 +5,7 @@ btn_credits;Credits
 btn_exit;Exit
 btn_back;Back
 btn_test_level;Test level
-btn_demo_level;Demo level
+btn_demo_level;Level 1
 btn_boss_level;Boss level
 txt_controls;WASD: Movement\nSpace: Jump\nShift: Dash\nLMB: Melee Attack\nRMB: Aim\nRMB + LMB: Range Attack\nMouse Scroll: Change weapon
 txt_opts_display;Display
@@ -21,3 +21,7 @@ txt_hud_alert;Alert
 txt_hud_boss_health;Boss health
 txt_hud_score;Score:
 txt_hud_interact;[E] Interact
+btn_main_menu;Main menu
+txt_end_success;You win!
+txt_end_fail;You lose
+txt_end_score;Score: 
