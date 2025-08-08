@@ -43,7 +43,8 @@ namespace NeonBlack.Entities.Player
         private bool isDashing;
         private Vector3 moveDirection;
 
-        public float MoveSpeedModifier { get; set; } = 1f;
+        public float MoveSpeedMultiplier { get; set; } = 1f;
+        public float JumpForceMultiplier { get; set; } = 1f;
 
         private bool IsGrounded => controller.isGrounded && !isDashing;
 
@@ -56,7 +57,7 @@ namespace NeonBlack.Entities.Player
                 return;
             }
 
-            currentSpeed.y = jumpInitialSpeed;
+            currentSpeed.y = jumpInitialSpeed * JumpForceMultiplier;
             playerAnimation.OnJump();
         }
 
@@ -127,7 +128,7 @@ namespace NeonBlack.Entities.Player
         {
             if (IsGrounded)
             {
-                currentSpeed.x = moveSpeed * MoveSpeedModifier * inputMagnitude;
+                currentSpeed.x = moveSpeed * MoveSpeedMultiplier * inputMagnitude;
             }
             else
             {
