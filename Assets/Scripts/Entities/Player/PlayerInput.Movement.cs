@@ -1,5 +1,4 @@
 ﻿using System;
-using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -43,6 +42,8 @@ namespace NeonBlack.Entities.Player
         private float dashTimer;
         private bool isDashing;
         private Vector3 moveDirection;
+
+        public float MoveSpeedModifier { get; set; } = 1f;
 
         private bool IsGrounded => controller.isGrounded && !isDashing;
 
@@ -126,7 +127,7 @@ namespace NeonBlack.Entities.Player
         {
             if (IsGrounded)
             {
-                currentSpeed.x = moveSpeed * inputMagnitude;
+                currentSpeed.x = moveSpeed * MoveSpeedModifier * inputMagnitude;
             }
             else
             {
