@@ -1,5 +1,4 @@
 ﻿using System;
-using NeonBlack.Systems.AudioManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -44,6 +43,9 @@ namespace NeonBlack.Entities.Player
         private bool isDashing;
         private Vector3 moveDirection;
 
+        public float MoveSpeedMultiplier { get; set; } = 1f;
+        public float JumpForceMultiplier { get; set; } = 1f;
+
         private bool IsGrounded => controller.isGrounded && !isDashing;
 
         public event Action Dash;
@@ -55,7 +57,7 @@ namespace NeonBlack.Entities.Player
                 return;
             }
 
-            currentSpeed.y = jumpInitialSpeed;
+            currentSpeed.y = jumpInitialSpeed * JumpForceMultiplier;
             playerAnimation.OnJump();
         }
 
@@ -126,7 +128,7 @@ namespace NeonBlack.Entities.Player
         {
             if (IsGrounded)
             {
-                currentSpeed.x = moveSpeed * inputMagnitude;
+                currentSpeed.x = moveSpeed * MoveSpeedMultiplier * inputMagnitude;
             }
             else
             {

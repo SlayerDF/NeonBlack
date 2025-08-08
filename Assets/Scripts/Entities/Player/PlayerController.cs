@@ -18,6 +18,8 @@ namespace NeonBlack.Entities.Player
 
         #endregion
 
+        public PlayerInput Input => playerInput;
+
         #region Event Functions
 
         private void Update()
