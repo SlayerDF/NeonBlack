@@ -1,3 +1,6 @@
+using Cysharp.Threading.Tasks;
+using NeonBlack.Systems.LevelState;
+using NeonBlack.Systems.SceneManagement;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -11,7 +14,10 @@ namespace NeonBlack.UI
         [SerializeField]
         private RectTransform mainMenuRoot;
 
-        #endregion
+        [SerializeField]
+        private EndingUI endingUI;
+
+        #endregion Serialized Fields
 
         private bool paused;
         private InputActions.UIActions uiActions;
@@ -21,6 +27,22 @@ namespace NeonBlack.UI
         private void Awake()
         {
             uiActions = new InputActions().UI;
+            LevelState.LevelEnded += OnLevelEnded;
+        }
+
+        private void OnLevelEnded(bool value)
+        {
+            Pause();
+            mainMenuRoot.gameObject.SetActive(false);
+
+            if (value)
+            {
+                endingUI.ShowWinScreen(LevelState.Score);
+            }
+            else
+            {
+                endingUI.ShowLoseScreen();
+            }
         }
 
         private void Start()
@@ -53,11 +75,12 @@ namespace NeonBlack.UI
             uiActions.Pause.performed -= OnPause;
         }
 
-        #endregion
+        #endregion Event Functions
 
         private void OnPause(InputAction.CallbackContext _)
         {
-            if (SceneManager.GetActiveScene() == gameObject.scene)
+            if (SceneManager.GetActiveScene() == gameObject.scene ||
+                endingUI.gameObject.activeSelf)
             {
                 return;
             }
@@ -98,6 +121,11 @@ namespace NeonBlack.UI
             mainMenuRoot.gameObject.SetActive(false);
 
             paused = false;
+        }
+
+        private void OnDestroy()
+        {
+            LevelState.LevelEnded -= OnLevelEnded;
         }
     }
 }

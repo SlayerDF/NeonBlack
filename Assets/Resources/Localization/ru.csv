@@ -21,3 +21,7 @@ txt_hud_alert;Тревога
 txt_hud_boss_health;Здоровье босса
 txt_hud_score;Счёт:
 txt_hud_interact;[E] Действие
+btn_main_menu;Главное меню
+txt_end_success;Победа!
+txt_end_fail;Поражение
+txt_end_score;Счёт: 

@@ -2,6 +2,7 @@
 using Cysharp.Threading.Tasks;
 using NeonBlack.Interfaces;
 using NeonBlack.Systems.AudioManagement;
+using NeonBlack.Systems.LevelState;
 using NeonBlack.Systems.SceneManagement;
 using UnityEngine;
 
@@ -76,7 +77,8 @@ namespace NeonBlack.Entities.Player
 
                 await UniTask.WhenAny(UniTask.WhenAll(AudioManager.Music.WaitFinish(cts.Token), waitAnimation),
                     UniTask.WhenAll(waitDeathZoneCollision, AudioManager.Music.WaitFinish(cts.Token)));
-                SceneLoader.RestartLevel().Forget();
+
+                LevelState.EndLevel(false);
             }
             finally
             {

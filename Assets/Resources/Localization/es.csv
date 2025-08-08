@@ -21,3 +21,7 @@ txt_hud_alert;Alerta
 txt_hud_boss_health;Vida del jefe
 txt_hud_score;Puntaje:
 txt_hud_interact;[E] Usar
+btn_main_menu;Menu principal
+txt_end_success;Ganaste!
+txt_end_fail;Perdiste
+txt_end_score;Puntaje: 

@@ -23,5 +23,12 @@ namespace NeonBlack.Systems.LevelState
         #endregion
 
         public static event Action LevelStarted;
+
+        public static event Action<bool> LevelEnded;
+
+        public static void EndLevel(bool success)
+        {
+            LevelEnded?.Invoke(success);
+        }
     }
 }

@@ -21,3 +21,7 @@ txt_hud_alert;Alert
 txt_hud_boss_health;Boss health
 txt_hud_score;Score:
 txt_hud_interact;[E] Interact
+btn_main_menu;Main menu
+txt_end_success;You win!
+txt_end_fail;You lose
+txt_end_score;Score: 

@@ -1,6 +1,8 @@
 ﻿using Cysharp.Threading.Tasks;
 using Eflatun.SceneReference;
+using NeonBlack.Systems.LocalizationManager;
 using NeonBlack.Systems.SceneManagement;
+using System;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -16,10 +18,10 @@ namespace NeonBlack.UI
         private TMP_Text text;
 
         [SerializeField]
-        private string mainMenuText = "Exit";
+        private string mainMenuTextId = "btn_exit";
 
         [SerializeField]
-        private string inGameText = "Main Menu";
+        private string inGameTextId = "btn_main_menu";
 
         [SerializeField]
         private SceneReference mainMenuScene;
@@ -34,6 +36,7 @@ namespace NeonBlack.UI
         protected override void OnEnable()
         {
             base.OnEnable();
+            LocalizationManager.LanguageChanged += UpdateText;
 
             activeScene = SceneManager.GetActiveScene();
             UpdateText();
@@ -45,6 +48,7 @@ namespace NeonBlack.UI
         protected override void OnDisable()
         {
             base.OnDisable();
+            LocalizationManager.LanguageChanged -= UpdateText;
             SceneManager.activeSceneChanged -= OnActiveSceneChanged;
         }
 
@@ -59,7 +63,11 @@ namespace NeonBlack.UI
 
         private void UpdateText()
         {
-            text.text = activeScene == gameObject.scene ? mainMenuText : inGameText;
+            var translatedText = activeScene == gameObject.scene
+                ? LocalizationManager.GetTranslation(mainMenuTextId)
+                : LocalizationManager.GetTranslation(inGameTextId);
+
+            text.text = translatedText;
         }
 
         /// <inheritdoc />
